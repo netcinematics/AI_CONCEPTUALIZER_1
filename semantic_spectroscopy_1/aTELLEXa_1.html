@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>aTELLEXa | Semantic Topology Gallery</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { margin: 0; background: #020205; color: #00ffcc; font-family: 'Courier New', Courier, monospace; overflow: hidden; }
+        #canvas-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
+        .ui-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; pointer-events: none; }
+        
+        .interactzone { pointer-events: auto; background: rgba(0, 15, 20, 0.85); border: 1px solid rgba(0, 255, 204, 0.3); backdrop-filter: blur(12px); border-radius: 8px; }
+        
+        .spectro-scrollbar::-webkit-scrollbar { width: 4px; }
+        .spectro-scrollbar::-webkit-scrollbar-track { background: rgba(0, 40, 40, 0.5); }
+        .spectro-scrollbar::-webkit-scrollbar-thumb { background: #00ffcc; border-radius: 2px; }
+
+        .scanline {
+            width: 100%; height: 2px; background: rgba(0, 255, 204, 0.05);
+            position: absolute; animation: scan 6s linear infinite; pointer-events: none; z-index: 5;
+        }
+        @keyframes scan { from { top: 0; } to { top: 100%; } }
+
+        .glitch-text { text-shadow: 2px 0 #ff00ff, -2px 0 #00ffff; animation: glitch 3s infinite; }
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-1px, 1px); }
+            40% { transform: translate(-1px, -1px); }
+            60% { transform: translate(1px, 1px); }
+            80% { transform: translate(1px, -1px); }
+            100% { transform: translate(0); }
+        }
+
+        #overlay-vignette {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle, transparent 50%, rgba(0,0,0,0.9) 100%);
+            pointer-events: none; z-index: 2;
+        }
+
+        .terminal-header { font-size: 0.7rem; letter-spacing: 2px; color: rgba(0, 255, 204, 0.5); border-bottom: 1px solid rgba(0, 255, 204, 0.2); margin-bottom: 8px; padding-bottom: 4px; }
+        
+        .hidden-panel { opacity: 0; pointer-events: none; transform: translate(-20px, -50%); }
+        
+        /* Output Panel Transitions */
+        .output-panel { transform: translate(-50%, 0); transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s; }
+        .output-panel.hidden-bottom { transform: translate(-50%, 120%); opacity: 0; pointer-events: none; }
+
+        .data-node { border-left: 2px solid transparent; padding-left: 8px; margin-bottom: 4px; transition: all 0.2s; }
+        .data-node:hover { border-left: 2px solid #00ffcc; background: rgba(0,255,204,0.1); }
+    </style>
+</head>
+<body>
+
+    <div id="canvas-container"></div>
+    <div id="overlay-vignette"></div>
+    <div class="scanline"></div>
+
+    <div class="ui-layer">
+        <!-- Top Title Bar -->
+        <div class="absolute top-6 left-6 interactzone p-4 flex flex-col gap-1 border-l-4 border-[#00ffcc]">
+            <h1 class="text-2xl font-bold glitch-text uppercase tracking-widest">aTELLEXa v1.0</h1>
+            <p class="text-[10px] opacity-70">CONCEPTUAL_SPECTROSCOPY GALLERY</p>
+            <div class="flex gap-4 mt-2">
+                <div class="w-2 h-2 rounded-full bg-[#00ffcc] animate-pulse"></div>
+                <span class="text-[9px] uppercase tracking-tighter">LLM: BYPASSED // MANIFOLDZ: ACTIVE</span>
+            </div>
+        </div>
+
+        <!-- Top Center Input Bar -->
+        <div class="absolute top-6 left-1/2 transform -translate-x-1/2 interactzone p-2 flex items-center gap-2 w-[400px] max-w-[90vw]">
+            <input type="text" id="prompt-input" placeholder="Inject wordz / manifoldz..." 
+                   class="bg-black/50 border border-[#00ffcc]/30 p-2 text-sm w-full outline-none focus:border-[#00ffcc] text-[#00ffcc] pointer-events-auto rounded">
+            <button onclick="reflectInput()" class="px-4 py-2 bg-cyan-900/50 hover:bg-[#00ffcc] text-[#00ffcc] hover:text-black border border-cyan-500 font-bold text-xs transition-all pointer-events-auto rounded tracking-widest">REFLECT</button>
+        </div>
+
+        <!-- Left Legend Panel -->
+        <div id="spectroLegend" class="absolute left-6 top-1/2 transform -translate-y-1/2 mt-[-60px] z-40 interactzone p-4 shadow-2xl flex flex-col gap-4 w-[250px] max-h-[30vh] overflow-y-auto spectro-scrollbar pointer-events-auto transition-all duration-300">
+            <div class="terminal-header flex justify-between">
+                <span>MANIFOLD_LEGEND</span>
+            </div>
+            <div id="legend-content" class="flex flex-col gap-3">
+                <!-- Legend items injected by JS -->
+            </div>
+        </div>
+
+        <!-- Bottom Collapsible Output Panel -->
+        <div id="outputPanel" class="output-panel hidden-bottom absolute bottom-24 left-1/2 w-[80%] max-w-4xl h-[30vh] interactzone flex flex-col shadow-2xl z-50 pointer-events-auto">
+            <div class="flex justify-between items-center p-3 border-b border-[#00ffcc]/30 bg-black/40 shrink-0">
+                <div class="flex items-center gap-3">
+                    <span class="text-[10px] text-cyan-400 font-black tracking-widest uppercase">REFLECTION_OUTPUT_STREAM</span>
+                </div>
+                <button onclick="toggleOutputPanel()" class="text-[#00ffcc] hover:text-white font-bold px-2">✕</button>
+            </div>
+            <div id="log-feed" class="p-4 flex-grow overflow-y-auto spectro-scrollbar text-xs text-emerald-100 font-mono leading-relaxed flex flex-col gap-2">
+                <div class="opacity-50">[SYS] Awaiting reflections...</div>
+            </div>
+        </div>
+
+        <!-- Bottom Status Bar -->
+        <div class="absolute bottom-6 left-6 flex items-end gap-4 pointer-events-none z-40">
+            <div class="interactzone px-4 py-2 flex items-center gap-6 pointer-events-auto rounded-full">
+                <div class="flex flex-col">
+                    <span class="text-[8px] opacity-50 uppercase">Cam Vector</span>
+                    <span id="coord-display" class="text-[10px] font-mono">X: 0.00 Y: 0.00 Z: 0.00</span>
+                </div>
+                <div class="h-6 w-[1px] bg-white/20"></div>
+                <!-- Eye Icon -->
+                <button id="toggle-ui-elements" class="opacity-50 hover:opacity-100 transition-opacity" title="Toggle Legend Controls">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00ffcc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+                <div class="h-6 w-[1px] bg-white/20"></div>
+                <button onclick="toggleOutputPanel()" class="text-[10px] font-bold tracking-widest text-cyan-400 hover:text-white">📝 LOGZ</button>
+            </div>
+            
+            <!-- Toggleable Legend Button -->
+            <button id="legend-toggle-btn" class="interactzone px-4 py-2 text-[10px] font-bold tracking-widest border-t-2 border-[#00ffcc] pointer-events-auto opacity-0 translate-y-4 transition-all duration-300 rounded-lg">
+                LEGEND
+            </button>
+        </div>
+        
+        <!-- Center Bottom Identity -->
+        <div class="absolute bottom-6 right-6 opacity-40 text-[9px] tracking-[0.4em] pointer-events-none uppercase border-b border-[#00ffcc]/30 pb-1">
+            TO aSEEKa, aSPARKa IN aDARKa
+        </div>
+    </div>
+
+    <script>
+        // --- SHADER DEFINITIONS (From Nebula Core Update) ---
+        const NebulaShader = {
+            uniforms: {
+                time: { value: 0.0 },
+                baseColor: { value: new THREE.Color(0x00ccff) },
+                nebulaColor: { value: new THREE.Color(0xaa00ff) }
+            },
+            vertexShader: `
+                varying vec2 vUv;
+                varying vec3 vPosition;
+                varying vec3 vNormal;
+                void main() {
+                    vUv = uv;
+                    vPosition = position;
+                    vNormal = normalize(normalMatrix * normal);
+                    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+                }
+            `,
+            fragmentShader: `
+                uniform float time;
+                uniform vec3 baseColor;
+                uniform vec3 nebulaColor;
+                varying vec2 vUv;
+                varying vec3 vPosition;
+                varying vec3 vNormal;
+
+                vec3 mod289(vec3 x){return x - floor(x * (1.0 / 289.0)) * 289.0;}
+                vec4 mod289(vec4 x){return x - floor(x * (1.0 / 289.0)) * 289.0;}
+                vec4 permute(vec4 x){return mod289(((x*34.0)+1.0)*x);}
+                vec4 taylorInvSqrt(vec4 r){return 1.79284291400159 - 0.85373472095314 * r;}
+
+                float snoise(vec3 v) {
+                    const vec2  C = vec2(1.0/6.0, 1.0/3.0) ;
+                    const vec4  D = vec4(0.0, 0.5, 1.0, 2.0);
+                    vec3 i  = floor(v + dot(v, C.yyy) );
+                    vec3 x0 = v - i + dot(i, C.xxx) ;
+                    vec3 g = step(x0.yzx, x0.xyz);
+                    vec3 l = 1.0 - g;
+                    vec3 i1 = min( g.xyz, l.zxy );
+                    vec3 i2 = max( g.xyz, l.zxy );
+                    vec3 x1 = x0 - i1 + C.xxx;
+                    vec3 x2 = x0 - i2 + C.yyy;
+                    vec3 x3 = x0 - D.yyy;
+                    i = mod289(i);
+                    vec4 p = permute( permute( permute(
+                                i.z + vec4(0.0, i1.z, i2.z, 1.0 ))
+                            + i.y + vec4(0.0, i1.y, i2.y, 1.0 ))
+                            + i.x + vec4(0.0, i1.x, i2.x, 1.0 ));
+                    float n_ = 0.142857142857;
+                    vec3  ns = n_ * D.wyz - p.xzw;
+                    vec4 j = p - 49.0 * floor(p * ns.z * ns.z);
+                    vec4 x_ = floor(j * ns.z);
+                    vec4 y_ = floor(j - 7.0 * x_ );
+                    vec4 x = x_ *ns.x + ns.yyyy;
+                    vec4 y = y_ *ns.x + ns.yyyy;
+                    vec4 h = 1.0 - abs(x) - abs(y);
+                    vec4 b0 = vec4( x.xy, y.xy );
+                    vec4 b1 = vec4( x.zw, y.zw );
+                    vec4 s0 = floor(b0)*2.0 + 1.0;
+                    vec4 s1 = floor(b1)*2.0 + 1.0;
+                    vec4 sh = -step(h, vec4(0.0));
+                    vec4 a0 = b0.xzyw + s0.xzyw*sh.xxyy ;
+                    vec4 a1 = b1.xzyw + s1.xzyw*sh.zzww ;
+                    vec3 p0 = vec3(a0.xy,h.x);
+                    vec3 p1 = vec3(a0.zw,h.y);
+                    vec3 p2 = vec3(a1.xy,h.z);
+                    vec3 p3 = vec3(a1.zw,h.w);
+                    vec4 norm = taylorInvSqrt(vec4(dot(p0,p0), dot(p1,p1), dot(p2, p2), dot(p3,p3)));
+                    p0 *= norm.x; p1 *= norm.y; p2 *= norm.z; p3 *= norm.w;
+                    vec4 m = max(0.6 - vec4(dot(x0,x0), dot(x1,x1), dot(x2,x2), dot(x3,x3)), 0.0);
+                    m = m * m;
+                    return 42.0 * dot( m*m, vec4( dot(p0,x0), dot(p1,x1), dot(p2,x2), dot(p3,x3) ) );
+                }
+
+                float fbm(vec3 p) {
+                    float v = 0.0; float a = 0.5; vec3 shift = vec3(100.0);
+                    for (int i = 0; i < 4; i++) { v += a * snoise(p); p = p * 2.0 + shift; a *= 0.5; }
+                    return v;
+                }
+
+                void main() {
+                    float fresnel = pow(1.0 - dot(vNormal, vec3(0.0, 0.0, 1.0)), 3.0);
+                    vec3 noisePos = vPosition * 2.5 + vec3(0.0, 0.0, time * 0.2);
+                    float n = fbm(noisePos);
+                    float cloud = smoothstep(-0.2, 0.6, n);
+                    vec3 color = mix(baseColor, nebulaColor, n * 0.5 + 0.5);
+                    float alpha = cloud * (1.0 - fresnel);
+                    gl_FragColor = vec4(color, alpha * 0.8);
+                }
+            `
+        };
+
+        // --- APP LOGIC & GALLERY DATA ---
+        let scene, camera, renderer, controls;
+        let orbGroup = [];
+        let sharedGlowTex;
+
+        const GALLERY_DATA = [
+            { label: 'NEBULA_CORE', type: 'NEBULA', color: 0xaa00ff, color2: 0x00ffff, size: 12, x: 0, y: 0, z: 0, desc: 'Fluid macro-event genesis state.' },
+            { label: 'AXIOM_CLUSTER', type: 'CLUSTER', color: 0xffaa00, size: 6, x: 25, y: 15, z: -10, desc: 'Rigid truth lattice. Primary conceptual truths.' },
+            { label: 'FOGGY_STATE', type: 'FOG', color: 0xff0055, size: 7, x: -30, y: -5, z: 20, desc: 'Ambiguous probabilistic region.' },
+            { label: 'WIRE_MANIFOLD', type: 'WIREFRAME', color: 0x00ffcc, size: 5, x: 15, y: -20, z: 25, desc: 'Structural boundary without mass.' },
+            { label: 'GLASS_SPHEROID', type: 'GLASS', color: 0x0088ff, size: 6, x: -20, y: 20, z: -25, desc: 'Transparent stable standard flow.' },
+            { label: 'ATOMZ_NUCLEUS', type: 'ATOMZ', color: 0xffcc00, size: 4, x: 35, y: 0, z: 15, desc: 'Dynamic energetic subsystems.' },
+            { label: 'SOLID_AXIOM', type: 'SPHEROID', color: 0x88ff00, size: 5.5, x: -10, y: -25, z: -30, desc: 'Dense, unbreakable conceptual node.' }
+        ];
+
+        function createGlowTexture() {
+            const canvas = document.createElement('canvas');
+            canvas.width = 128; canvas.height = 128;
+            const ctx = canvas.getContext('2d');
+            const grad = ctx.createRadialGradient(64, 64, 0, 64, 64, 64);
+            grad.addColorStop(0, 'rgba(255,255,255,1)');
+            grad.addColorStop(0.2, 'rgba(255,255,255,0.8)');
+            grad.addColorStop(0.5, 'rgba(255,255,255,0.2)');
+            grad.addColorStop(1, 'rgba(255,255,255,0)');
+            ctx.fillStyle = grad; ctx.fillRect(0, 0, 128, 128);
+            return new THREE.CanvasTexture(canvas);
+        }
+
+        function createLabel(text, size) {
+            const canvas = document.createElement('canvas');
+            canvas.width = 512; canvas.height = 128;
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = 'rgba(0, 255, 204, 0.9)'; 
+            ctx.font = 'bold 36px Courier New'; 
+            ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+            ctx.fillText(text, 256, 64);
+            const tex = new THREE.CanvasTexture(canvas);
+            const spriteMat = new THREE.SpriteMaterial({ map: tex, transparent: true, depthWrite: false });
+            const sprite = new THREE.Sprite(spriteMat);
+            sprite.scale.set(size * 3, size * 0.75, 1);
+            sprite.position.y = -size - 2;
+            return sprite;
+        }
+
+        function initGallery() {
+            scene = new THREE.Scene();
+            scene.fog = new THREE.FogExp2(0x020205, 0.005);
+
+            camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.set(0, 30, 80);
+
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            document.getElementById('canvas-container').appendChild(renderer.domElement);
+
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.05;
+            controls.autoRotate = true;
+            controls.autoRotateSpeed = 0.3;
+
+            const ambientLight = new THREE.AmbientLight(0x404040, 1.5);
+            scene.add(ambientLight);
+            const dirLight = new THREE.DirectionalLight(0xffffff, 1);
+            dirLight.position.set(20, 50, 20);
+            scene.add(dirLight);
+
+            sharedGlowTex = createGlowTexture();
+
+            GALLERY_DATA.forEach(data => {
+                const group = new THREE.Group();
+                group.position.set(data.x, data.y, data.z);
+                let mainMesh = null;
+                let animData = { type: data.type, subMeshes: [] };
+
+                const commonMatProps = { color: data.color, emissive: data.color, emissiveIntensity: 0.2 };
+
+                if (data.type === 'NEBULA') {
+                    const geo = new THREE.SphereGeometry(data.size, 64, 64);
+                    const mat = new THREE.ShaderMaterial({
+                        uniforms: THREE.UniformsUtils.clone(NebulaShader.uniforms),
+                        vertexShader: NebulaShader.vertexShader,
+                        fragmentShader: NebulaShader.fragmentShader,
+                        transparent: true, depthWrite: false, side: THREE.BackSide, blending: THREE.AdditiveBlending
+                    });
+                    mat.uniforms.baseColor.value = new THREE.Color(data.color);
+                    mat.uniforms.nebulaColor.value = new THREE.Color(data.color2);
+                    mainMesh = new THREE.Mesh(geo, mat);
+                    
+                    const outerGeo = new THREE.SphereGeometry(data.size * 1.1, 32, 32);
+                    const outerMat = new THREE.MeshBasicMaterial({ color: data.color, transparent: true, opacity: 0.05, wireframe: true });
+                    group.add(new THREE.Mesh(outerGeo, outerMat));
+                    animData.shader = mat;
+
+                } else if (data.type === 'CLUSTER') {
+                    const geo = new THREE.DodecahedronGeometry(data.size, 0);
+                    const mat = new THREE.MeshStandardMaterial({ ...commonMatProps, transparent: true, opacity: 0.6, metalness: 0.8, roughness: 0.2 });
+                    mainMesh = new THREE.Mesh(geo, mat);
+                    
+                    const edgeGeo = new THREE.WireframeGeometry(geo);
+                    const edgeMat = new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.8 });
+                    const edges = new THREE.LineSegments(edgeGeo, edgeMat);
+                    mainMesh.add(edges);
+
+                } else if (data.type === 'FOG') {
+                    const fogGeo = new THREE.BufferGeometry();
+                    const fogPos = [];
+                    for(let i=0; i<150; i++) {
+                        const r = data.size * Math.cbrt(Math.random());
+                        const theta = Math.random() * 2 * Math.PI;
+                        const phi = Math.acos(2 * Math.random() - 1);
+                        fogPos.push(r * Math.sin(phi) * Math.cos(theta), r * Math.sin(phi) * Math.sin(theta), r * Math.cos(phi));
+                    }
+                    fogGeo.setAttribute('position', new THREE.Float32BufferAttribute(fogPos, 3));
+                    const fogMat = new THREE.PointsMaterial({
+                        color: data.color, size: 4, map: sharedGlowTex, transparent: true, opacity: 0.6, depthWrite: false, blending: THREE.AdditiveBlending
+                    });
+                    mainMesh = new THREE.Points(fogGeo, fogMat);
+
+                } else if (data.type === 'WIREFRAME') {
+                    const geo = new THREE.SphereGeometry(data.size, 16, 16);
+                    const mat = new THREE.MeshStandardMaterial({ color: data.color, wireframe: true, emissive: data.color, emissiveIntensity: 0.8 });
+                    mainMesh = new THREE.Mesh(geo, mat);
+
+                } else if (data.type === 'GLASS') {
+                    const geo = new THREE.SphereGeometry(data.size, 32, 32);
+                    const mat = new THREE.MeshStandardMaterial({ 
+                        color: data.color, transparent: true, opacity: 0.3, roughness: 0.0, metalness: 1.0, envMapIntensity: 1.0 
+                    });
+                    mainMesh = new THREE.Mesh(geo, mat);
+                    // Inner core for glass
+                    const coreGeo = new THREE.SphereGeometry(data.size * 0.3, 16, 16);
+                    const coreMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+                    mainMesh.add(new THREE.Mesh(coreGeo, coreMat));
+
+                } else if (data.type === 'ATOMZ') {
+                    const geo = new THREE.SphereGeometry(data.size * 0.4, 16, 16);
+                    const mat = new THREE.MeshStandardMaterial({ ...commonMatProps, emissiveIntensity: 1.0 });
+                    mainMesh = new THREE.Mesh(geo, mat);
+                    
+                    for (let m = 0; m < 5; m++) {
+                        const moonGeo = new THREE.SphereGeometry(data.size * 0.15, 16, 16);
+                        const moonMat = new THREE.MeshStandardMaterial({ color: 0xffffff, emissive: data.color, emissiveIntensity: 0.5 });
+                        const moon = new THREE.Mesh(moonGeo, moonMat);
+                        const dist = data.size * 1.5;
+                        moon.userData = { angle: (m/5)*Math.PI*2, dist: dist, speed: 0.02 + Math.random()*0.02, yOffset: (Math.random()-0.5)*data.size };
+                        mainMesh.add(moon);
+                        animData.subMeshes.push(moon);
+                    }
+                } else if (data.type === 'SPHEROID') {
+                    const geo = new THREE.SphereGeometry(data.size, 32, 32);
+                    const mat = new THREE.MeshStandardMaterial({ ...commonMatProps, roughness: 0.8, metalness: 0.1 });
+                    mainMesh = new THREE.Mesh(geo, mat);
+                }
+
+                if (mainMesh) {
+                    group.add(mainMesh);
+                    animData.mesh = mainMesh;
+                }
+                
+                // Add Label
+                const label = createLabel(data.label, data.size);
+                group.add(label);
+
+                scene.add(group);
+                orbGroup.push({ group, animData, ...data });
+            });
+
+            populateLegend();
+            window.addEventListener('resize', onWindowResize, false);
+            animate();
+        }
+
+        function populateLegend() {
+            const legendContainer = document.getElementById('legend-content');
+            GALLERY_DATA.forEach(d => {
+                const item = document.createElement('div');
+                item.className = 'flex items-center gap-3 p-2 rounded cursor-pointer hover:bg-white/5 transition-all border border-transparent hover:border-[#00ffcc]/30';
+                item.innerHTML = `
+                    <div class="w-3 h-3 rounded-sm shrink-0" style="background: #${d.color.toString(16).padStart(6, '0')}; box-shadow: 0 0 10px #${d.color.toString(16).padStart(6, '0')};"></div>
+                    <div class="flex flex-col">
+                        <span class="text-[10px] font-bold tracking-wider" style="color: #${d.color.toString(16).padStart(6, '0')}">${d.type}</span>
+                        <span class="text-[8px] opacity-70">${d.desc}</span>
+                    </div>
+                `;
+                // Clicking legend item rotates camera towards it
+                item.onclick = () => {
+                    const target = orbGroup.find(o => o.label === d.label);
+                    if(target) {
+                        controls.autoRotate = false;
+                        camera.position.set(target.x + 20, target.y + 10, target.z + 30);
+                        controls.target.set(target.x, target.y, target.z);
+                        addLog(`Focused on Manifold: ${d.type} [${d.label}]`, 'info');
+                    }
+                };
+                legendContainer.appendChild(item);
+            });
+        }
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            const time = performance.now() * 0.001;
+
+            orbGroup.forEach((orbObj, idx) => {
+                const ad = orbObj.animData;
+                
+                // Float effect for entire group
+                orbObj.group.position.y = orbObj.y + Math.sin(time + idx) * 2;
+
+                if (ad.type === 'NEBULA' && ad.shader) {
+                    ad.shader.uniforms.time.value = time;
+                    ad.mesh.rotation.y += 0.002;
+                } else if (ad.type === 'CLUSTER') {
+                    ad.mesh.rotation.x += 0.005;
+                    ad.mesh.rotation.y += 0.01;
+                } else if (ad.type === 'FOG') {
+                    ad.mesh.rotation.y -= 0.005;
+                } else if (ad.type === 'WIREFRAME' || ad.type === 'GLASS') {
+                    ad.mesh.rotation.x += 0.003;
+                    ad.mesh.rotation.z += 0.003;
+                } else if (ad.type === 'ATOMZ') {
+                    ad.subMeshes.forEach(moon => {
+                        moon.userData.angle += moon.userData.speed;
+                        moon.position.x = Math.cos(moon.userData.angle) * moon.userData.dist;
+                        moon.position.z = Math.sin(moon.userData.angle) * moon.userData.dist;
+                        moon.position.y = moon.userData.yOffset;
+                    });
+                }
+            });
+
+            // Status Bar Update
+            document.getElementById('coord-display').innerText = 
+                `X:${camera.position.x.toFixed(1)} Y:${camera.position.y.toFixed(1)} Z:${camera.position.z.toFixed(1)}`;
+
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        // --- UI INTERACTIONS ---
+
+        const eyeBtn = document.getElementById('toggle-ui-elements');
+        const legendToggleBtn = document.getElementById('legend-toggle-btn');
+        const spectroLegend = document.getElementById('spectroLegend');
+        const outputPanel = document.getElementById('outputPanel');
+        const logFeed = document.getElementById('log-feed');
+        const promptInput = document.getElementById('prompt-input');
+
+        eyeBtn.onclick = () => {
+            const isHidden = legendToggleBtn.classList.contains('opacity-0');
+            if(isHidden) {
+                legendToggleBtn.classList.remove('opacity-0', 'translate-y-4');
+            } else {
+                legendToggleBtn.classList.add('opacity-0', 'translate-y-4');
+            }
+        };
+
+        legendToggleBtn.onclick = () => {
+            spectroLegend.classList.toggle('hidden-panel');
+        };
+
+        function toggleOutputPanel() {
+            outputPanel.classList.toggle('hidden-bottom');
+        }
+
+        function addLog(msg, type = 'info') {
+            const div = document.createElement('div');
+            div.className = 'data-node border-l-2';
+            const timestamp = new Date().toLocaleTimeString([], { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            div.innerHTML = `<span class="opacity-40">[${timestamp}]</span> <span class="${type === 'reflection' ? 'text-yellow-400 font-bold' : 'text-emerald-300'}">${msg}</span>`;
+            logFeed.prepend(div);
+            if (logFeed.children.length > 30) logFeed.lastChild.remove();
+        }
+
+        function reflectInput() {
+            const val = promptInput.value.trim();
+            if (!val) return;
+            
+            // Randomly map input wordz to a manifold type for experimentation
+            const randomManifold = GALLERY_DATA[Math.floor(Math.random() * GALLERY_DATA.length)];
+            
+            addLog(`> INJECTED: [${val}]`, 'info');
+            addLog(`>> REFLECTION MAPPED -> Semantic Topology matched to ${randomManifold.type}`, 'reflection');
+            
+            // Force output panel open to show result
+            outputPanel.classList.remove('hidden-bottom');
+            
+            // Auto focus camera on matched manifold
+            controls.autoRotate = false;
+            camera.position.set(randomManifold.x + 15, randomManifold.y + 15, randomManifold.z + 25);
+            controls.target.set(randomManifold.x, randomManifold.y, randomManifold.z);
+
+            promptInput.value = '';
+        }
+
+        promptInput.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') reflectInput();
+        });
+
+        window.onload = () => {
+            initGallery();
+            addLog("[SYS] Semantic Topology Gallery Online.");
+            addLog("[SYS] Awaiting 'WORDZ' injections to map to 'MANIFOLDZ'.");
+        };
+
+    </script>
+</body>
+</html>
