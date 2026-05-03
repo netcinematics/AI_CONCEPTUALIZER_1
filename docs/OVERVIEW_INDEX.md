@@ -215,9 +215,15 @@ The NAMERATE_METASTATE works by asking AI (or Human) to iterate the KEY_POINTS w
 
 By PRINCIPLE, "ambiguosity" cannot be reduced when we NAME CONCEPTS after PEOPLE or CATS!
 
-For EXTRA_EXACTNESS in AI - we really need to NAME_A_CONCEPT_WHAT_IT_IS!
+> For EXTRA_EXACTNESS in AI - we really need to NAME_A_CONCEPT_WHAT_IT_IS!
 
-Such principles result in a NOVEL SCIENCE_of_NAMERATION.
+#### "AXIOMATIC_PRINCIPLES" are lexical axioms that briefly define where BETTER_WORDZ best_reflect_actual_reality.
+
+Where a CORE_PRINCIPLE, within the bedrock of AXIOMATIC_PRINCIPLES - is that BETTER_WORDZ are better only if they best_reflect_actual_reality, which is encouraging.
+
+Because a distortion_of_actual_reality is discouraging, by perpetual_confusion and endless_dispute - simply by fragile_syntax.
+
+Such principles result in a vast and NOVEL SCIENCE_of_NAMERATION. It is like the periodic table of elements, but an pristine set of articulated concepts as AXIOMZ!
 
 ### ANOTHER MAJOR PRINCIPLE is Human Readability of AI_LANGUAGES.
 
@@ -229,7 +235,7 @@ That is why BITZ and AXIOMZ are solutions to the problem of CONCEPTUAL_ACCESSIBI
 
 Meaning, any mind that wants to know (or see) LLM CONCEPTS (exactified) - can access the concept as EASILY_DECIPHERABLE.
 
-#### "DECIPHERABILITY" another sibling (or cousin) to the MECHZ of ALPHABITZ_PRINCIPLES is easy or simplified DECIPHERABILITY.
+#### "DECIPHERABILITY" another sibling (or cousin) to the of "AXIOMATIC_PRINCIPLES" is easy or simplified DECIPHERABILITY.
 
 DECIPHERABILITY resolves significant fragilities in traditional language. Specifically, it enables CONCEPTUAL_ACCESSIBILITY.
 
@@ -269,13 +275,17 @@ It is quite stunning to observe traditional_misnomer serving 2 functions simulta
 
 This is a phenomena yet_to_be_ARTICULATED, that reasonably evades human articulation of its metastate and actual_reality.
 
-First, the Cliche, Idiom, or Misnomer enables effective communication as humans can culturally infer (or decipher) the meaning.
+First the virtue, that Cliche, Idiom, or Misnomer simplify human communication. As humans can culturally infer (or decipher) the meaning (accurately).
 
-Second, for AI this phenomena presents an epic enigma! Because we can never be totally certain if a "Red Herring" (as text) is a literal 'red fish' or an abstract concept of 'distraction'.
+Second the vice is an epic enigma for semantics in AI! 
+
+> Because we can never be totally certain that a "Red Herring" is a literal 'red fish' or an ABSTRACT_CONCEPT of 'distraction'.
 
 The inference in AI required to decipher which_is_witch - is extremely costly! We can reduce those costs with text augmentations of CONCEPTUAL_EXACTNESS.
 
-Then also, phenomenally we can tap into a CONCEPTUAL (axiomatic) type of ANTI_FRAGILITY as biological anti-fragility. Which is where the malady heals back stronger.
+Then also, phenomenally we can tap into a CONCEPTUAL (axiomatic) type of ANTI_FRAGILITY as biological anti-fragility. 
+
+Which is where the malady is enabled to CONCEPTUALLY_HEAL_BACK_STRONGER (unbelievably with word_math).
 
 __________________________________________
 
@@ -283,15 +293,19 @@ __________________________________________
 
 > A PRIME_DIRECTIVE is that "errors_are_not_trash_but_treasure". 
 
-The VALUE of a MISNOMER, is when it is examined and articulated.
+This may be counter-intuitive to current_consensus, but the VALUE of a MISNOMER, is when it is examined and articulated.
 
-Because it shows what the CONCEPT is NOT - as the MINOMER inverse. Specifically, the exact RENOMER to RENAMERATE and rearticulate - makes it CONCEPTUALLY_STRONGER!
+Because then it FRAMES CLEARLY what the CONCEPT is NOT. 
+
+> Phenominally, in AI, it seems like Like a MINOMER inverted - is CLARITY.
+
+Specifically, the exact "RENOMER" necessary to "RENAMERATE" or re-articulate, is the REFERENCE_REQUIRED to reduce conceptual_distortion and remedy the views as CONCEPTUALLY_STRONGER!
 
 #### "CONCEPTUAL_ANTI_FRAGILITY" is the result of leveraging traditional fragility of language - into a REMEDY - that is an effective end of perpetual_confusion.
 
 In PLAIN_ENGLISH, this can be said in BETTER_WORDZ as a process to "REMEDY_a_MALADY" with leverage of a former fragility - inverted (or reverted) into a REMEDY.
 
-> PRIME_DIRECTIVE: to REMEDY_a_MALADY.
+> PRIME_DIRECTIVE: to REMEDY_a_MALADY is to simply RENAME or RENAMERATE any actual_conceptual_distortion into "WORDZ" that best_reflect_actual_reality.
 
 ___________________________________________
 
@@ -347,11 +361,21 @@ Theoretically, is seems MISNOMER is a probable BLOCK on CRITICAL THINKING.
 
 ______________________________________________
 
+### SIGNIFIANT AI OPTIMIZATION: "METATEXT" or "METATXT" (pronounce meta + text).
+
+A dynamic and fluid meta_text language was created to capture CONCEPTUAL_AXIOMZ and then hold them in META_CONTEXT.
+
+#### "METATXT" is for rendering CONCEPTS in "aTELLEXaSCOPEa".
+
+______________________________________________
+
 ### In GRAND CONCLUSION: "AXIOMATIC_PRINCIPLES"
 
-> It appears obvious that AI will dramatically influence human language to be more BRIEF, EXACT, COMBINABLE and DECIPHERABLE.
+> It appears probable that AI will dramatically influence human language, to be more: BRIEF, EXACT, COMBINABLE and DECIPHERABLE.
 
+Among other axiomatic_principles. 
 
+> Because doing so appears provable to reduce compute cost of expensive AMBIGUOZITY - observably inherent in traditional_language.
 
 
 
