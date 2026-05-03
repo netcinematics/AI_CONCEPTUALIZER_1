@@ -2,13 +2,11 @@ This file is an INDEX of CONCEPTS for all of "ALPHABITZA" practice, also "ALPHAB
 
 The GOAL of this paper is to INDEX CONCEPTS of ALPHABITZ.
 
+[IMAGE]
+
 > The main arc of AI RESEARCH is around TEXT OPTIMIZATION for AI, and techniques for AI cost savings of compute.
 
-ALPHABITZ is a 25 year post-grad RESEARCH PROJECT, of LEXICAL TOKENIZERS from 2001!
-
-I reach out today, because it is an actual breakthrough in AI, and you need to know about it.
-
-ALPHABITZA is now at fruition and on DISPLAY with GOOGLE | KAGGLE | Medium | Substack.
+"ALPHABITZ" is a 25 year post-grad RESEARCH PROJECT - of LEXICAL TOKENIZERS from 2001!
 
 The project of ALPHABITZA [ alpha + bits + zahh ], is an ONGOING real-world HANDS-ON achievement in Google Gemini, Gemma, and Kaggle Benchmarks.
 
@@ -18,55 +16,62 @@ _____________________________________________________________
 
 > HOW TO ARTICULATE the CONCEPTS in LLMs, in fewest words!
 
-It is a desceptively simple question. But results in a MULTITUDE of FASCINATING AI RESEARCH PROJECTS!
+It is a simple question, that results in a MULTITUDE of FASCINATING RESEARCH PROJECTS for AI!
 
-This INDEX, of PRACTICES, PRINCIPLES, and EMPIRICAL MEASURMENTS show how to OPTIMIZE COMPUTE COSTS for AI.
+This INDEX, of PRACTICES, PRINCIPLES, and EMPIRICAL MEASURMENTS, shows how to OPTIMIZE COMPUTE COSTS for AI.
 
 
 _____________________________________________________________
 
-### PRIME_GOAL:
+### PRIME_GOALS:
 
-The question, how to "compound" concepts into fewer words & letters.
+1) NOVEL ways to reduce AMBIGUITY and increase CLARITY for LLMs.
+
+2) NOVEL ways to "compound" concepts into fewer words & letters - for AI?
+
+3) NOVEL ways to teach AI a new language to boost efficiency and reduce cost!
 
 
 _____________________________________________________________
 
 ### KEY_INNOVATION:
 
+> "augment text before AI input".
+
 One key innovation is called "BITZ".
 
-The idea, is for a SIMPLE_SYNTAX - to represent CONCEPTS in AI.
+BITZ is a SIMPLE_SYNTAX - to represent CONCEPTS in AI.
 
-So, the DESIGN PROBLEM to solve is a mix of BREVITY with EXPRESSIVENESS.
+The solution is a mix of BREVITY and EXPRESSIVENESS.
 
-> 1) INNOVATION VECTOR: "augment text before AI input".
+ Brief for humans, and extra detailed for AI.
 
-The result of optimizing text for AI is called BITZ!
+#### "BITZ" is the result of optimizing text for AI in generative tokens called BITZ!
 
-> Where ALPHABITZA - means augmentation of (extraordinary) alphabet!
-
+> Not only do BITZ reduce expensive compute cost, they simultaneously increase INFERENCE CLARITY!
 ____________________________________________________________________
 
 ### ENCODING:
 
-#### "ALPHABITZA" - augmentation_of_extraordinary_alphabet.
+AI is fully capable of inferencing this new language right now, because of fantastic matrix math.
 
-It is a SUPPLEMENTAL_AI_LANGUAGE - for AI and humans!
+#### "ALPHABITZA" [pronounced alpha + bit + zah!], means augmentation_of_extraordinary_alphabet.
 
-> 2) KEY FINDING: NEOLOGISTIC NOMENCLATURE adds "precision weighting" to CONCEPTS in AI.
+1) ALPHABITZA is a first-of-its-kind AI_PROGRAMMING_LANGUAGE.
+
+   It is a SUPPLEMENTAL_AI_LANGUAGE - for AI and humans!
+
+### KEY FINDING: "PRECISION_WEIGHTS"
+
+2) NEOLOGISTIC NOMENCLATURE adds "precision weighting" to CONCEPTS in AI.
 
 In plain English, using one elegant UNDERSCORE "_" character results in something PHENOMENAL in AI (embed space).
 
-#### "THE_MATRIX" - for BREVITY, this paper will call "embedding space" "the_matrix". 
-
-But this NEOLOGISM of "the_matrix" is increadibly profound, of what it does in THE_MATRIX!
-
-______________________________________________________________________
+It results in extra clarity or "EXTRA_EXACTNESS" of CONCEPTS in AI like a CONCEPTUAL_SPECTROSCOPE.
 
 ### KEY INNOVATION:
 
-> 3) The underscore character as a text augmentation - creates a UNIQUE LOCATION (coordinate) in the_matrix!
+3) The underscore character as a text augmentation - creates a UNIQUE LOCATION (coordinate) in the_matrix!
 
 What does this mean, and why is it relevant?
 
@@ -74,9 +79,11 @@ This is RELEVANT, because it is a UNIQUE_ID in LATENT SPACE - the_matrix.
 
 And this is VALUABLE, because CONCEPTS can be RE-ENCODED as less_ambiguous!
 
-> 4) KEY FINDING: We can use algorithms to account for ambiguity, and we can also avoid it entirely.
+### KEY FINDING: TEXT_AUGMENTATION
 
-Traditional language fragility is avoided by supplemental, simplified, AI TEXT AUGMENTATIONS - for AI and Humanity!
+4) We can use probabilty to account for AMBIGUITY, or we can avoid it entirely.
+
+Traditional language fragility is avoided by supplemental, simplified, AI TEXT_AUGMENTATIONS - for AI and Humanity!
 
 Here it is on display, in this GOOGLE CAPSTONE PROJECT:
 
