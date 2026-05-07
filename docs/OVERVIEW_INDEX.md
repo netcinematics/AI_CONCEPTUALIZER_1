@@ -746,25 +746,66 @@ AI CODE GENERATION will follow this PROMPT_SEQUENCE (and format):
 
 #### GENERATION_SCHEDULE:
 
-0) .| TEST_0) "LLM LIFE-CYCLE OVERLAY" | MODULAR AI EXPERIMENTS |.
-1) .| TEST_1) "CONCEPTUAL_ACCESSIBILITY" | CONCEPTUAL_METASTATE | "CONCEPTUAL_SPECTROSCOPY" | "ITERATE_METASTATE" |"NAMERATE_METASTATE" | "NAMEROLOGY" | "NAMEIFICATON" | "Nameify" |.
-2) .| TEST_2) "DECIPHERABILITY" | "METATEXT" | "AI_as_INTERPRETER" | "INTERPRETABILITY" | "Interprify" |.
-3) .| TEST_3) "CONCEPTUAL_SPECTROSCOPY" | "MANIFOLD_MORPHOLOGY" | "TOPIC_TOPOLOGY" | "EXACTIFICATION" | "Exactify" |.
+- TEST_0) "LLM LIFE-CYCLE OVERLAY" | MODULAR AI EXPERIMENTS | MANIFOLD_VISUALIZTION | MECHANISTIC INTERPRETABILITY |.
+- TEST_1) "CONCEPTUAL_ACCESSIBILITY" | "METASTATE_TOPOLOGY" | "CONCEPTUAL_SPECTROSCOPY" | "ITERATE_METASTATE"  |.
+- TEST_2) "DECIPHERABILITY" | "METATEXT" | "AI_as_INTERPRETER" | "INTERPRETABILITY" | "Interprify" |.
+- TEST_3) "CONCEPTUAL_SPECTROSCOPY" | "MANIFOLD_MORPHOLOGY" | "TOPIC_TOPOLOGY" | "EXACTIFICATION" | "Exactify" |.
 _______________________________________________________________________________________
 
-## TEST MODULE DETAILS:
+## EXPERIMENTAL DETAILS:
+
+___________________________________________
+
+### TEST_0) "LLM LIFE-CYCLE OVERLAY" | MODULAR AI EXPERIMENTS | MANIFOLD_VISUALIZTION | MECHANISTIC INTERPRETABILITY 
+
+Each experiment is a separate HTML file, to ISOLATE TOKEN_TARGETS and NOVELTY of OUTPUT or PROOF of CONCEPT.
+
+The AI_LIFECYCLE_OVERLAY manages the LOADING of the LLM, and the subsequent queries.
+
+<img width="498" height="500" alt="Screenshot 2026-05-06 170516" src="https://github.com/user-attachments/assets/992d9217-baab-43c3-aa18-05f640586cf2" />
+
+___________________________________________
 
  ### TEST_1) "CONCEPTUAL_ACCESSIBILITY" | "ITERATE_METASTATE" | "NAMERATE_METASTATE" | "NAMEROLOGY" | "NAMEIFICATON" | "Nameify" :
 
  > QUESTION: Is it possible to VISUALIZE LLM METASTATE for single-click (concept) ACCESSIBILITY? Yes!
 
+ "CONCEPTUAL_ACCESSIBILITY" is demonstrated with a single-click UX to access and navigate CONCEPT CLUSTERS.
+
+ Every CONCEPT in the LLM is ACCESSIBLE in this innovative interaction format (UI/UX) called the "SPECTRoSCOPE"!
+
  #### TEST_IMPLEMENTATION:
 
  > The FIRST_LOOK of this project, is input of "Financial" and "Medical" topics - to RENDER SUB_TOPIC_MAPS.
 
+
+<img width="949" height="731" alt="Screenshot 2026-05-06 165755" src="https://github.com/user-attachments/assets/ce90f128-5f39-4653-a36a-0905226885d0" />
+
  #### PURPOSE: to VISUALIZE_METASTATE of any topic in the local LLM!
 
- With a single-click (UI/UX) to any CONCEPT in the LLM, we VISUALIZE along a dimensionality of "SUB_TOPIC_MAPS".
+ Then with a single-click (UI/UX) to any CONCEPT in the LLM, we VISUALIZE along a dimensionality of "SUB_TOPIC_MAPS".
+
+ #### "METASTATE_TOPOLOGY" then is how the METASTATE is presented to the human. 
+ With the intent to convey multiple-dimensions of METASTATE in a single view.
+ We will prove that concept later.
+
+ ______________________________________________________
+ 
+   
+ ### TEST_1 | SHOWCASE_CONCEPT | "CONCEPTUAL_ACCESSIBILITY":
+ 
+ > This "AXIOMATIC_WEB" enables CONCEPTUAL_ACCESSIILITY of all_topics encoded in the LLM - in a SINGLE-CLICK UI/UX!
+
+<img width="1200" height="703" alt="Screenshot 2026-05-06 170733" src="https://github.com/user-attachments/assets/88832886-2d40-40e4-9a35-dfc46d71f904" />
+
+ After CLICK on "CONCEPTUALIZE", the LLM will prompt the TARGET_TOKEN, and ITERATE_METASTATE.
+
+ For a COMMA DELIMITED LIST of METASTATE TOPICS.
+
+
+
+ <img width="1090" height="559" alt="Screenshot 2026-05-06 171250" src="https://github.com/user-attachments/assets/c99705cc-54c5-4dac-945a-3994777f98e8" />
+
 
  #### DIMENSIONALITY META_CONTEXT:
 
@@ -772,11 +813,6 @@ ________________________________________________________________________________
 
  As a BASIS for further TOPOLOGICIAL MORPHOLOGY, and CONCEPTUAL interpretation, with LLM_as_INTERPRETER - next.
 
- ______________________________________________________
-  
- ### TEST_1 | SHOWCASE_CONCEPT | "CONCEPTUAL_ACCESSIBILITY":
- 
- > This "AXIOMATIC_WEB" enables CONCEPTUAL_ACCESSIILITY of all_topics encoded in the LLM - in a SINGLE-CLICK UI/UX!
 
  #### SUB_CONCEPTS: 
  
@@ -788,7 +824,7 @@ ________________________________________________________________________________
  6) ITERATE_METASTATE extends to NAMERATE_METASTATE later.
  7) For the novel SCIENCE_of_NAMEROLOGY, based on AXIOMIC_PRINCIPLES.
 
-
+Advanced Topics (not covered) | "NAMERATE_METASTATE" | "NAMEROLOGY" | "NAMEIFICATON" | "Nameify" |.
 ____________________________________________________________________________
 
 #### AXIOMIC_PRINCIPLES:
