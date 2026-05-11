@@ -15,8 +15,12 @@
         .interactzone { pointer-events: auto; background: rgba(0, 15, 20, 0.85); border: 1px solid rgba(0, 255, 204, 0.3); backdrop-filter: blur(12px); border-radius: 8px; }
         
         .spectro-scrollbar::-webkit-scrollbar { width: 6px; }
-        .spectro-scrollbar::-webkit-scrollbar-track { background: rgba(0, 40, 40, 0.5); }
+        .spectro-scrollbar::-webkit-scrollbar-track { background: rgba(0, 40, 40, 0.5); border-radius: 3px; }
         .spectro-scrollbar::-webkit-scrollbar-thumb { background: #ff00ff; border-radius: 3px; }
+        /* Alternative scrollbar color for reports to match theme */
+        .reportz-scrollbar::-webkit-scrollbar { width: 6px; }
+        .reportz-scrollbar::-webkit-scrollbar-track { background: rgba(0, 20, 40, 0.5); border-radius: 3px; }
+        .reportz-scrollbar::-webkit-scrollbar-thumb { background: #3b82f6; border-radius: 3px; }
 
         #overlay-vignette {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
@@ -25,7 +29,7 @@
         }
 
         .terminal-header { font-size: 0.7rem; letter-spacing: 2px; color: rgba(0, 255, 204, 0.5); border-bottom: 1px solid rgba(0, 255, 204, 0.2); margin-bottom: 8px; padding-bottom: 4px; }
-        .hidden-panel { opacity: 0; pointer-events: none; transform: translate(-20px, -50%); }
+        .hidden-panel { opacity: 0; pointer-events: none; transform: translate(-444px, -50%); }
         .output-panel { transform: translate(-50%, 0); transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s; }
         .output-panel.hidden-bottom { transform: translate(-50%, 120%); opacity: 0; pointer-events: none; }
 
@@ -39,7 +43,7 @@
             position: absolute; inset: 0; 
             background: rgba(5, 5, 5, 0.8); 
             backdrop-filter: blur(10px);
-            z-index: 100; 
+            z-index: 20; 
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             color: #00ffcc; font-family: 'Courier New', Courier, monospace; pointer-events: auto;
         }
@@ -60,6 +64,8 @@
         /* Details Panel */
         #DETAILS_PANEL { position: absolute; top: 220px; right: 24px; width: 300px; z-index: 60; border-top: 2px solid #ff00ff; transition: opacity 0.3s, transform 0.3s; }
         #DETAILS_PANEL.hidden-right { opacity: 0; pointer-events: none; transform: translateX(50px); }
+        
+        .hidden-left { opacity: 0; pointer-events: none !important; transform: translateX(-50px); }
 
         .glow-text { text-shadow: 0 0 12px rgba(255, 0, 255, 0.8); }
     </style>
@@ -111,7 +117,6 @@
         };
     </script>
 
-    <!-- LLM Lifecycle Loader (Moved bypass button inside overlay) -->
     <div id="loadingOverlay">
         <button id="loadingCloseBtn" onclick="forceCloseLoading()" class="absolute top-4 right-6 text-red-500 hover:text-white font-bold text-3xl transition-colors z-[105] pointer-events-auto" title="Bypass Loading">✕</button>
         <div class="spinner"></div>
@@ -126,7 +131,7 @@
         
         <div class="absolute top-6 z-[60] right-6 interactzone px-4 py-2 flex items-center gap-2">
             <div id="llmStatusDot" class="w-2 h-2 rounded-full bg-red-500"></div>
-            <span id="llmStatus" class="text-[10px] font-bold tracking-[0.2em] text-red-500 uppercase">LLM LOADING</span>
+            <span id="llmStatus" class="text-[10px] font-bold tracking-[0.2em] text-red-500 uppercase">WAIT: LLM LOADING</span>
         </div>
 
         <div class="absolute top-[80px] right-6 flex flex-col items-end gap-[0.8em] z-[60] pointer-events-none">
@@ -146,7 +151,7 @@
         </button>
 
         <div id="title-bar-panel" class="w-[77%] md:w-[50%] absolute top-6 left-6 interactzone p-4 flex flex-col gap-1 border-l-4 border-[#ff00ff] transition-all duration-300 z-50">
-            <button onclick="toggleTitleBar()" class="absolute top-3 right-4 text-[#00ffcc] hover:text-white font-bold text-xl pointer-events-auto transition-colors">✕</button>
+            <button onclick="toggleTitleBar()" class="absolute top-3 right-4 text-[#00ffcc] hover:text-white font-bold text-xl transition-colors">✕</button>
             <h1 class="text-2xl md:text-3xl font-bold uppercase tracking-widest text-emerald pr-6">TEST_2: "IDEOGRAM DECIPHERABILITY"</h1>
             <div class="flex gap-6 mt-6">
                 <ol class="text-[14px] gap-6 text-[#ff00ff]">
@@ -157,7 +162,7 @@
             </div>
             
             <div class="mt-2 flex items-center gap-2 w-full">
-                <select id="domain-select" class="bg-black/80 border border-[#00ffcc]/50 p-2 text-sm md:text-base font-bold w-full outline-none focus:border-[#ff00ff] text-[#00ffcc] pointer-events-auto rounded transition-colors uppercase tracking-widest" onchange="triggerIdeogramTest(this.value)">
+                <select id="domain-select" class="bg-black/80 border border-[#00ffcc]/50 p-2 text-sm md:text-base font-bold w-full outline-none focus:border-[#ff00ff] text-[#00ffcc] rounded transition-colors uppercase tracking-widest" onchange="triggerIdeogramTest(this.value)">
                     <option value="" disabled selected>-- SELECT IDEOGRAM FOR ANALYSIS --</option>
                     <option value="ALPHA">1. ALPHA (α)</option>
                     <option value="BETA">2. BETA (β)</option>
@@ -189,13 +194,15 @@
             <button id="conceptualizeBtn" class="mt-4 w-full border border-[#ff00ff] hover:bg-[#ff00ff] hover:text-black bg-black/50 py-2 text-xs text-[#ff00ff] transition-all uppercase font-black tracking-widest rounded shadow-[0_0_10px_rgba(255,0,255,0.2)]">CONCEPTUALIZE</button>
         </div>
 
-        <div id="outputPanel" class="output-panel hidden-bottom absolute bottom-24 left-1/2 w-[90%] md:w-[80%] max-w-5xl h-[40vh] interactzone flex flex-col shadow-2xl z-50 pointer-events-auto border-t-2 border-[#ff00ff]" style="transition: height 0.3s ease, transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s;">
+        <div id="outputPanel" class="output-panel hidden-bottom absolute bottom-4 left-1/2 w-[90%] md:w-[80%] max-w-5xl h-[40vh] interactzone flex flex-col shadow-2xl z-50 pointer-events-auto border-t-2 border-[#ff00ff]" style="transition: height 0.3s ease, transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s;">
             <div style="flex-wrap:wrap;" class="flex justify-between items-center p-3 border-b border-[#00ffcc]/30 bg-black/60 shrink-0">
                 <div class="flex items-center gap-3">
                     <span class="text-[12px] text-[#ff00ff] mb-4 font-black tracking-widest uppercase">METACOGNITIVE_LLM_STREAM</span>
                 </div>
                 <div style="flex-wrap:wrap;" class="flex items-center gap-2">
                     <button onclick="showViewz()" class="text-[#00ffcc] hover:text-white border border-[#00ffcc]/50 hover:bg-[#00ffcc]/20 px-2 py-0.5 text-[16px] font-bold tracking-widest uppercase rounded transition-colors">VIEWZ</button>
+                    <!-- NEW REPORTZ BUTTON -->
+                    <button onclick="showReportz()" class="text-[#3b82f6] hover:text-white border border-[#3b82f6]/50 hover:bg-[#3b82f6]/20 px-2 py-0.5 text-[16px] font-bold tracking-widest uppercase rounded transition-colors">REPORTZ</button>
                     <button onclick="showLogz()" class="text-[#ff00ff] hover:text-white border border-[#ff00ff]/50 hover:bg-[#ff00ff]/20 px-2 py-0.5 text-[16px] font-bold tracking-widest uppercase rounded transition-colors">LOGZ</button>
                     <button onclick="toggleOutputMinMax()" class="text-yellow-400 hover:text-white border border-yellow-400/50 hover:bg-yellow-400/20 px-2 py-0.5 text-[14px] font-bold tracking-widest uppercase rounded transition-colors">MIN/MAX</button>
                     <button onclick="stopInference()" class="text-red-500 hover:text-red-400 border border-red-500/50 hover:bg-red-500/20 px-2 py-0.5 text-[14px] font-bold tracking-widest uppercase rounded transition-colors">STOP</button>
@@ -209,6 +216,29 @@
             
             <div id="experiment-viewz" class="hidden p-6 flex-grow overflow-y-auto spectro-scrollbar text-sm text-[#00ffcc] font-mono leading-relaxed flex-col gap-3">
                 <!-- Data injected via JS -->
+            </div>
+
+            <!-- NEW REPORTZ VIEW -->
+            <div id="reportz-view" class="hidden p-6 flex-grow overflow-y-auto spectro-scrollbar text-sm text-[#3b82f6] font-mono leading-relaxed flex-col gap-3">
+                <section id="reportz-response">
+                    <div class="border-2 border-[#3b82f6]/60 bg-[#001111]/80 p-4 rounded-lg mb-4 shadow-[0_0_20px_rgba(59,130,246,0.15)] relative overflow-hidden group flex flex-col max-h-[300px] min-h-[300px]">
+                        <div class="absolute inset-0 bg-gradient-to-br from-[#3b82f6]/10 to-transparent pointer-events-none"></div>
+                        
+                        <div class="flex justify-between items-center border-b border-[#3b82f6]/40 pb-2 mb-3 relative z-10 shrink-0">
+                            <h3 class="text-white font-bold text-lg flex items-center gap-2">
+                                <span class="w-2 h-2 bg-[#3b82f6] rounded-full animate-pulse"></span>
+                                LLM_RESPONSE: <span id="llm_response_token" class="text-[#00ffcc]"></span>
+                            </h3>
+                            <span class="text-[10px] text-[#3b82f6] tracking-[0.2em] uppercase bg-[#3b82f6]/10 px-2 py-1 rounded border border-[#3b82f6]/30">METASTATE_TEXT</span>
+                        </div>
+                   <section id="llm_second_response_text" class="text-[#00ffcc] font-mono leading-relaxed flex flex-col gap-3 overflow-y-auto reportz-scrollbar pr-2">
+                    Awaiting METACOGNITIVE report ...
+                   </section>
+                    </div>
+                </section>
+                <section id="reportz-gridz">
+                    <!-- DATA WILL BE INJECTED HERE -->
+                </section>
             </div>
         </div>
 
@@ -234,7 +264,7 @@
         let isLiteMode = true;
         let hoveredObj = null;
         let selectedObj = null;
-        let selectionHighlightMesh = null; // New global selection mesh
+        let selectionHighlightMesh = null;
         
         // --- LLM LIFECYCLE GLOBALS ---
         let isInferencing = false;
@@ -301,14 +331,12 @@
             ctx.fillStyle = grad; ctx.fillRect(0, 0, 128, 128); return new THREE.CanvasTexture(canvas);
         }
 
-        // Updated Label Canvas to color-match the orb and remove backgrounds
         function updateLabelCanvas(canvas, text, colorHex) {
             const ctx = canvas.getContext('2d');
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
             const colorString = '#' + colorHex.toString(16).padStart(6, '0');
             
-            // Add a very subtle drop shadow for legibility against the dark void
             ctx.shadowColor = 'rgba(255,100,255,0.8)';
             ctx.shadowBlur = 4;
             ctx.shadowOffsetX = 2;
@@ -332,7 +360,7 @@
 
             const canvas = document.createElement('canvas'); 
             canvas.width = canvasWidth; 
-            canvas.height = 64; // Tighter height
+            canvas.height = 64; 
             
             updateLabelCanvas(canvas, text, colorHex);
             
@@ -346,12 +374,10 @@
             let s = size * 2.5; 
             sprite.scale.set(s * aspectRatio * 0.5, s * 0.5, 1); 
             
-            // Anchor strictly BELOW the orb with alternating offset to prevent overlap
             sprite.position.y = -size - (s * 0.3) + yOffset; 
             return sprite;
         }
 
-        // Use custom class for labeling sprite so it doesn't rotate with billboard if needed
         class SpriteLabel extends THREE.Sprite {
             constructor(mat) { super(mat); }
         }
@@ -367,7 +393,6 @@
             
             const ctx = canvas.getContext('2d');
             
-            // Larger font for line relationships, just slightly smaller than orb labels
             ctx.fillStyle = '#' + colorHex.toString(16).padStart(6, '0');
             ctx.font = 'bold 30px Courier New';
             ctx.textAlign = 'center';
@@ -379,7 +404,7 @@
             const sprite = new THREE.Sprite(spriteMat);
             
             const aspectRatio = canvas.width / 64;
-            let s = 7.0; // Scaled up significantly
+            let s = 7.0;
             sprite.scale.set(s * aspectRatio * 0.5, s * 0.5, 1);
             
             return sprite;
@@ -390,7 +415,6 @@
             scene = new THREE.Scene(); 
             camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
             
-            // Looking up from -y
             camera.position.set(0, -120, 1);
             
             renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -408,8 +432,7 @@
             const ambient = new THREE.AmbientLight(0xff00ff, 0.3); scene.add(ambient);
             const spot1 = new THREE.DirectionalLight(0xffff00, 0.8); spot1.position.set(20, 50, 20); scene.add(spot1);
 
-            // Create global cyan selection sphere
-            const selGeo = new THREE.SphereGeometry(1, 32, 32); // Radius 1, we will scale it
+            const selGeo = new THREE.SphereGeometry(1, 32, 32); 
             const selMat = new THREE.MeshBasicMaterial({ color: 0x00ffff, transparent: true, opacity: 0.3, depthWrite: false });
             selectionHighlightMesh = new THREE.Mesh(selGeo, selMat);
             selectionHighlightMesh.visible = false;
@@ -422,7 +445,6 @@
             
             hasInitializedThreeJS = true;
 
-            // Load ALPHA by default
             triggerIdeogramTest("ALPHA");
             document.getElementById('domain-select').value = "ALPHA";
         }
@@ -443,34 +465,29 @@
             document.getElementById('legend-title').innerText = `IDEOGRAM_TOPOLOGY: ${ideoKey}`;
             ACTIVE_VIEW_DATA = [];
             
-            const rootColor = 0x87CEEB; // Explicit Sky Blue
+            const rootColor = 0x87CEEB;
             
-            // 1. Root Node (Top)
             ACTIVE_VIEW_DATA.push({
                 label: ideoKey, type: 'TARGET_TOKEN', color: rootColor, size: 8,
                 x: 0, y: 35, z: 0, desc: data.desc, relation: "ROOT", parent: null, labelYOffset: 0
             });
 
             const ctxCount = data.contexts.length;
-            const y1 = 15;  // Compressed branch height
-            const y2 = -5;  // Compressed branch height
-            const y3 = -25; // Depth for concepts
+            const y1 = 15;  
+            const y2 = -5;  
+            const y3 = -25; 
             
-            // Absolute radiuses to create perfect concentric clock faces
             const R1 = 25; 
             const R2 = 45; 
             const R3 = 65; 
 
-            // PI/4 offset turns "+" orientation into "X" orientation
             const angleOffset = Math.PI / 4;
 
-            // 2. Middle Layer (META_CONTEXT)
             data.contexts.forEach((ctx, i) => {
                 const angle1 = (i / ctxCount) * Math.PI * 2 + angleOffset;
                 const cx = Math.cos(angle1) * R1;
                 const cz = Math.sin(angle1) * R1;
                 
-                // Lightened gradient (0.65 vs previous 0.35)
                 const cColorMid = new THREE.Color().setHSL(i/ctxCount, 1.0, 0.65).getHex();
 
                 ACTIVE_VIEW_DATA.push({
@@ -479,9 +496,7 @@
                     labelYOffset: (i % 2 === 0) ? 0 : -4
                 });
 
-                // 3. Bottom Layer (Polysemy Nodes)
                 const childCount = ctx.children.length;
-                // Distribute perfectly across the 360 degree space (8 total nodes = Math.PI / 4)
                 const spread2 = Math.PI / 4; 
                 
                 ctx.children.forEach((childObj, j) => {
@@ -489,7 +504,6 @@
                     const chx = Math.cos(angle2) * R2;
                     const chz = Math.sin(angle2) * R2;
 
-                    // Lightened gradient (0.45 vs previous 0.15)
                     const cColorBot = new THREE.Color().setHSL(i/ctxCount, 1.0, 0.45).getHex();
                     const globalChildIndex = i * 2 + j;
 
@@ -499,9 +513,7 @@
                         labelYOffset: (globalChildIndex % 2 === 0) ? 0 : -4
                     });
                     
-                    // 4. New Deep Concept Layer
                     const subCount = childObj.sub.length;
-                    // Distribute perfectly across the 360 degree space (16 total nodes = Math.PI / 8)
                     const spread3 = Math.PI / 8;
                     
                     childObj.sub.forEach((subLabel, k) => {
@@ -509,7 +521,6 @@
                         const sx = Math.cos(angle3) * R3;
                         const sz = Math.sin(angle3) * R3;
 
-                        // Lightened gradient (0.25 vs previous 0.08)
                         const cColorDeep = new THREE.Color().setHSL(i/ctxCount, 1.0, 0.25).getHex();
                         const globalSubIndex = globalChildIndex * 2 + k;
 
@@ -526,18 +537,16 @@
         }
 
         function renderHangingTree() {
-            // Render Orbs
             ACTIVE_VIEW_DATA.forEach(data => {
                 const group = new THREE.Group(); 
                 group.position.set(data.x, data.y, data.z);
                 
-                // Color sanity check for TARGET_TOKEN
                 let finalColor = data.color;
                 if (data.type === 'TARGET_TOKEN') finalColor = 0x87CEEB;
 
                 const mat = new THREE.MeshStandardMaterial({ 
                     color: finalColor, emissive: finalColor, emissiveIntensity: 0.5, 
-                    metalness: 0.8, roughness: 0.2, opacity: 1, transparent: true 
+                    metalness: 0.8, roughness: 0.2, opacity: 0.88, transparent: true 
                 });
                 const mainMesh = new THREE.Mesh(new THREE.SphereGeometry(data.size, 32, 32), mat);
                 group.add(mainMesh);
@@ -546,14 +555,12 @@
                 hitMesh.userData = { isHitbox: true, dataObj: data };
                 group.add(hitMesh);
 
-                // Add below-orb label with dynamic offset passed through
                 group.add(createLabel(data.label, data.size, finalColor, data.labelYOffset));
 
                 scene.add(group); 
                 orbGroup.push({ group, ...data, actualColor: finalColor });
             });
 
-            // Render Lines
             ACTIVE_VIEW_DATA.forEach(node => {
                 if(node.parent) {
                     const parentNode = orbGroup.find(o => o.label === node.parent);
@@ -609,7 +616,6 @@
             if(hoveredObj) {
                 const clickedObj = orbGroup.find(o => o.group === hoveredObj.parent);
                 
-                // Toggle off if clicking the already selected object
                 if (selectedObj === clickedObj) {
                     clearSelection();
                     closeDetails();
@@ -620,9 +626,8 @@
                 selectedObj = clickedObj;
                 
                 if (selectedObj) {
-                    // Position and scale cyan selection sphere
                     selectionHighlightMesh.position.set(selectedObj.x, selectedObj.y, selectedObj.z);
-                    const highlightScale = selectedObj.size * 1.35; // Slight padding over the original orb
+                    const highlightScale = selectedObj.size * 1.35; 
                     selectionHighlightMesh.scale.set(highlightScale, highlightScale, highlightScale);
                     selectionHighlightMesh.visible = true;
 
@@ -644,10 +649,6 @@
             
             const btn = document.getElementById('conceptualizeBtn');
             btn.onclick = () => { conceptualizeNode(data); closeDetails(); };
-
-            controls.autoRotate = false;
-            controls.target.set(data.x, data.y, data.z);
-            camera.position.set(data.x, data.y + 10, data.z + 40);
         }
 
         function closeDetails() {
@@ -664,11 +665,12 @@
         function toggleTitleBar() {
             const panel = document.getElementById('title-bar-panel');
             const btn = document.getElementById('project-toggle-btn');
-            if (panel.classList.contains('opacity-0')) {
-                panel.classList.remove('opacity-0', 'pointer-events-none', '-translate-x-10');
+            
+            if (panel.classList.contains('hidden-left')) {
+                panel.classList.remove('hidden-left');
                 btn.classList.add('opacity-0', 'pointer-events-none', '-translate-x-10');
             } else {
-                panel.classList.add('opacity-0', 'pointer-events-none', '-translate-x-10');
+                panel.classList.add('hidden-left');
                 btn.classList.remove('opacity-0', 'pointer-events-none', '-translate-x-10');
             }
         }
@@ -755,19 +757,20 @@
             else outputPanel.style.height = '80vh';
         }
 
+        // View Toggles
         function showLogz() {
             document.getElementById('log-feed').classList.remove('hidden'); document.getElementById('log-feed').classList.add('flex');
             document.getElementById('experiment-viewz').classList.remove('flex'); document.getElementById('experiment-viewz').classList.add('hidden');
+            document.getElementById('reportz-view').classList.remove('flex'); document.getElementById('reportz-view').classList.add('hidden');
         }
 
         function showViewz() {
             document.getElementById('log-feed').classList.remove('flex'); document.getElementById('log-feed').classList.add('hidden');
+            document.getElementById('reportz-view').classList.remove('flex'); document.getElementById('reportz-view').classList.add('hidden');
             const viewz = document.getElementById('experiment-viewz');
             viewz.classList.remove('hidden'); viewz.classList.add('flex');
             viewz.innerHTML = `<pre class="whitespace-pre-wrap font-mono w-full text-yellow-300">[ DECIPHERABILITY_VIEW_MODULE ]\n
-                \n> Hanging Tree Topology Active!
-                \n <h2>DECIPHERABILITY</h2>
-                \n <h3>LLM TOKEN_REPORTZ</h3>
+                \n> Hanging Tree Topology Active...
                 \n> This project demonstrates:</pre>
                 \n <ol>
                     <li>1) Polysemy of Current Language.</li>
@@ -781,11 +784,112 @@
                     4) METACOGNITIVE_WARENESS.
                     5) CONCEPTUAL_SHOWCASE_METASTATE.
                     
-                    HIERARCHICAL CLUSTERING OF WORD SEMANTICS, (over time, Z-dimension/axis).
+                    HIERARCHICAL CLUSTERING OF WORD SEMANTICS
                     4) INFERENTIAL LINGUISTICS 
                     5) CONTEXTUAL GRAMMAR
                     6) LANGUAGE & COGNITION
                 </ol>`;
+        }
+
+        function showReportz() {
+            document.getElementById('log-feed').classList.remove('flex'); document.getElementById('log-feed').classList.add('hidden');
+            document.getElementById('experiment-viewz').classList.remove('flex'); document.getElementById('experiment-viewz').classList.add('hidden');
+            const reportz = document.getElementById('reportz-view');
+            reportz.classList.remove('hidden'); reportz.classList.add('flex');
+        }
+
+        // --- REPORTZ PARSER ---
+        function parseAndRenderReportz(token, responseText) {
+            
+            const second_response = document.getElementById('llm_second_response_text');
+            // Replaced innerHTML overwrite with clean initial injection to set the stage
+            second_response.innerHTML = responseText;
+
+            const extractByKey = (key, openChar, closeChar) => {
+                const oc = '\\' + openChar;
+                const cc = '\\' + closeChar;
+                const regex = new RegExp(`${key}[\\s:=]*${oc}([\\s\\S]*?)${cc}`, 'i');
+                const match = responseText.match(regex);
+                return match ? match[1].trim() : null; 
+            };
+
+            const brackets = [...responseText.matchAll(/\\[(.*?)\\]/g)].map(m => m[1].trim());
+            const parens = [...responseText.matchAll(/\\((.*?)\\)/g)].map(m => m[1].trim());
+
+            const resolveVal = (key, openChar, closeChar, bracketIndex, parenIndex) => {
+                let val = extractByKey(key, openChar, closeChar);
+                if (val && !val.toLowerCase().includes('yes/no') && !val.toLowerCase().includes('answer')) {
+                    return val;
+                }
+                if (openChar === '[') {
+                    if (brackets[bracketIndex] && !brackets[bracketIndex].toLowerCase().includes('yes/no')) {
+                        return brackets[bracketIndex];
+                    }
+                } else if (openChar === '(') {
+                    if (parens[parenIndex] && !parens[parenIndex].toLowerCase().includes('list')) {
+                        return parens[parenIndex];
+                    }
+                }
+                return '0.0';
+            };
+
+            const reportData = {
+                encouraging: resolveVal('encouraging', '[', ']', 0, null),
+                discouraging: resolveVal('discouraging', '[', ']', 1, null),
+                ambiguous: resolveVal('ambiguous', '[', ']', 2, null),
+                distinct: resolveVal('distinct', '[', ']', 3, null),
+                polysemous: resolveVal('polysemous', '[', ']', 4, null),
+                homonymous: resolveVal('homonymous', '[', ']', 5, null),
+                uniqueness: resolveVal('uniqueness', '[', ']', 6, null),
+                axiomatic: resolveVal('axiomatic', '[', ']', 7, null),
+                decipherable: resolveVal('decipherable', '[', ']', 8, null),
+            };
+
+            const container = document.getElementById('reportz-gridz');
+            
+            const renderCell = (label, val) => {
+                let col = 'text-white';
+                let v = val.toLowerCase();
+                if(v === 'yes' || v === 'true' || v.includes('yes')) col = 'text-[#00ffcc]';
+                else if(v === 'no' || v === 'false' || v.includes('no')) col = 'text-red-400';
+                else if(v === '0.0') col = 'text-gray-500';
+                
+                return `<div class="border border-[#3b82f6]/40 p-2 rounded bg-black/50 flex flex-col items-center justify-center text-center shadow-inner transition-colors hover:border-[#3b82f6]/80">
+                    <span class="text-[10px] uppercase tracking-widest opacity-60 mb-1 text-[#3b82f6]">${label}</span>
+                    <span class="font-bold ${col} text-sm">${val}</span>
+                </div>`;
+            };
+
+            const html = `
+                <div class="border-2 border-[#3b82f6]/60 bg-[#001111]/80 p-4 rounded-lg mb-4 shadow-[0_0_20px_rgba(59,130,246,0.15)] relative overflow-hidden group flex flex-col max-h-[300px] min-h-[300px]">
+                    <div class="absolute inset-0 bg-gradient-to-br from-[#3b82f6]/10 to-transparent pointer-events-none"></div>
+                    
+                    <div class="flex justify-between items-center border-b border-[#3b82f6]/40 pb-2 mb-3 relative z-10 shrink-0">
+                        <h3 class="text-white font-bold text-lg flex items-center gap-2">
+                            <span class="w-2 h-2 bg-[#3b82f6] rounded-full animate-pulse"></span>
+                            TOKEN: <span class="text-[#00ffcc]">${token}</span>
+                        </h3>
+                        <span class="text-[10px] text-[#3b82f6] tracking-[0.2em] uppercase bg-[#3b82f6]/10 px-2 py-1 rounded border border-[#3b82f6]/30">METASTATE_REPORT</span>
+                    </div>
+
+                    <!-- Inner Scrollable Grid Container -->
+                    <div class="overflow-y-auto reportz-scrollbar pr-2 flex-grow relative z-10">
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 pb-2">
+                            ${renderCell('ENCOURAGING', reportData.encouraging)}
+                            ${renderCell('DISCOURAGING', reportData.discouraging)}
+                            ${renderCell('AMBIGUOUS', reportData.ambiguous)}
+                            ${renderCell('DISTINCT', reportData.distinct)}
+                            ${renderCell('POLYSEMOUS', reportData.polysemous)}
+                            ${renderCell('HOMONYMOUS', reportData.homonymous)}
+                            ${renderCell('UNIQUENESS', reportData.uniqueness)}
+                            ${renderCell('AXIOMATIC', reportData.axiomatic)}
+                            ${renderCell('DECIPHERABLE', reportData.decipherable)}
+                        
+                        </div>
+                    </div>
+                </div>
+            `;
+            container.insertAdjacentHTML('afterbegin', html);
         }
 
         // --- LLM LIFECYCLE MANAGEMENT ---
@@ -824,7 +928,6 @@
         function forceCloseLoading() { 
             toggleLoading(false); 
             if (!hasInitializedThreeJS) initGallery(); 
-            if (isInferencing) stopInference();
         }
 
         async function initApp() {
@@ -860,15 +963,10 @@
             outputPanel.classList.remove('hidden-bottom');
             showLogz();
 
+            let fullResponseText = "";
+
             if (!window.LLM_INFERENCE) {
-                addLog(`[SYSTEM ALERT] LLM engine uninitialized. Running simulated benchmark output...`, 'critical');
-                setTimeout(() => {
-                    const mockStream = document.createElement('div');
-                    mockStream.className = "text-[#ff00ff] font-mono pl-4 mb-2 border-l-2 border-[#ff00ff]/50 break-words";
-                    mockStream.textContent = `.| encouraging [yes] | discouraging [no] | ambiguous [yes] | distinct [no] | zoom_in (${data.label}_ALPHA, ${data.label}_BETA) | zoom_out (${data.parent || 'ROOT_IDEOGRAM'}) | polysemous [yes] | homonymous [no] |.`;
-                    logFeed.appendChild(mockStream);
-                    logFeed.scrollTop = logFeed.scrollHeight;
-                }, 1000);
+                addLog(`[SYSTEM ALERT] LLM engine uninitialized. Cannot run logic without inference engine.`, 'critical');
                 return;
             }
 
@@ -877,35 +975,91 @@
                 const dot = document.getElementById('llmStatusDot'); const text = document.getElementById('llmStatus');
                 dot.className = "w-2 h-2 rounded-full bg-yellow-400 animate-ping"; text.innerText = "LLM THINKING..."; text.className = "text-[10px] font-bold tracking-[0.2em] text-yellow-400 uppercase";
 
+                toggleLoading(true, `CONCEPTUALIZING: ${data.label}`, true);
+
                 addLog(`>> QUERYING METACOGNITIVE BENCHMARK FOR: [${data.label}]`, 'metastate');
                 
                 const promptContext = data.parent ? `in the conceptual context of "${data.parent}"` : `as a root ideogram`;
+                
+                // STAGE 1: The original ~200 word prompt
                 const prompt = `Task: Perform a metacognitive analysis on the token: "${data.label}" ${promptContext}.
-Analyze its decipherability, ambiguity, and semantic drift.
-Constraint: Output STRICTLY in the following METATEXT format. Provide your binary [yes/no] or textual answers inside the brackets. Do not add markdown or conversational text.
-.| encouraging [yes/no] | discouraging [yes/no] | ambiguous [yes/no] | distinct [yes/no] | zoom_in (list 2 sub-topics) | zoom_out (list 1 parent topic) | polysemous [yes/no] | homonymous [yes/no] |.`;
+                Analyze its decipherability, ambiguity, and semantic drift.
+                Constraint: Output a brief paragraph, less than 201 words.`;
                 
                 const streamContainer = document.createElement('div');
                 streamContainer.className = "text-[#ff00ff] font-mono pl-4 mb-2 border-l-2 border-[#ff00ff]/50 break-words";
                 logFeed.appendChild(streamContainer);
                 
+                let loopDetected = false;
+
                 await window.LLM_INFERENCE.generateResponse(prompt, (partialResult, complete) => {
+                    if (loopDetected) return;
+
                     if (partialResult) {
                         streamContainer.textContent += partialResult;
+                        fullResponseText += partialResult;
                         logFeed.scrollTop = logFeed.scrollHeight;
                     }
                 });
 
-                addLog(`>> METACOGNITIVE_ANALYSIS COMPLETE.`, 'reflection');
+                addLog(`>> PRIMARY METACOGNITIVE_ANALYSIS COMPLETE.`, 'reflection');
 
+                // Build visual matrix using the primary output
+                parseAndRenderReportz(data.label, fullResponseText);
+                showReportz();
+
+                // -------------------------------------------------------------------------
+                // STAGE 2: RECURSIVE METACOGNITIVE EVALUATION
+                // -------------------------------------------------------------------------
+                addLog(`>> INITIATING RECURSIVE EVALUATION OF METATEXT...`, 'metastate');
+                toggleLoading(true, `RECURSIVE EVALUATION: ${data.label}`, true);
+
+                const recursivePrompt = `Task: Is this text ambiguous? Answer in 10 words or less.\n\nText: "${fullResponseText}"`;
+                let recursiveResponseText = "";
+
+                // Set up the UI structure in #llm_second_response_text dynamically 
+                // so we can see both the Primary Generation and the Recursive Evaluation.
+                const secondResponseContainer = document.getElementById('llm_second_response_text');
+                secondResponseContainer.innerHTML = `
+                    <div class="text-[10px] text-[#00ffcc]/60 uppercase tracking-widest border-b border-[#00ffcc]/30 pb-1 mb-2">PRIMARY_METATEXT_GENERATED:</div>
+                    <div class="mb-4 text-sm opacity-90">${fullResponseText}</div>
+                    
+                    <div class="mt-2 text-[10px] text-yellow-400 uppercase tracking-widest border-b border-yellow-400/30 pb-1 mb-2 animate-pulse" id="recursive_header">RECURSIVE_EVAL_STREAM...</div>
+                    <div id="recursive_stream" class="text-yellow-400 font-bold text-sm bg-yellow-400/10 p-3 rounded-lg border border-yellow-400/20 shadow-[0_0_15px_rgba(250,204,21,0.1)]"></div>
+                `;
+                
+                const recursiveStream = document.getElementById('recursive_stream');
+                
+                const recursiveStreamLogContainer = document.createElement('div');
+                recursiveStreamLogContainer.className = "text-yellow-400 font-mono pl-4 mb-2 border-l-2 border-yellow-400/50 break-words font-bold";
+                logFeed.appendChild(recursiveStreamLogContainer);
+
+                await window.LLM_INFERENCE.generateResponse(recursivePrompt, (partialResult, complete) => {
+                    if (partialResult) {
+                        recursiveResponseText += partialResult;
+                        recursiveStream.textContent += partialResult;
+                        recursiveStreamLogContainer.textContent += partialResult;
+                        logFeed.scrollTop = logFeed.scrollHeight;
+                    }
+                    if (complete) {
+                        document.getElementById('recursive_header').classList.remove('animate-pulse');
+                        document.getElementById('recursive_header').innerText = "RECURSIVE_EVALUATION:";
+                    }
+                });
+
+                addLog(`>> RECURSIVE EVALUATION COMPLETE.`, 'reflection');
+
+                // Return to ready state
                 dot.className = "w-2 h-2 rounded-full bg-[#00ffcc] animate-pulse"; text.innerText = "LLM ALIVE"; text.className = "text-[10px] font-bold tracking-[0.2em] text-[#00ffcc] uppercase";
-                isInferencing = false;
-
+                
             } catch(e) {
+                console.error("LLM Generation Context Error:", e);
                 addLog(`[LLM_ERROR] ${e.message}`, 'critical');
-                isInferencing = false;
                 document.getElementById('llmStatusDot').className = "w-2 h-2 rounded-full bg-red-500"; 
                 document.getElementById('llmStatus').innerText = `LLM ERROR`;
+            } finally {
+                isInferencing = false;
+                toggleLoading(false); 
             }
         }
 

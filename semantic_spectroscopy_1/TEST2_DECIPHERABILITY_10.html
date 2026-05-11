@@ -15,8 +15,12 @@
         .interactzone { pointer-events: auto; background: rgba(0, 15, 20, 0.85); border: 1px solid rgba(0, 255, 204, 0.3); backdrop-filter: blur(12px); border-radius: 8px; }
         
         .spectro-scrollbar::-webkit-scrollbar { width: 6px; }
-        .spectro-scrollbar::-webkit-scrollbar-track { background: rgba(0, 40, 40, 0.5); }
+        .spectro-scrollbar::-webkit-scrollbar-track { background: rgba(0, 40, 40, 0.5); border-radius: 3px; }
         .spectro-scrollbar::-webkit-scrollbar-thumb { background: #ff00ff; border-radius: 3px; }
+        /* Alternative scrollbar color for reports to match theme */
+        .reportz-scrollbar::-webkit-scrollbar { width: 6px; }
+        .reportz-scrollbar::-webkit-scrollbar-track { background: rgba(0, 20, 40, 0.5); border-radius: 3px; }
+        .reportz-scrollbar::-webkit-scrollbar-thumb { background: #3b82f6; border-radius: 3px; }
 
         #overlay-vignette {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
@@ -39,7 +43,7 @@
             position: absolute; inset: 0; 
             background: rgba(5, 5, 5, 0.8); 
             backdrop-filter: blur(10px);
-            z-index: 100; 
+            z-index: 20; 
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             color: #00ffcc; font-family: 'Courier New', Courier, monospace; pointer-events: auto;
         }
@@ -126,7 +130,7 @@
         
         <div class="absolute top-6 z-[60] right-6 interactzone px-4 py-2 flex items-center gap-2">
             <div id="llmStatusDot" class="w-2 h-2 rounded-full bg-red-500"></div>
-            <span id="llmStatus" class="text-[10px] font-bold tracking-[0.2em] text-red-500 uppercase">LLM LOADING</span>
+            <span id="llmStatus" class="text-[10px] font-bold tracking-[0.2em] text-red-500 uppercase">WAIT: LLM LOADING</span>
         </div>
 
         <div class="absolute top-[80px] right-6 flex flex-col items-end gap-[0.8em] z-[60] pointer-events-none">
@@ -189,13 +193,15 @@
             <button id="conceptualizeBtn" class="mt-4 w-full border border-[#ff00ff] hover:bg-[#ff00ff] hover:text-black bg-black/50 py-2 text-xs text-[#ff00ff] transition-all uppercase font-black tracking-widest rounded shadow-[0_0_10px_rgba(255,0,255,0.2)]">CONCEPTUALIZE</button>
         </div>
 
-        <div id="outputPanel" class="output-panel hidden-bottom absolute bottom-24 left-1/2 w-[90%] md:w-[80%] max-w-5xl h-[40vh] interactzone flex flex-col shadow-2xl z-50 pointer-events-auto border-t-2 border-[#ff00ff]" style="transition: height 0.3s ease, transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s;">
+        <div id="outputPanel" class="output-panel hidden-bottom absolute bottom-4 left-1/2 w-[90%] md:w-[80%] max-w-5xl h-[40vh] interactzone flex flex-col shadow-2xl z-50 pointer-events-auto border-t-2 border-[#ff00ff]" style="transition: height 0.3s ease, transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s;">
             <div style="flex-wrap:wrap;" class="flex justify-between items-center p-3 border-b border-[#00ffcc]/30 bg-black/60 shrink-0">
                 <div class="flex items-center gap-3">
                     <span class="text-[12px] text-[#ff00ff] mb-4 font-black tracking-widest uppercase">METACOGNITIVE_LLM_STREAM</span>
                 </div>
                 <div style="flex-wrap:wrap;" class="flex items-center gap-2">
                     <button onclick="showViewz()" class="text-[#00ffcc] hover:text-white border border-[#00ffcc]/50 hover:bg-[#00ffcc]/20 px-2 py-0.5 text-[16px] font-bold tracking-widest uppercase rounded transition-colors">VIEWZ</button>
+                    <!-- NEW REPORTZ BUTTON -->
+                    <button onclick="showReportz()" class="text-[#3b82f6] hover:text-white border border-[#3b82f6]/50 hover:bg-[#3b82f6]/20 px-2 py-0.5 text-[16px] font-bold tracking-widest uppercase rounded transition-colors">REPORTZ</button>
                     <button onclick="showLogz()" class="text-[#ff00ff] hover:text-white border border-[#ff00ff]/50 hover:bg-[#ff00ff]/20 px-2 py-0.5 text-[16px] font-bold tracking-widest uppercase rounded transition-colors">LOGZ</button>
                     <button onclick="toggleOutputMinMax()" class="text-yellow-400 hover:text-white border border-yellow-400/50 hover:bg-yellow-400/20 px-2 py-0.5 text-[14px] font-bold tracking-widest uppercase rounded transition-colors">MIN/MAX</button>
                     <button onclick="stopInference()" class="text-red-500 hover:text-red-400 border border-red-500/50 hover:bg-red-500/20 px-2 py-0.5 text-[14px] font-bold tracking-widest uppercase rounded transition-colors">STOP</button>
@@ -209,6 +215,11 @@
             
             <div id="experiment-viewz" class="hidden p-6 flex-grow overflow-y-auto spectro-scrollbar text-sm text-[#00ffcc] font-mono leading-relaxed flex-col gap-3">
                 <!-- Data injected via JS -->
+            </div>
+
+            <!-- NEW REPORTZ VIEW -->
+            <div id="reportz-view" class="hidden p-6 flex-grow overflow-y-auto spectro-scrollbar text-sm text-[#3b82f6] font-mono leading-relaxed flex-col gap-3">
+                <div class="opacity-50 text-center mt-10">[SYS] Awaiting token report generation...</div>
             </div>
         </div>
 
@@ -537,7 +548,7 @@
 
                 const mat = new THREE.MeshStandardMaterial({ 
                     color: finalColor, emissive: finalColor, emissiveIntensity: 0.5, 
-                    metalness: 0.8, roughness: 0.2, opacity: 1, transparent: true 
+                    metalness: 0.8, roughness: 0.2, opacity: 0.88, transparent: true 
                 });
                 const mainMesh = new THREE.Mesh(new THREE.SphereGeometry(data.size, 32, 32), mat);
                 group.add(mainMesh);
@@ -644,10 +655,6 @@
             
             const btn = document.getElementById('conceptualizeBtn');
             btn.onclick = () => { conceptualizeNode(data); closeDetails(); };
-
-            controls.autoRotate = false;
-            controls.target.set(data.x, data.y, data.z);
-            camera.position.set(data.x, data.y + 10, data.z + 40);
         }
 
         function closeDetails() {
@@ -755,19 +762,20 @@
             else outputPanel.style.height = '80vh';
         }
 
+        // View Toggles
         function showLogz() {
             document.getElementById('log-feed').classList.remove('hidden'); document.getElementById('log-feed').classList.add('flex');
             document.getElementById('experiment-viewz').classList.remove('flex'); document.getElementById('experiment-viewz').classList.add('hidden');
+            document.getElementById('reportz-view').classList.remove('flex'); document.getElementById('reportz-view').classList.add('hidden');
         }
 
         function showViewz() {
             document.getElementById('log-feed').classList.remove('flex'); document.getElementById('log-feed').classList.add('hidden');
+            document.getElementById('reportz-view').classList.remove('flex'); document.getElementById('reportz-view').classList.add('hidden');
             const viewz = document.getElementById('experiment-viewz');
             viewz.classList.remove('hidden'); viewz.classList.add('flex');
             viewz.innerHTML = `<pre class="whitespace-pre-wrap font-mono w-full text-yellow-300">[ DECIPHERABILITY_VIEW_MODULE ]\n
-                \n> Hanging Tree Topology Active!
-                \n <h2>DECIPHERABILITY</h2>
-                \n <h3>LLM TOKEN_REPORTZ</h3>
+                \n> Hanging Tree Topology Active...
                 \n> This project demonstrates:</pre>
                 \n <ol>
                     <li>1) Polysemy of Current Language.</li>
@@ -781,11 +789,98 @@
                     4) METACOGNITIVE_WARENESS.
                     5) CONCEPTUAL_SHOWCASE_METASTATE.
                     
-                    HIERARCHICAL CLUSTERING OF WORD SEMANTICS, (over time, Z-dimension/axis).
+                    HIERARCHICAL CLUSTERING OF WORD SEMANTICS
                     4) INFERENTIAL LINGUISTICS 
                     5) CONTEXTUAL GRAMMAR
                     6) LANGUAGE & COGNITION
                 </ol>`;
+        }
+
+        function showReportz() {
+            document.getElementById('log-feed').classList.remove('flex'); document.getElementById('log-feed').classList.add('hidden');
+            document.getElementById('experiment-viewz').classList.remove('flex'); document.getElementById('experiment-viewz').classList.add('hidden');
+            const reportz = document.getElementById('reportz-view');
+            reportz.classList.remove('hidden'); reportz.classList.add('flex');
+        }
+
+        // --- REPORTZ PARSER ---
+        function parseAndRenderReportz(token, responseText) {
+            // Highly robust extraction that searches for keys and safely pulls the bracket/parenthesis string
+            const extract = (key, openChar, closeChar) => {
+                const oc = '\\' + openChar;
+                const cc = '\\' + closeChar;
+                // Look for the key, skip whatever noise is between the key and the opening bracket, capture until close bracket
+                const regex = new RegExp(`${key}[^${oc}]*${oc}([^${cc}]+)${cc}`, 'i');
+                const match = responseText.match(regex);
+                if (match && match[1]) {
+                    let val = match[1].trim();
+                    // Prevent LLM returning the instructions template verbatim
+                    if (val.toLowerCase().includes('answer') || val.toLowerCase().includes('yes/no')) return '0.0';
+                    return val;
+                }
+                return '0.0'; 
+            };
+
+            const reportData = {
+                encouraging: extract('encouraging', '[', ']'),
+                discouraging: extract('discouraging', '[', ']'),
+                ambiguous: extract('ambiguous', '[', ']'),
+                distinct: extract('distinct', '[', ']'),
+                polysemous: extract('polysemous', '[', ']'),
+                homonymous: extract('homonymous', '[', ']'),
+                uniqueness: extract('uniqueness', '[', ']'),
+                axiomatic: extract('axiomatic', '[', ']'),
+                // zoom_in: extract('zoom_in', '(', ')'),
+                // zoom_out: extract('zoom_out', '(', ')')
+            };
+
+            const container = document.getElementById('reportz-view');
+            if(container.innerHTML.includes('Awaiting token report')) {
+                container.innerHTML = '';
+            }
+
+            const renderCell = (label, val) => {
+                let col = 'text-white';
+                let v = val.toLowerCase();
+                if(v === 'yes' || v === 'true' || v.includes('yes')) col = 'text-[#00ffcc]';
+                else if(v === 'no' || v === 'false' || v.includes('no')) col = 'text-red-400';
+                else if(v === '0.0') col = 'text-gray-500';
+                
+                return `<div class="border border-[#3b82f6]/40 p-2 rounded bg-black/50 flex flex-col items-center justify-center text-center shadow-inner transition-colors hover:border-[#3b82f6]/80">
+                    <span class="text-[10px] uppercase tracking-widest opacity-60 mb-1 text-[#3b82f6]">${label}</span>
+                    <span class="font-bold ${col} text-sm">${val}</span>
+                </div>`;
+            };
+
+            const html = `
+                <div class="border-2 border-[#3b82f6]/60 bg-[#001111]/80 p-4 rounded-lg mb-4 shadow-[0_0_20px_rgba(59,130,246,0.15)] relative overflow-hidden group flex flex-col max-h-[300px]">
+                    <div class="absolute inset-0 bg-gradient-to-br from-[#3b82f6]/10 to-transparent pointer-events-none"></div>
+                    
+                    <div class="flex justify-between items-center border-b border-[#3b82f6]/40 pb-2 mb-3 relative z-10 shrink-0">
+                        <h3 class="text-white font-bold text-lg flex items-center gap-2">
+                            <span class="w-2 h-2 bg-[#3b82f6] rounded-full animate-pulse"></span>
+                            TOKEN: <span class="text-[#00ffcc]">${token}</span>
+                        </h3>
+                        <span class="text-[10px] text-[#3b82f6] tracking-[0.2em] uppercase bg-[#3b82f6]/10 px-2 py-1 rounded border border-[#3b82f6]/30">METASTATE_REPORT</span>
+                    </div>
+
+                    <!-- Inner Scrollable Grid Container -->
+                    <div class="overflow-y-auto reportz-scrollbar pr-2 flex-grow relative z-10">
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 pb-2">
+                            ${renderCell('ENCOURAGING', reportData.encouraging)}
+                            ${renderCell('DISCOURAGING', reportData.discouraging)}
+                            ${renderCell('AMBIGUOUS', reportData.ambiguous)}
+                            ${renderCell('DISTINCT', reportData.distinct)}
+                            ${renderCell('POLYSEMOUS', reportData.polysemous)}
+                            ${renderCell('HOMONYMOUS', reportData.homonymous)}
+                            ${renderCell('UNIQUENESS', reportData.uniqueness)}
+                            ${renderCell('AXIOMATIC', reportData.axiomatic)}
+                            
+                        </div>
+                    </div>
+                </div>
+            `;
+            container.insertAdjacentHTML('afterbegin', html);
         }
 
         // --- LLM LIFECYCLE MANAGEMENT ---
@@ -824,7 +919,6 @@
         function forceCloseLoading() { 
             toggleLoading(false); 
             if (!hasInitializedThreeJS) initGallery(); 
-            if (isInferencing) stopInference();
         }
 
         async function initApp() {
@@ -860,15 +954,28 @@
             outputPanel.classList.remove('hidden-bottom');
             showLogz();
 
+            let fullResponseText = "";
+
             if (!window.LLM_INFERENCE) {
                 addLog(`[SYSTEM ALERT] LLM engine uninitialized. Running simulated benchmark output...`, 'critical');
+                
+                toggleLoading(true, `CONCEPTUALIZING: ${data.label}`, true);
+                
                 setTimeout(() => {
+                    // Update mock string to match the new vertical format LLM output expectation
+                    fullResponseText = `encouraging: [yes]\ndiscouraging: [no]\nambiguous: [yes]\ndistinct: [no]\npolysemous: [yes]\nhomonymous: [no]\nuniqueness: [yes]\naxiomatic: [no]\n.`;
+                    
                     const mockStream = document.createElement('div');
-                    mockStream.className = "text-[#ff00ff] font-mono pl-4 mb-2 border-l-2 border-[#ff00ff]/50 break-words";
-                    mockStream.textContent = `.| encouraging [yes] | discouraging [no] | ambiguous [yes] | distinct [no] | zoom_in (${data.label}_ALPHA, ${data.label}_BETA) | zoom_out (${data.parent || 'ROOT_IDEOGRAM'}) | polysemous [yes] | homonymous [no] |.`;
+                    mockStream.className = "text-[#ff00ff] font-mono pl-4 mb-2 border-l-2 border-[#ff00ff]/50 break-words whitespace-pre-wrap";
+                    mockStream.textContent = fullResponseText;
                     logFeed.appendChild(mockStream);
                     logFeed.scrollTop = logFeed.scrollHeight;
-                }, 1000);
+                    
+                    parseAndRenderReportz(data.label, fullResponseText);
+                    showReportz();
+                    
+                    toggleLoading(false);
+                }, 2000);
                 return;
             }
 
@@ -877,35 +984,65 @@
                 const dot = document.getElementById('llmStatusDot'); const text = document.getElementById('llmStatus');
                 dot.className = "w-2 h-2 rounded-full bg-yellow-400 animate-ping"; text.innerText = "LLM THINKING..."; text.className = "text-[10px] font-bold tracking-[0.2em] text-yellow-400 uppercase";
 
+                toggleLoading(true, `CONCEPTUALIZING: ${data.label}`, true);
+
                 addLog(`>> QUERYING METACOGNITIVE BENCHMARK FOR: [${data.label}]`, 'metastate');
                 
                 const promptContext = data.parent ? `in the conceptual context of "${data.parent}"` : `as a root ideogram`;
-                const prompt = `Task: Perform a metacognitive analysis on the token: "${data.label}" ${promptContext}.
-Analyze its decipherability, ambiguity, and semantic drift.
-Constraint: Output STRICTLY in the following METATEXT format. Provide your binary [yes/no] or textual answers inside the brackets. Do not add markdown or conversational text.
-.| encouraging [yes/no] | discouraging [yes/no] | ambiguous [yes/no] | distinct [yes/no] | zoom_in (list 2 sub-topics) | zoom_out (list 1 parent topic) | polysemous [yes/no] | homonymous [yes/no] |.`;
+                
+                // --- FIX 1: RESTRUCTURED PROMPT ---
+                // Small LLMs drop keys when using table row formats like ".| yes | no |.".
+                // A strict vertical key-value list works vastly better to retain the text blocks needed for regex parsing.
+                const prompt = `Task: Analyze the token: "${data.label}" ${promptContext}.
+Constraint: Output your analysis STRICTLY in this exact key-value format. Do not omit the keys. Use brackets [ ] for yes/no answers and parentheses ( ) for topics. Do not add conversational text.
+
+encouraging: [answer]
+discouraging: [answer]
+ambiguous: [answer]
+distinct: [answer]
+polysemous: [answer]
+homonymous: [answer]
+uniqueness: [answer]
+axiomatic: [answer]
+`;
                 
                 const streamContainer = document.createElement('div');
-                streamContainer.className = "text-[#ff00ff] font-mono pl-4 mb-2 border-l-2 border-[#ff00ff]/50 break-words";
+                streamContainer.className = "text-[#ff00ff] font-mono pl-4 mb-2 border-l-2 border-[#ff00ff]/50 break-words whitespace-pre-wrap";
                 logFeed.appendChild(streamContainer);
                 
                 await window.LLM_INFERENCE.generateResponse(prompt, (partialResult, complete) => {
                     if (partialResult) {
                         streamContainer.textContent += partialResult;
+                        fullResponseText += partialResult;
                         logFeed.scrollTop = logFeed.scrollHeight;
+                    }
+                    if (complete) {
+                        // --- FIX 3: LOOP DETECTION ---
+                        if (fullResponseText.length > 500) {
+                            console.warn("LLM loop detected. Forcing parse of extracted chunk.");
+                            addLog(`[WARNING] LLM loop anomaly detected. Attempting to parse generated subset.`, 'critical');
+                        }
                     }
                 });
 
                 addLog(`>> METACOGNITIVE_ANALYSIS COMPLETE.`, 'reflection');
 
-                dot.className = "w-2 h-2 rounded-full bg-[#00ffcc] animate-pulse"; text.innerText = "LLM ALIVE"; text.className = "text-[10px] font-bold tracking-[0.2em] text-[#00ffcc] uppercase";
-                isInferencing = false;
+                parseAndRenderReportz(data.label, fullResponseText);
+                showReportz();
 
+                dot.className = "w-2 h-2 rounded-full bg-[#00ffcc] animate-pulse"; text.innerText = "LLM ALIVE"; text.className = "text-[10px] font-bold tracking-[0.2em] text-[#00ffcc] uppercase";
+                
             } catch(e) {
-                addLog(`[LLM_ERROR] ${e.message}`, 'critical');
+                // --- FIX 2: EXPLICIT LOGGING & CONSOLE ERROR ---
+                console.error("LLM Generation Context Error:", e);
+                addLog(`[LLM_ERROR] Processing execution failure: ${e.message}`, 'critical');
+                
+                const dot = document.getElementById('llmStatusDot'); const text = document.getElementById('llmStatus');
+                dot.className = "w-2 h-2 rounded-full bg-red-500"; 
+                text.innerText = `LLM ERROR`; text.className = "text-[10px] font-bold tracking-[0.2em] text-red-500 uppercase";
+            } finally {
                 isInferencing = false;
-                document.getElementById('llmStatusDot').className = "w-2 h-2 rounded-full bg-red-500"; 
-                document.getElementById('llmStatus').innerText = `LLM ERROR`;
+                toggleLoading(false);
             }
         }
 

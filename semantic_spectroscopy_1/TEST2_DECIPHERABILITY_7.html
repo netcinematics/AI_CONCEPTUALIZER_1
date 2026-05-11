@@ -130,8 +130,8 @@
         </div>
 
         <div class="absolute top-[80px] right-6 flex flex-col items-end gap-[0.8em] z-[60] pointer-events-none">
-            <button id="lite-toggle-btn" class="interactzone px-4 py-2 text-[10px] font-bold tracking-widest border-r-4 border-[#00ffcc] bg-[steelblue] text-black hover:bg-[steelblue] hover:text-black transition-all rounded-lg pointer-events-auto shadow-lg">
-                LITE: ON
+            <button id="lite-toggle-btn" class="interactzone px-4 py-2 text-[10px] font-bold tracking-widest border-r-4 border-[#00ffcc] text-[#00ffcc] hover:bg-[steelblue] hover:text-black transition-all rounded-lg pointer-events-auto shadow-lg">
+                LITE: OFF
             </button>
             <button id="legend-toggle-btn" class="interactzone px-4 py-2 text-[10px] font-bold tracking-widest border-r-4 border-[#ff00ff] text-[#ff00ff] hover:bg-[#ff00ff] hover:text-black transition-all duration-300 rounded-lg pointer-events-auto shadow-lg">
                 LEGEND
@@ -231,10 +231,9 @@
         let lineLabels = [];
         let sharedGlowTex;
         
-        let isLiteMode = true;
+        let isLiteMode = false;
         let hoveredObj = null;
         let selectedObj = null;
-        let selectionHighlightMesh = null; // New global selection mesh
         
         // --- LLM LIFECYCLE GLOBALS ---
         let isInferencing = false;
@@ -405,15 +404,8 @@
             raycaster = new THREE.Raycaster(); mouse = new THREE.Vector2();
             sharedGlowTex = createGlowTexture('255,255,255');
 
-            const ambient = new THREE.AmbientLight(0xff00ff, 0.3); scene.add(ambient);
-            const spot1 = new THREE.DirectionalLight(0xffff00, 0.8); spot1.position.set(20, 50, 20); scene.add(spot1);
-
-            // Create global cyan selection sphere
-            const selGeo = new THREE.SphereGeometry(1, 32, 32); // Radius 1, we will scale it
-            const selMat = new THREE.MeshBasicMaterial({ color: 0x00ffff, transparent: true, opacity: 0.3, depthWrite: false });
-            selectionHighlightMesh = new THREE.Mesh(selGeo, selMat);
-            selectionHighlightMesh.visible = false;
-            scene.add(selectionHighlightMesh);
+            const ambient = new THREE.AmbientLight(0xffffff, 0.3); scene.add(ambient);
+            const spot1 = new THREE.DirectionalLight(0xffffff, 0.8); spot1.position.set(20, 50, 20); scene.add(spot1);
 
             window.addEventListener('resize', onWindowResize, false);
             window.addEventListener('dblclick', onDoubleClick, false);
@@ -431,7 +423,7 @@
             orbGroup.forEach(orb => scene.remove(orb.group)); orbGroup = [];
             netzLines.forEach(l => scene.remove(l)); netzLines = [];
             lineLabels.forEach(l => scene.remove(l)); lineLabels = [];
-            clearSelection();
+            selectedObj = null;
         }
 
         // --- HANGING TREE TOPOLOGY GENERATOR ---
@@ -476,7 +468,7 @@
                 ACTIVE_VIEW_DATA.push({
                     label: ctx.label, type: 'META_CONTEXT', color: cColorMid, size: 5,
                     x: cx, y: y1, z: cz, desc: ctx.desc, parent: ideoKey, relation: "CONTEXTUAL_BRIDGE",
-                    labelYOffset: (i % 2 === 0) ? 0 : -4
+                    labelYOffset: (i % 2 === 0) ? 0 : -6
                 });
 
                 // 3. Bottom Layer (Polysemy Nodes)
@@ -496,7 +488,7 @@
                     ACTIVE_VIEW_DATA.push({
                         label: childObj.label, type: 'POLYSEMOUS_NODE', color: cColorBot, size: 3.5,
                         x: chx, y: y2, z: chz, desc: `Polysemous instance within ${ctx.label}`, parent: ctx.label, relation: "SEMANTIC_DRIFT",
-                        labelYOffset: (globalChildIndex % 2 === 0) ? 0 : -4
+                        labelYOffset: (globalChildIndex % 2 === 0) ? 0 : -8
                     });
                     
                     // 4. New Deep Concept Layer
@@ -516,7 +508,7 @@
                         ACTIVE_VIEW_DATA.push({
                             label: subLabel, type: 'DEEP_CONCEPT', color: cColorDeep, size: 2.0,
                             x: sx, y: y3, z: sz, desc: `Core concept derived from ${childObj.label}`, parent: childObj.label, relation: "GRANULAR_DRIFT",
-                            labelYOffset: (globalSubIndex % 2 === 0) ? 0 : -4
+                            labelYOffset: (globalSubIndex % 2 === 0) ? 0 : -10
                         });
                     });
                 });
@@ -537,7 +529,7 @@
 
                 const mat = new THREE.MeshStandardMaterial({ 
                     color: finalColor, emissive: finalColor, emissiveIntensity: 0.5, 
-                    metalness: 0.8, roughness: 0.2, opacity: 1, transparent: true 
+                    metalness: 0.9, roughness: 10.8, opacity: 1, transparent: true 
                 });
                 const mainMesh = new THREE.Mesh(new THREE.SphereGeometry(data.size, 32, 32), mat);
                 group.add(mainMesh);
@@ -571,7 +563,6 @@
                         const lineLabel = createLineLabel(node.relation, node.color);
                         lineLabel.position.copy(midPoint);
                         lineLabel.position.y -= 1.5; 
-                        lineLabel.visible = !isLiteMode;
                         scene.add(lineLabel);
                         lineLabels.push(lineLabel);
                     }
@@ -583,9 +574,10 @@
 
         // --- INTERACTION ---
         function clearSelection() {
-            selectedObj = null;
-            if (selectionHighlightMesh) {
-                selectionHighlightMesh.visible = false;
+            if (selectedObj) {
+                const mesh = selectedObj.group.children[0];
+                if(mesh && mesh.material) mesh.material.emissiveIntensity = 1.5;
+                selectedObj = null;
             }
         }
 
@@ -607,25 +599,12 @@
         function onDoubleClick(e) {
             if(e.target.closest('.ui-layer')) return; 
             if(hoveredObj) {
-                const clickedObj = orbGroup.find(o => o.group === hoveredObj.parent);
-                
-                // Toggle off if clicking the already selected object
-                if (selectedObj === clickedObj) {
-                    clearSelection();
-                    closeDetails();
-                    return;
-                }
-
                 clearSelection();
-                selectedObj = clickedObj;
+                selectedObj = orbGroup.find(o => o.group === hoveredObj.parent);
                 
                 if (selectedObj) {
-                    // Position and scale cyan selection sphere
-                    selectionHighlightMesh.position.set(selectedObj.x, selectedObj.y, selectedObj.z);
-                    const highlightScale = selectedObj.size * 1.35; // Slight padding over the original orb
-                    selectionHighlightMesh.scale.set(highlightScale, highlightScale, highlightScale);
-                    selectionHighlightMesh.visible = true;
-
+                    const mesh = selectedObj.group.children[0];
+                    if(mesh && mesh.material) mesh.material.emissiveIntensity = 3.0;
                     showDetailsPanel(hoveredObj.userData.dataObj); 
                 }
             }
@@ -691,7 +670,6 @@
         liteToggleBtn.onclick = () => {
             isLiteMode = !isLiteMode; liteToggleBtn.innerText = `LITE: ${isLiteMode ? 'ON' : 'OFF'}`;
             liteToggleBtn.classList.toggle('bg-[steelblue]'); liteToggleBtn.classList.toggle('text-black'); liteToggleBtn.classList.toggle('text-[#00ffcc]');
-            lineLabels.forEach(l => l.visible = !isLiteMode);
         };
 
         let toggleLEGEND = false; 
@@ -764,28 +742,7 @@
             document.getElementById('log-feed').classList.remove('flex'); document.getElementById('log-feed').classList.add('hidden');
             const viewz = document.getElementById('experiment-viewz');
             viewz.classList.remove('hidden'); viewz.classList.add('flex');
-            viewz.innerHTML = `<pre class="whitespace-pre-wrap font-mono w-full text-yellow-300">[ DECIPHERABILITY_VIEW_MODULE ]\n
-                \n> Hanging Tree Topology Active!
-                \n <h2>DECIPHERABILITY</h2>
-                \n <h3>LLM TOKEN_REPORTZ</h3>
-                \n> This project demonstrates:</pre>
-                \n <ol>
-                    <li>1) Polysemy of Current Language.</li>
-                    <li>2) Decipherability - requires "word_cloud".</li>
-                    <li>3) Proposal for "Language of the Future".</li>
-                    <hr> 
-                    <h3>TOPICZ</h3>
-                    1) POLYSEMY & WORD_TREE.
-                    2) METASTATE & METACONTEXT.
-                    3) CONCEPT_DRIFT & CONTEXT_SHIFT.
-                    4) METACOGNITIVE_WARENESS.
-                    5) CONCEPTUAL_SHOWCASE_METASTATE.
-                    
-                    HIERARCHICAL CLUSTERING OF WORD SEMANTICS, (over time, Z-dimension/axis).
-                    4) INFERENTIAL LINGUISTICS 
-                    5) CONTEXTUAL GRAMMAR
-                    6) LANGUAGE & COGNITION
-                </ol>`;
+            viewz.innerHTML = `<pre class="whitespace-pre-wrap font-mono w-full text-yellow-300">[ DECIPHERABILITY_VIEW_MODULE ]\n\n> Hanging Tree Topology Active...\n> Awaiting conceptual injection.</pre>`;
         }
 
         // --- LLM LIFECYCLE MANAGEMENT ---
