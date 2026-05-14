@@ -113,7 +113,7 @@
 
         <div id="title-bar-panel" class="w-[77%] md:w-[50%] absolute top-6 left-6 interactzone p-4 flex flex-col gap-1 border-l-4 border-[#ff00ff] transition-all duration-300 z-50">
             <button onclick="toggleTitleBar()" class="absolute top-3 right-4 text-[#00ffcc] hover:text-white font-bold text-xl transition-colors">✕</button>
-            <h1 class="text-2xl md:text-3xl font-bold uppercase tracking-widest text-emerald pr-6">TEST_3: "METASTATE HIGHWAY"</h1>
+            <h1 class="text-2xl md:text-3xl font-bold uppercase tracking-widest text-emerald pr-6">TEST_3: "METASTATE_HIGHWAY"</h1>
             <div class="flex gap-6 mt-6">
                 <ol class="text-[14px] gap-6 text-[#ff00ff]">
                     <li>1) SELECT ANCIENT_GREEK_IDEOGRAM</li>
@@ -225,11 +225,14 @@
         const START_X = -30;
         const X_SHIFT_STEP = 20;
 
-        // --- LLM LIFECYCLE GLOBALS ---
+        // --- LLM LIFECYCLE & CONTEXT GLOBALS ---
         let isInferencing = false;
         let hasInitializedThreeJS = false;
         let loadingTimerInterval = null;
         let loadingStartTime = 0;
+        
+        // Dynamic context array to hold history of Q&A pairs for prompt injection
+        let sessionHistory = []; 
 
         const IDEOGRAM_DATA = {
             "ALPHA": { desc: "The first. The beginning. A primary origin point." },
@@ -248,14 +251,16 @@
             const ctx = canvas.getContext('2d');
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            const colorString = '#' + colorHex.toString(16).padStart(6, '0');
-            
-            ctx.shadowColor = 'rgba(0,0,0,0.9)';
-            ctx.shadowBlur = 6;
-            ctx.shadowOffsetX = 2;
-            ctx.shadowOffsetY = 2;
+            const isRed = colorHex === 0xff3333;
+            const isBlue = colorHex === 0x3333ff;
+            const glowColor = isRed ? 'rgba(255, 100, 100, 0.9)' : (isBlue ? 'rgba(100, 150, 255, 0.9)' : 'rgba(135, 206, 235, 0.9)');
 
-            ctx.fillStyle = colorString;
+            ctx.shadowColor = glowColor;
+            ctx.shadowBlur = 12;
+            ctx.shadowOffsetX = 0;
+            ctx.shadowOffsetY = 0;
+
+            ctx.fillStyle = '#ddffff'; // White text for maximum contrast inside the glow
             ctx.font = 'bold 22px Courier New';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
@@ -283,6 +288,9 @@
             let startY = (canvas.height - totalHeight) / 2 + (lineHeight / 2);
 
             for(let k = 0; k < lines.length; k++) {
+                // Draw multi-layered for intense neon effect
+                ctx.fillText(lines[k], canvas.width / 2, startY + (k * lineHeight));
+                ctx.fillText(lines[k], canvas.width / 2, startY + (k * lineHeight));
                 ctx.fillText(lines[k], canvas.width / 2, startY + (k * lineHeight));
             }
         }
@@ -304,11 +312,15 @@
             let s = size * 3.5; 
             sprite.scale.set(s * aspectRatio, s, 1); 
             
-            // Labels above/below logic
-            if (type === 'Q') {
-                sprite.position.y = -size - 3.5; // Below
+            // Labels above/below logic mapped directly from Baseline File 2
+            if (type === 'TOPIC') {
+                sprite.position.y = -size + 7; // Above
+            } else if (type === 'Q') {
+                sprite.position.y = 8; // Above
+                sprite.position.z = - 3; // In front
             } else {
-                sprite.position.y = size + 3.5;  // Above
+                sprite.position.y = 5;  // Below
+                sprite.position.z = - 3; // In front
             }
             
             return sprite;
@@ -336,10 +348,12 @@
         // --- CORE THREE.JS SETUP ---
         function initGallery() {
             scene = new THREE.Scene(); 
-            camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+            // FOV updated to 77 as per baseline file 2
+            camera = new THREE.PerspectiveCamera(77, window.innerWidth / window.innerHeight, 0.1, 1000);
             
-            // Camera viewing the X-axis highway from the side (+Z)
-            camera.position.set(0, 30, 50);
+            // Flipped Camera viewing the X-axis highway from the opposite side (-Z)
+            // Traffic flows from -X to +X, so looking back at it aligns Old->New sequentially left-to-right
+            camera.position.set(0, 30, -50);
             
             renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
             renderer.setSize(window.innerWidth, window.innerHeight); 
@@ -355,7 +369,7 @@
 
             const ambient = new THREE.AmbientLight(0xffffff, 0.5); scene.add(ambient);
             const dirLight = new THREE.DirectionalLight(0xffffff, 0.8); 
-            dirLight.position.set(20, 50, 20); scene.add(dirLight);
+            dirLight.position.set(20, 50, -20); scene.add(dirLight);
 
             const selGeo = new THREE.SphereGeometry(1, 32, 32); 
             const selMat = new THREE.MeshBasicMaterial({ color: 0x00ffff, transparent: true, opacity: 0.3, depthWrite: false });
@@ -417,38 +431,58 @@
             const data = IDEOGRAM_DATA[ideoKey];
             if(!data) return;
 
-            document.getElementById('legend-title').innerText = `METASTATE HIGHWAY: ${ideoKey}`;
+            document.getElementById('legend-title').innerText = `CONCEPT_HIGHWAY: ${ideoKey}`;
             
             const gridHelper = new THREE.GridHelper(200, 40, 0x00ffcc, 0x003333);
             gridHelper.position.y = -0.5;
+            gridHelper.position.x = -24; // Baseline file 2 positioning
             gridHelper.userData.isHighwayElement = true;
             scene.add(gridHelper);
+
+            // Explicit 0-pos X-Axis lane marking lines aligned with colored rectangles
+            const lineMat = new THREE.LineBasicMaterial({ color: 0x00ffcc, transparent: true, opacity: 0.2 });
+            [-15, 0, 15].forEach(z => {
+                const geo = new THREE.BufferGeometry().setFromPoints([
+                    new THREE.Vector3(-100, -0.4, z),
+                    new THREE.Vector3(100, -0.4, z)
+                ]);
+                const line = new THREE.Line(geo, lineMat);
+                line.userData.isHighwayElement = true;
+                scene.add(line);
+            });
+
+            // Axis endpoints mapping (+X and -X)
+            const posXAxis = createStaticLabel("+X (POS)", 0x00ffcc); posXAxis.position.set(90, 0, 20); posXAxis.userData.isHighwayElement = true;
+            const negXAxis = createStaticLabel("-X (NEG)", 0x00ffcc); negXAxis.position.set(-90, 0, 20); negXAxis.userData.isHighwayElement = true;
+            scene.add(posXAxis); scene.add(negXAxis);
 
             const padGeom = new THREE.PlaneGeometry(12, 12);
             const padMatBase = { transparent: true, opacity: 0.25, side: THREE.DoubleSide, depthWrite: false };
 
             const ai1Pad = new THREE.Mesh(padGeom, new THREE.MeshBasicMaterial({ ...padMatBase, color: 0xff3333 }));
-            ai1Pad.rotation.x = -Math.PI / 2; ai1Pad.position.set(START_X, -0.4, -15); ai1Pad.userData.isHighwayElement = true;
+            ai1Pad.rotation.x = -Math.PI / 2; ai1Pad.position.set(START_X, -0.4, -10); ai1Pad.userData.isHighwayElement = true;
             
             const topicPad = new THREE.Mesh(padGeom, new THREE.MeshBasicMaterial({ ...padMatBase, color: 0x87ceeb }));
             topicPad.rotation.x = -Math.PI / 2; topicPad.position.set(START_X, -0.4, 0); topicPad.userData.isHighwayElement = true;
 
             const ai2Pad = new THREE.Mesh(padGeom, new THREE.MeshBasicMaterial({ ...padMatBase, color: 0x3333ff }));
-            ai2Pad.rotation.x = -Math.PI / 2; ai2Pad.position.set(START_X, -0.4, 15); ai2Pad.userData.isHighwayElement = true;
+            ai2Pad.rotation.x = -Math.PI / 2; ai2Pad.position.set(START_X, -0.4, 10); ai2Pad.userData.isHighwayElement = true;
 
             scene.add(ai1Pad); scene.add(topicPad); scene.add(ai2Pad);
 
-            const ai1Lbl = createStaticLabel("AI_1", 0xff3333); ai1Lbl.position.set(START_X, 0.5, -15); ai1Lbl.userData.isHighwayElement = true;
-            const topicLbl = createStaticLabel("TOPIC", 0x87ceeb); topicLbl.position.set(START_X, 0.5, 0); topicLbl.userData.isHighwayElement = true;
-            const ai2Lbl = createStaticLabel("AI_2", 0x3333ff); ai2Lbl.position.set(START_X, 0.5, 15); ai2Lbl.userData.isHighwayElement = true;
+            // Starting line labels pulled back away from the pad centers
+            const ai1Lbl = createStaticLabel("AI_A1", 0xff3333); ai1Lbl.position.set(START_X - 10, 0.5, -15); ai1Lbl.userData.isHighwayElement = true;
+            const topicLbl = createStaticLabel("TOPIC", 0x87ceeb); topicLbl.position.set(START_X - 10, 0.5, 0); topicLbl.userData.isHighwayElement = true;
+            const ai2Lbl = createStaticLabel("AI_Q1", 0x3333ff); ai2Lbl.position.set(START_X - 10, 0.5, 15); ai2Lbl.userData.isHighwayElement = true;
 
             scene.add(ai1Lbl); scene.add(topicLbl); scene.add(ai2Lbl);
 
-            // Create initial topic sphere with custom offsets
-            const topicSize = 3 * (1 - 0.00666); // Reduced by 0.666%
+            // Create initial topic sphere with custom signature offsets
+            const topicSize = 3 * (1 - 0.0666); // Reduced by 0.666% mathematically expressed in baseline
             const topicZ = 1.444; // Custom signature shift on Z axis
             
-            spawnAgentSphere(ideoKey, 'TOPIC', 'TOPIC', 0x87ceeb, topicZ, topicSize, START_X);
+            // Baseline request to maintain exact location honoring the signature
+            spawnAgentSphere(ideoKey, 'TOPIC', 'TOPIC', 0x87ceeb, topicZ, topicSize, 0);
             
             populateLegend();
         }
@@ -690,7 +724,8 @@
             try {
                 const { LlmInference, FilesetResolver } = await import('https://cdn.jsdelivr.net/npm/@mediapipe/tasks-genai');
                 const genaiWasm = await FilesetResolver.forGenAiTasks("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-genai/wasm");
-                window.LLM_INFERENCE = await LlmInference.createFromOptions(genaiWasm, { baseOptions: { modelAssetPath: "./models/gemma-4-E2B-it-web.task" }, maxTokens: 2048, topK: 40, temperature: 0.2 });
+                // Bumping temperature to 0.4 to encourage novelty and break loops in Q&A generation
+                window.LLM_INFERENCE = await LlmInference.createFromOptions(genaiWasm, { baseOptions: { modelAssetPath: "./models/gemma-4-E2B-it-web.task" }, maxTokens: 2048, topK: 40, temperature: 0.4 });
                 console.log("Gemma LiteRT Engine initialized.");
                 
                 const dot = document.getElementById('llmStatusDot'); const text = document.getElementById('llmStatus');
@@ -710,6 +745,10 @@
             clearSelection();
             closeDetails();
             CURRENT_DOMAIN_NAME = val;
+            
+            // Clear prior conversation memory when changing topics
+            sessionHistory = []; 
+            
             addLog(`> SWITCHING LENS FOCUS TO IDEOGRAM: [${val}]`, 'info');
             buildHighway(val);
         }
@@ -727,9 +766,6 @@
 
             if (isInferencing) return;
             
-            outputPanel.classList.remove('hidden-bottom');
-            showLogz();
-
             try {
                 isInferencing = true;
                 const dot = document.getElementById('llmStatusDot'); const text = document.getElementById('llmStatus');
@@ -744,13 +780,15 @@
                     orb.x = orb.group.position.x; 
                 });
 
-                // Single prompt focused directly on producing one Q&A pair.
-                const prompt = `Task: Perform a brief, conversational metacognitive inquiry on the token: "${CURRENT_DOMAIN_NAME}".
-Generate EXACTLY one thoughtful question and one insightful answer.
-Constraint: Each must be 12 words or less.
-Format EXACTLY as:
-Q: [question]
-A: [answer]`;
+                // Generate simpler contextual prompt that makes it easier for the model to follow
+                let contextBlock = "";
+                if (sessionHistory.length > 0) {
+                    contextBlock = "Prior conversation on this topic:\n" + sessionHistory.map((h, i) => `Q: ${h.q}\nA: ${h.a}`).join("\n") + "\n\nTask: Based on these prior answers, formulate ONE NEW thoughtful follow-up question. DO NOT ask the same questions again. Then provide an insightful answer.\n";
+                } else {
+                    contextBlock = `Task: Perform a brief metacognitive inquiry on the token: "${CURRENT_DOMAIN_NAME}".\nGenerate ONE thoughtful question and ONE insightful answer.\n`;
+                }
+
+                const prompt = `${contextBlock}Constraint: Each must be 12 words or less.\nFormat EXACTLY as:\nQ: [your question]\nA: [your answer]`;
                 
                 let fullResponseText = "";
                 const streamContainer = document.createElement('div');
@@ -764,24 +802,48 @@ A: [answer]`;
                         logFeed.scrollTop = logFeed.scrollHeight;
                     }
                 });
+                
+                // Explicitly log raw output to browser console and ui console
+                console.log("Raw LLM Output string:", fullResponseText);
+                addLog(`[RAW_OUTPUT] ` + (fullResponseText.length > 0 ? fullResponseText.substring(0, 100) + `...` : `(empty string)`), 'info');
 
                 addLog(`>> LLM SEQUENCE PARSED. SPAWNING AGENT SPHERES...`, 'reflection');
 
                 // Feed raw output to Reportz view just in case user opens it
                 document.getElementById('llm_second_response_text').innerHTML = `<div class="p-4 bg-black/50 border border-orange-400/30 rounded text-orange-400"><pre class="whitespace-pre-wrap">${fullResponseText}</pre></div>`;
 
-                // Build Conversation Axis Spheres (MVP: Smallish spheres mapping)
-                const qMatch = fullResponseText.match(/Q:\s*(.+)/i);
-                const aMatch = fullResponseText.match(/A:\s*(.+)/i);
+                // Strip any markdown bolding LLM sometimes injects
+                let cleanText = fullResponseText.replace(/\*\*/g, '');
+
+                // Use robust regex looking for Q: and A:
+                const qMatch = cleanText.match(/(?:NEW_Q|Q|Question):\s*([^\n]+)/i);
+                const aMatch = cleanText.match(/(?:NEW_A|A|Answer):\s*([^\n]+)/i);
                 
-                const qText = qMatch ? qMatch[1].trim() : `What is the essence of ${CURRENT_DOMAIN_NAME}?`;
-                const aText = aMatch ? aMatch[1].trim() : `It represents a core metacognitive concept.`;
+                let qText = qMatch ? qMatch[1].trim() : `What is the essence of ${CURRENT_DOMAIN_NAME}?`;
+                let aText = aMatch ? aMatch[1].trim() : `It represents a core metacognitive concept.`;
+
+                // Dynamic fallback if regex fails to prevent the exact same string from repeating 3 times
+                if (!qMatch || sessionHistory.find(h => h.q === qText)) {
+                    qText = `How does ${CURRENT_DOMAIN_NAME} relate to prior implications (Iter ${sessionHistory.length + 1})?`;
+                }
+                if (!aMatch || sessionHistory.find(h => h.a === aText)) {
+                    aText = `Its meaning shifts depending on the analytical framework.`;
+                }
+                
+                // Track memory history 
+                sessionHistory.push({ q: qText, a: aText });
+
+                // Log exactly what the script parsed so user can verify uniqueness in UI and Browser
+                console.log("Newly formulated Question:", qText);
+                console.log("Newly formulated Answer:", aText);
+                addLog(`[AGENT_Q] ${qText}`, 'focus');
+                addLog(`[AGENT_A] ${aText}`, 'reflection');
 
                 const qaSize = 1.5; // Smallish spheres intended to grow later
 
-                // Spawn Q below grid lane, A above grid lane
-                spawnAgentSphere(qText, 'Q', 'AI_1', 0xff3333, -15, qaSize, START_X);
-                spawnAgentSphere(aText, 'A', 'AI_2', 0x3333ff, 15, qaSize, START_X);
+                // Spawning with explicit logic derived from Baseline File 2
+                spawnAgentSphere(qText, 'Q', 'AI_1', 0x3333ff, 11, qaSize, 0);
+                spawnAgentSphere(aText, 'A', 'AI_2', 0xff3333, -9, qaSize, -7);
 
                 // Return to ready state
                 dot.className = "w-2 h-2 rounded-full bg-[#00ffcc] animate-pulse"; text.innerText = "LLM ALIVE"; text.className = "text-[10px] font-bold tracking-[0.2em] text-[#00ffcc] uppercase";
