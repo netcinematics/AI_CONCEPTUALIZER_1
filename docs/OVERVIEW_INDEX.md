@@ -44,9 +44,24 @@ ____________________________________________________________________________
 2) "VISUALIZE_MANIFOLD" - "DECIPHER_ABILITY"
 3) "METASTATE_SHOWCASE" - "CONCEPTUAL_SPECTROSCOPY"!
 
-<img width="498" height="500" alt="Screenshot 2026-05-06 170516" src="https://github.com/user-attachments/assets/992d9217-baab-43c3-aa18-05f640586cf2" />
+<img width="332" height="333" alt="Screenshot 2026-05-06 170516" src="https://github.com/user-attachments/assets/992d9217-baab-43c3-aa18-05f640586cf2" />
 
-Creative ways to observe: MISNOMER, AMBIGUITY, and CONCEPTUAL_DRIFT (concepts)- simultanously results in extra_clarity of CONCEPTS in actual_reality.
+____
+
+> Creative ways to observe/solve: MISNOMER, AMBIGUITY, and CONCEPTUAL_DRIFT.
+
+To SEE the METASTATE of ALL CONCEPTS - simultanously results in PROFOUND TRANSFORMATION.
+
+To CLARIFY any CONCEPT, is not only a view of an ancient conceptual_distortion, but also a simultaneous (DUAL_BENEFIT) of extra_clarity of CONCEPTS in actual_reality.
+____
+
+### EXAMPLES:
+
+#### 1) SEMANTIC_TOPOLOGY:
+
+#### 2) CONCEPT_TREEZ:
+
+#### 3) CONCEPTUAL_SHOWCASE:
 
 > Introducing: SPECTRoSCOPE - a 3D tool to conceptually observe - Gemma's METACOGNITIVE light!
 
@@ -73,14 +88,6 @@ Creative three.js visualizations, in a single HTML file, with MEDIAPIPE and Lite
 
 > It is beyond amazing! Let's navigate the LLM CONCEPTS. Next, we iterate & "namerate" the "metastate"!
 _____________________________________________________________________
-
-### EXAMPLES:
-
-#### 1) SEMANTIC_TOPOLOGY:
-
-#### 2) CONCEPT_TREEZ:
-
-#### 3) CONCEPTUAL_SHOWCASE:
 
 _____________________________________________________________________
 
@@ -133,13 +140,6 @@ _____________________________________________________________________
 _____________________________________________________________________
 
 
-<img width="1510" height="861" alt="Screenshot 2025-02-11 173123" src="https://github.com/user-attachments/assets/98ebc17f-fb53-4ffd-a662-e1b5e6734b37" />
-
-_____________________________________________________
-
-
-
-
 <img width="861" height="539" alt="Screenshot jjj2026-05-13 131232" src="https://github.com/user-attachments/assets/84ea9b8b-cfb5-4b6c-a264-f07b85416e5d" />
 
 
@@ -165,6 +165,10 @@ It is a vast_canvas of techniques for AI cost savings of compute, with simultane
 The project of ALPHABITZA [ alpha + bits + zahh ], was originally a TOKENIZER in C++ - to RHYME SONG LYRICS!
 
 It is an ONGOING real-world HANDS-ON achievement, recently in Google Gemini, Gemma, and Kaggle Benchmarks.
+_____________________________________________________
+
+<img width="1510" height="861" alt="Screenshot 2025-02-11 173123" src="https://github.com/user-attachments/assets/98ebc17f-fb53-4ffd-a662-e1b5e6734b37" />
+
 
 _____________________________________________________________
 
