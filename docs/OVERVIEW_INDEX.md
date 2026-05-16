@@ -22,10 +22,10 @@ ____________________________________________________________________________
 3 Problems Solved for Deep Mind team. 
 
 1) "CONCEPTUAL_ACCESSIBILITY" and "HIGH_DENSITY_INFERENCE - reduce compute cost!
-   - clever ways to solve MISNOMER, AMBIGUITY, and CONCEPTUAL_DRIFT.
-4) "VISUALIZE_MANIFOLD"
+2) "VISUALIZE_MANIFOLD"
 3) "METASTATE_SHOWCASE"
 
+> clever ways to solve MISNOMER, AMBIGUITY, and CONCEPTUAL_DRIFT.
 
 
 <img width="1024" height="1024" alt="axi_8" src="https://github.com/user-attachments/assets/2a47584c-1b7d-437a-a6c6-1f0e82e08277" />
