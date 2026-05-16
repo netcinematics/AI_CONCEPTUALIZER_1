@@ -24,8 +24,8 @@ ____________________________________________________________________________
 3 Problems Solved for Deep Mind team. 
 
 1) "CONCEPTUAL_ACCESSIBILITY" and "HIGH_DENSITY_INFERENCE - reduce compute cost!
-2) "VISUALIZE_MANIFOLD"
-3) "METASTATE_SHOWCASE"
+2) "VISUALIZE_MANIFOLD" - "DECIPHER_ABILITY"
+3) "METASTATE_SHOWCASE" - "CONCEPTUAL_SPECTROSCOPY"!
 
 > clever ways to solve MISNOMER, AMBIGUITY, and CONCEPTUAL_DRIFT.
 
@@ -42,6 +42,7 @@ Creative three.js visualizations, in a single HTML file, with MEDIAPIPE and Lite
         modelAssetPath: "./models/gemma-4-E2B-it-web.task" }, 
         maxTokens: 2048, topK: 40, temperature: 0.4 });
 ```
+<img width="498" height="500" alt="Screenshot 2026-05-06 170516" src="https://github.com/user-attachments/assets/992d9217-baab-43c3-aa18-05f640586cf2" />
 _____________________________________________________________________
 
 ### EXAMPLES:
