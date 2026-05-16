@@ -8,11 +8,11 @@ Make knowledge "CONCEPTUALLY_ACCESSIBILE".
 
 > Help enable "DECIPHER_ABILITY".
 
-Novel techniques to "EXACTIFY" / OPTIMIZE INPUT PROMPTS - into "HIGH_PROBABILITY" tokens!
+1) Novel techniques to "EXACTIFY" / OPTIMIZE INPUT PROMPTS - into "HIGH_PROBABILITY" tokens!
 
-Called, "HIGH_DENSITY_INFERENCE". [ DEEPMIND - please hire me! ]. 
+2) Called, "HIGH_DENSITY_INFERENCE". [ DEEPMIND - please hire me! ]. 
 
-It is an AI_METASTATE_LANGUAGE called AMETATEXTA and it works because of BPE!
+3) It is an AI_METASTATE_LANGUAGE called AMETATEXTA and it works because of BPE!
 
 Easy to replicate and run:
 
