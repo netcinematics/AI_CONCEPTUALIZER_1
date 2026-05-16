@@ -6,17 +6,21 @@ SEE CONCEPTS VIVIDLY, from Gemini LLM - with intuitive 3D TOOLS!
 
 Make knowledge "CONCEPTUALLY_ACCESSIBILE".
 
-Help enable others to "DECIPHER_ACTUAL_REALITY".
+> Help enable "DECIPHER_ABILITY".
 
-And "EXACTIFY" input prompts to "HIGH_PROBABILITY" tokens!
+Novel techniques to "EXACTIFY" / OPTIMIZE INPUT PROMPTS - into "HIGH_PROBABILITY" tokens!
 
-> AI EXPERIMENTS in SINGULAR HTML FILES!
+Called, "HIGH_DENSITY_INFERENCE". [ DEEPMIND - please hire me! ]. 
+
+It is an AI_METASTATE_LANGUAGE called AMETATEXTA and it works because of BPE!
+
+Easy to replicate and run:
+
+> 3 AI EXPERIMENTS in SINGULAR HTML FILES!
 
 #### Google / Kaggle | Hackathon | Gemma 4 Good!
 
 <img width="333" height="333" alt="axi_8" src="https://github.com/user-attachments/assets/2a47584c-1b7d-437a-a6c6-1f0e82e08277" />
-
-
 ______________________________________________________________________
 
 ### TRACK: 
@@ -43,6 +47,13 @@ ____________________________________________________________________________
 ____________________________________________________________________
 
 ### ENVIRONMENT:
+
+HOW to RUN: these 3 HTML experiments, with LiteRT & GEMMA 4!
+
+1) YOU ONLY NEED TO PLUG IN THE MODEL locally,
+    **modelAssetPath: "./models/gemma-4-E2B-it-web.task"**
+   
+2) Then run in localhost.
 
 Creative three.js visualizations, in a single HTML file, with MEDIAPIPE and LiteRT!
 ```JavaScript
