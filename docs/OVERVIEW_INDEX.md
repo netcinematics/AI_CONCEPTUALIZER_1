@@ -86,7 +86,8 @@ _____________________________________________________________________
 
 ### 1) SEMANTIC_TOPOLOGY:
 
-<img width="1478" height="903" alt="Screenshot 2026-05-01 111844" src="https://github.com/user-attachments/assets/685670b4-7ca4-4808-8369-4379496ced1c" />
+<img width="1184" height="529" alt="Screenshot 2026-05-15 193212" src="https://github.com/user-attachments/assets/070b7078-bc3b-47d2-a187-91f00c46d111" />
+
 
 > WHAT DOES THE RESEARCH SHOW?
 - one
