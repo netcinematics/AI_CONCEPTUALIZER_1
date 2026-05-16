@@ -66,9 +66,7 @@ ____
 > Creative ways to observe/solve: MISNOMER, AMBIGUITY, and CONCEPTUAL_DRIFT.
 ____
 
-## AI RESEARCH (methodology):
-
-3D DATA VISUALIZATION EXPERIMENTS - in single HTML files (light-weight/portable/versionable).
+## AI RESEARCH (focus):
 
 To SEE the METASTATE of ALL CONCEPTS - is to REDUCE_AMBIGUITY - and AUGMENT_CLARITY (simultaneously). 
 
@@ -76,30 +74,46 @@ It results in PROFOUND TRANSFORMATION of "CONCEPTUAL_OPTICS" (called "DUAL_BENEF
 
 > Simply put, we articulate CONCEPTS, wherever we articulate WORDS (called "WORDZ").
 
-### AI RESEARCH (focus)
+### AI RESEARCH (methodology)
+
+3D DATA VISUALIZATION EXPERIMENTS for DEEPMIND AI - in single HTML files (light-weight/portable/versionable). Scalable into a massive_vast library, easily.
+
 
 ```JavaScript
-//Look, at what these "WORDZ" do in LIMINAL_SPACE!
-//Look, at what UNDERBAR_SYNTAX - does within LIMINAL_SPACE!
-//It is simply a phenomenal variation of conceptual_spectroscopy.
+// Look, at what "WORDZ" do in LIMINAL_SPACE!
+// - They are UNIQUE - and AI infers meaning!
+// Look, at what UNDERBAR_SYNTAX - does - within LIMINAL_SPACE!
+// - It is a programming variable! To decipher extra complex concepts.
+// The RESULTS, are UNAMBIGUOUS mathmatic precision.
+// Probabalistic shortcuts to semantic meaning - in AI.
+// Enable, high-density ACTIVATION MATH, of probabalistic certainty of concept, with "AXIOMATIC_NEOLOGISMS"!
 ```
+"AXIOMATIC_AUGMENTATION" for "HIGH_DENSITY_INFERENCE" (in AI, for HUMAN interface and benefit).
+__________________________________________
+
+### BRIEF SYNTAX EXAMPLES:
+
 > "UNDERBAR_SYNTAX", lovingly called "monkeybars" format - creates precisely defined concepts in AI!
 
-ENABLES: PROBABALISTIC PRECISION in MATRIX MATH - because of UNIQUENESS (not despite it).
+ENABLES: PROBABALISTIC PRECISION in MATRIX MATH - because of UNIQUENESS.
 
-It reduces compute cost, by REMOVING natural language AMBIGUITY OVERHEAD.
+Surprisingly, it reduces compute cost by REMOVING natural language AMBIGUITY OVERHEAD.
 
-Supplementally and organically within deep linguistics.
+> The way to FOCUS ABSTRACT CONCEPTS, is to "OPTIMIZE the INPUT LANGUAGE".
 
-> Such syntax examples, effectively instance (or instantiate) - UNIQUE VARIABLES in LIMINAL_SPACE (for extra precise computation).
+Supplementally, such syntax examples, instance (or instantiate) - UNIQUE VARIABLES in LIMINAL_SPACE - for extra precise computation (of complex concepts).
 
-That is the concept called: "HIGH_DENSITY_INFERENCE".
+That is the RESULT called: "HIGH_DENSITY_INFERENCE".
+___________________________________________________
 
+### "AXIOMZ" for AI
+
+Before the 3 visual examples below. It is important to prime a few AXIOMS ("AXIOMZ") linguistically.
+
+> CORE AXIOMIC_GOAL: remove conceptual distortion and confusion for extra_articulation to best_reflect_actual_reality.
 __________________________________________________
 
 ### "DUAL_BENEFIT":
-
-Before the 3 examples below. It is important to prime a few AXIOMS ("AXIOMZ").
 
 > "DUAL_BENEFIT" - a simultaneous result of "REDUCED_AMBIGUITY" is "EXTRA_CLARITY".
 
