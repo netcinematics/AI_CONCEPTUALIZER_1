@@ -10,7 +10,7 @@ Help enable others to "DECIPHER_ACTUAL_REALITY" & "EXACTIFY".
 
 #### Google / Kaggle | Hackathon | Gemma 4 Good!
 
-<img width="222" height="222" alt="axi_8" src="https://github.com/user-attachments/assets/2a47584c-1b7d-437a-a6c6-1f0e82e08277" />
+<img width="333" height="222" alt="axi_8" src="https://github.com/user-attachments/assets/2a47584c-1b7d-437a-a6c6-1f0e82e08277" />
 
 
 ______________________________________________________________________
