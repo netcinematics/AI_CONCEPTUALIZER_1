@@ -25,12 +25,12 @@ ______________________________________________________________________
 
 ### TRACK: 
 
-"Digtal Equity & Inclusivity", linguistic diversity, intuitive interfaces, and 3D tools to close AI SKILLS gap.
+"Digtal Equity & Inclusivity", linguistic diversity, intuitive interfaces, and 3D tools to close AI SKILLS gap!
 
 - "HIGH_DENSITY_INFERENCE" using Gemma 4.
 - To "EXPONENTIALLY SCALE INNOVATION"!
 
-> By reducing AMBIGUITY and increasing ARTICULATION.
+> To reduce AMBIGUITY and increase DECIPHERABILITY.
 
 ____________________________________________________________________________
 
@@ -43,6 +43,8 @@ ____________________________________________________________________________
 3) "METASTATE_SHOWCASE" - "CONCEPTUAL_SPECTROSCOPY"!
 
 > clever ways to solve MISNOMER, AMBIGUITY, and CONCEPTUAL_DRIFT.
+
+<img width="498" height="500" alt="Screenshot 2026-05-06 170516" src="https://github.com/user-attachments/assets/992d9217-baab-43c3-aa18-05f640586cf2" />
 
 ____________________________________________________________________
 
@@ -64,7 +66,7 @@ Creative three.js visualizations, in a single HTML file, with MEDIAPIPE and Lite
         modelAssetPath: "./models/gemma-4-E2B-it-web.task" }, 
         maxTokens: 2048, topK: 40, temperature: 0.4 });
 ```
-<img width="498" height="500" alt="Screenshot 2026-05-06 170516" src="https://github.com/user-attachments/assets/992d9217-baab-43c3-aa18-05f640586cf2" />
+
 _____________________________________________________________________
 
 ### EXAMPLES:
