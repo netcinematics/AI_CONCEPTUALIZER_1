@@ -69,13 +69,15 @@ ____
 > SPECTRoSCOPE, enables us to observe & solve: METASTATE, CONTEXT, MISNOMER, AMBIGUITY, CONCEPTUAL_DRIFT - easily!
 ____
 
-### IMPORTANT: SUPER EASY SETUP (JavaScript/HTML):
+### TEST_0) GEMMA as JUDGE! | "LLM LIFE-CYCLE OVERLAY" | MODULAR AI EXPERIMENTS | MECHANISTIC INTERPRETABILITY:
 
-GEMMA is PHENOMENALLY EASY to RUN - in 1 HTML file - with LiteRT & GEMMA 4!
+> IMPORTANT: SUPER EASY SETUP with JavaScript/HTML.
+
+GEMMA is PHENOMENALLY EASY to GENERATE & RUN - in 1 HTML file - with LiteRT & GEMMA 4!
+
+<img width="498" height="500" alt="Screenshot 2026-05-06 170516" src="https://github.com/user-attachments/assets/992d9217-baab-43c3-aa18-05f640586cf2" />
 
 >    **modelAssetPath: "./models/gemma-4-E2B-it-web.task"**
-
-<img width="333" height="333" alt="Screenshot 2026-05-06 170516" src="https://github.com/user-attachments/assets/992d9217-baab-43c3-aa18-05f640586cf2" />
 
 #### EASY: LiteRT integration:
 ```JavaScript
@@ -87,164 +89,111 @@ GEMMA is PHENOMENALLY EASY to RUN - in 1 HTML file - with LiteRT & GEMMA 4!
         maxTokens: 2048, topK: 40, temperature: 0.4 });
 ```
 
-> These EXPERIMENTS SHOW GEMMA as a HIGHLY-CAPABLE and EXTREMELY-PORTABLE BRAIN (for any topic)!
+> These EXPERIMENTS SHOW GEMMA is HIGHLY-CAPABLE and EXTREMELY-PORTABLE BRAIN (for any topic)!
    
 2) Use Google Antigravity, to run in localhost. An Extremely Easy Setup!
 
 > Let's SEE WHAT GEMMA CAN DO with 3 creative visualizations, to CONCEPTUALLY navigate the "INNER_FRONTIER"!
 ___________________________________________________________
 
-### 1) CONCEPT_TOPOLOGY | "CONCEPTUAL_ACCESSIBILITY" | "VISUALIZE_MANIFOLD" | reduce compute cost!
+### 1a) CONCEPT_TOPOLOGY | "CONCEPTUAL_ACCESSIBILITY" | "VISUALIZE_MANIFOLD" | reduce compute cost!
 
-GOAL: render "MEDICAL_METASTATE". 
+GOAL: render "MEDICAL_METASTATE", and WEALTH_CREATION. 
 
-First, we ask GEMMA to "ITERATE_METASTATE" - in a prompt that returns TOPICS. 
-<img width="1054" height="858" alt="Screenshot 2026-05-08 135836" src="https://github.com/user-attachments/assets/9c3a4041-6264-4022-beae-b52e8ce468c4" />
+__________________________________________
+First, we "ITERATE_METASTATE", PROMPTING GEMMA for TOPIC_TAXONOMY. 
 
-> EXAMPLE 1: This elementary system, allows us to ITERATE GEMMA METASTATE!
+<img width="562" height="857" alt="Screenshot 2026-05-08 160448" src="https://github.com/user-attachments/assets/535ba616-9ebd-4a8b-b24b-f1456c1be3ef" />
 
-As a student, you could use this for learning MEDICAL CONCEPTS.
-Or as a person of wealth, you could use this to MANAGE COMPLEX FINANIAL CONCEPTS.
+_____________________________________________
 
-#### LEARNING CONTRAST: MEDICAL, FINANCIAL, GREEK IDEOGRAM, and NEOLOGISM (later).
+> EXAMPLE_1: With a DOUBLE-CLICK - this GENERALIZED TOPIC INTERFACE, allows us to ITERATE a vast GEMMA METASTATE!
+
+<img width="748" height="841" alt="Screenshot 2026-05-08 163325" src="https://github.com/user-attachments/assets/31d9cbff-6430-4277-a02b-3b11594ed776" />
+
+__________________________________________
+
+Next, we APPLY VISUAL TOPOLOGY, or "BITZ" (in MECHANISTIC_INTERPRETABILITY). 
+
+<img width="1207" height="765" alt="Screenshot 2026-05-06 161556" src="https://github.com/user-attachments/assets/c1acd78e-0a3b-4372-9b6a-8621257299e4" />
+
+_______________________________
+
+#### ACCESSIBILITY for VISUAL LEARNERS (of advanced concepts):
+1) As a STUDENT, you could use this for learning MEDICAL CONCEPTS.
+2) As a STOCKHOLDER, you could use this to MANAGE COMPLEX FINANCIAL CONCEPTS.
+3) Also we can use this to CRAFT_NEOLOGISMS, to reduce ambiguity, and unburden compute costs.
+_____________________________
+
+#### METACOGNITIVE LEARNING-CONTRAST: MEDICAL, FINANCIAL, GREEK IDEOGRAM, and NEOLOGISM (later).
 
 > SPECTRoSCOPE helps you SEE CONCEPTS CLEARER! Just watch!
 
 ________________________________________________________________________________
 
-> AXIOMIC_CLUSTER is a collection of AXIOMIC_TRUTH in fewest words possible.
+1b) AXIOMIC_TOPOLOGY:
 
-The EXPERIMENT to VISUALIZE_MANIFOLD starting with BITZ!
-<img width="1207" height="765" alt="Screenshot 2026-05-06 161556" src="https://github.com/user-attachments/assets/c1acd78e-0a3b-4372-9b6a-8621257299e4" />
+> We render the CONCEPT VISUALLY, to BEST_REFLECT_ACTUAL_REALITY - for AI and humanity.
 
-ALL OF THESE TOPICS are PULLED from GEMMA - and VISUALIZED - and are FULLY INTERACTIVE and ACCESSIBLE!
+<img width="1054" height="858" alt="Screenshot 2026-05-08 135836" src="https://github.com/user-attachments/assets/9c3a4041-6264-4022-beae-b52e8ce468c4" />
+
+> EXAMPLE_2: AXIOMIC_CLUSTER is a collection of AXIOMIC_TRUTH in fewest words possible.
+
+___________________________________________________________
+
+With a DOUBLE_CLICK - open the SUBTOPICS of any TOPIC!
+
 <img width="1051" height="867" alt="Screenshot 2026-05-08 114627" src="https://github.com/user-attachments/assets/5e30fe51-71df-493c-935c-0d02bc397379" />
 
-MEANING: you can iterate all of GEMMA LLM with this light-weight interface. 
+__________________________________________
 
-But it goes far beyond this, and extremely deep, as you will see.
-
-<img width="1053" height="855" alt="Screenshot 2026-05-08 111904" src="https://github.com/user-attachments/assets/b3219f9c-dcb4-4906-8f10-edaff29a4497" />
-
-Adding it all together, into a NEW_AI_SCIENCE, of "AXIOMOLOGY", with "CONCEPT_TOPOLOGY".
-
-Easy to code, in JavaScript or Python. 
-
-It uses VARIOUS VISUAL MODALITIES - into a PSEUDO: "AI_PROGRAMMING_LANGUAGE" and editor - take a look!
-
+It enables, a NEW_AI_SCIENCE, of "AXIOMOLOGY" and "TOKENOLOGY", with "CONCEPT_TOPOLOGY". Easy to code, and scale in JavaScript. 
 
 <img width="1908" height="911" alt="Screenshot 2026-04-29 213917" src="https://github.com/user-attachments/assets/e7d6cfb4-20d3-49d4-b345-acf11825d9f7" />
 
-To VISUALIZE CONCEPTS, like MEDICAL_METASTATE, we "ITERATE_METASTATE". 
+Level 4 FRONTIER DASHBOARDS of Human-Plus-AI - interfaces of the FUTURE!
 
-<img width="562" height="857" alt="Screenshot 2026-05-08 160448" src="https://github.com/user-attachments/assets/535ba616-9ebd-4a8b-b24b-f1456c1be3ef" />
+To TRANSFORM GEMMA into a METACOGNITIVE, "AI_PROGRAMMING_LANGUAGE" and METASTATE editor.
 
-Or WEALTH_CREATION METASTATE:
-<img width="748" height="841" alt="Screenshot 2026-05-08 163325" src="https://github.com/user-attachments/assets/31d9cbff-6430-4277-a02b-3b11594ed776" />
-
-> A super simple AI TOOL - to enable anyone to ITERATE GEMMA METASTATE!
-
- And also as an AI_METASTATE_EDITOR. 
+For ACCESSIBILITY to "AI_CONCEPTUALIZATION"!
 
 ______________________________________________________________________________
 ______________________________________________________________________________
 
-#### METACOGNITIVE GENERATION_METHODOLOGY (schedule):
+### 2a) stuff..
 
-Google Gemini PRO, Generative Code - and 1 HITM (human in the middle), as experience AI innovator.
+#### 2) "CONCEPTUAL_TREEZ" - visualization of POLYSEMY, IDEOGRAMS, and NEOLOGISMS.
 
-- TEST_0) "LLM LIFE-CYCLE OVERLAY" | MODULAR AI EXPERIMENTS | MANIFOLD_VISUALIZTION | MECHANISTIC INTERPRETABILITY |.
-- TEST_1) "CONCEPTUAL_ACCESSIBILITY" | "METASTATE_TOPOLOGY" | "CONCEPTUAL_SPECTROSCOPY" | "ITERATE_METASTATE"  |.
-- TEST_2) "DECIPHERABILITY" | "METATEXT" | "AI_as_INTERPRETER" | "INTERPRETABILITY" | "Interprify" |.
-- TEST_3) "CONCEPTUAL_SPECTROSCOPY" | "MANIFOLD_MORPHOLOGY" | "TOPIC_TOPOLOGY" | "EXACTIFICATION" | "Exactify" |.
-_______________________________________________________________________________________
+#### 3) "CONCEPTUAL_SHOWCASE" - LLM_as_JUDGE, QnA_LOOPS, for "CONCEPTUAL_METACOGNITION".
 
-## EXPERIMENTAL DETAILS:
+____________________________________________________________________
 
-___________________________________________
+> Introducing: SPECTRoSCOPE - a 3D tool to conceptually observe - Gemma's METACOGNITIVE light!
+____________________________________________________________________
+### 2) CONCEPT_TREEZ:
 
-### TEST_0) "LLM LIFE-CYCLE OVERLAY" | MODULAR AI EXPERIMENTS | MANIFOLD_VISUALIZTION | MECHANISTIC INTERPRETABILITY 
+<img width="984" height="629" alt="Screenshot 2026-05-10 205049" src="https://github.com/user-attachments/assets/ff4a3d93-facc-4997-8622-ecf25dc19050" />
+77
 
-Each experiment is a separate HTML file, to ISOLATE TOKEN_TARGETS and NOVELTY of OUTPUT or PROOF of CONCEPT.
-
-The AI_LIFECYCLE_OVERLAY manages the LOADING of the LLM, and the subsequent queries.
-
-<img width="498" height="500" alt="Screenshot 2026-05-06 170516" src="https://github.com/user-attachments/assets/992d9217-baab-43c3-aa18-05f640586cf2" />
-999
-___________________________________________
-
- ### TEST_1) "CONCEPTUAL_ACCESSIBILITY" | "ITERATE_METASTATE" | "NAMERATE_METASTATE" | "NAMEROLOGY" | "NAMEIFICATON" | "Nameify" :
-
- > QUESTION: Is it possible to VISUALIZE LLM METASTATE for single-click (concept) ACCESSIBILITY? Yes!
-
- "CONCEPTUAL_ACCESSIBILITY" is demonstrated with a single-click UX to access and navigate CONCEPT CLUSTERS.
-
- Every CONCEPT in the LLM is ACCESSIBLE in this innovative interaction format (UI/UX) called the "SPECTRoSCOPE"!
-
- #### TEST_IMPLEMENTATION:
-
- > The FIRST_LOOK of this project, is input of "Financial" and "Medical" topics - to RENDER SUB_TOPIC_MAPS.
-
-000
-<img width="949" height="731" alt="Screenshot 2026-05-06 165755" src="https://github.com/user-attachments/assets/ce90f128-5f39-4653-a36a-0905226885d0" />
-
- #### PURPOSE: to VISUALIZE_METASTATE of any topic in the local LLM!
-
- Then with a single-click (UI/UX) to any CONCEPT in the LLM, we VISUALIZE along a dimensionality of "SUB_TOPIC_MAPS".
-
- #### "METASTATE_TOPOLOGY" then is how the METASTATE is presented to the human. 
- With the intent to convey multiple-dimensions of METASTATE in a single view.
- We will prove that concept later.
-
- ______________________________________________________
- 
-   
- ### TEST_1 | SHOWCASE_CONCEPT | "CONCEPTUAL_ACCESSIBILITY":
- 
- > This "AXIOMATIC_WEB" enables CONCEPTUAL_ACCESSIILITY of all_topics encoded in the LLM - in a SINGLE-CLICK UI/UX!
-
-<img width="1200" height="703" alt="Screenshot 2026-05-06 170733" src="https://github.com/user-attachments/assets/88832886-2d40-40e4-9a35-dfc46d71f904" />
-
- After CLICK on "CONCEPTUALIZE", the LLM will prompt the TARGET_TOKEN, and ITERATE_METASTATE.
-
- For a COMMA DELIMITED LIST of METASTATE TOPICS.
-111
+<img width="962" height="857" alt="Screenshot 2026-05-10 192331" src="https://github.com/user-attachments/assets/c3b0d205-e1ee-4dee-8588-2ed8528a76bb" />
+88
+<img width="1641" height="798" alt="Screenshot 2026-05-10 183627" src="https://github.com/user-attachments/assets/f07f2d50-fbfb-49a3-bedd-6e93be5e9b16" />
+99
+<img width="920" height="846" alt="Screenshot 2026-05-10 100054" src="https://github.com/user-attachments/assets/c7daf1e5-dd00-4a24-ab39-2d3626e2243c" />
 
 
- <img width="1090" height="559" alt="Screenshot 2026-05-06 171250" src="https://github.com/user-attachments/assets/c99705cc-54c5-4dac-945a-3994777f98e8" />
 
+______________________________________________________________________________
 
- #### DIMENSIONALITY META_CONTEXT:
+<img width="927" height="859" alt="Screenshot 2026-05-10 095757" src="https://github.com/user-attachments/assets/cd83105d-d1e4-4715-a49e-8d7f6582fd21" />
+<img width="776" height="565" alt="Screenshot 2026-05-10 133252" src="https://github.com/user-attachments/assets/583b20dd-15e3-41fc-8ec0-a55058aee988" />
+______________________________________________________________________________
 
- In essence, this is the dimensionality of ZOOM_IN and ZOOM_OUT.
+<img width="945" height="860" alt="Screenshot 2026-05-10 134241" src="https://github.com/user-attachments/assets/c412e2b2-5498-4914-967e-d4415b498814" />
+<img width="745" height="628" alt="Screenshot 2026-05-09 133004" src="https://github.com/user-attachments/assets/710aa3e3-f0a4-4cfb-803a-e84cf02b942d" />
+<img width="1048" height="853" alt="Screenshot 2026-05-08 234605" src="https://github.com/user-attachments/assets/b5bc1c2f-9ab8-4080-b765-a72a52b2cc0b" />
+<img width="1073" height="849" alt="Screenshot 2026-05-08 234756" src="https://github.com/user-attachments/assets/f0b577f3-5e43-4db7-b4b1-b809f6e7555d" />
 
- As a BASIS for further TOPOLOGICIAL MORPHOLOGY, and CONCEPTUAL interpretation, with LLM_as_INTERPRETER - next.
-
-
- #### SUB_CONCEPTS: 
- 
- 1) METATEXT: introducing a novel data format between CSV and JSON - that is wildly functional!
- 2) METACOGNITIVE SUB_TOPIC_MAPS: what are the top 10 biggest concepts in your LLM?
- 3) METACOGNITIVE AMBIGUITY_MAPS (called "CLOUDZ"|"FOGZ"|"VOIDZ"|"BLOX"): what is ambiguous?.
- 4) Also does ambiguity cloud_out CONCEPTUAL_ACCESSIBILITY? Is there no solution (yet)?
- 5) ITERATE_METASTATE is exemplified and PROVEN here!
- 6) ITERATE_METASTATE extends to NAMERATE_METASTATE later.
- 7) For the novel SCIENCE_of_NAMEROLOGY, based on AXIOMIC_PRINCIPLES.
-
-Advanced Topics (not covered) | "NAMERATE_METASTATE" | "NAMEROLOGY" | "NAMEIFICATON" | "Nameify" |.
-____________________________________________________________________________
-
-#### AXIOMIC_PRINCIPLES:
-
-  A light-hearted intro to AXIOMIC_PRINCIPLES (beyond "best_reflect_actual_reality) is "NOT_TRASH_but_TREASURE"!
-
-  > In SPECTRoSCOPE we VISUALIZE_BOTH! So "NOT_TRASH_but_TREASURE" is a valid CONTEXT_SHIFT to notice.
-
-  We visualize all "TRASH", then with the MIRROR REFLECTION - in EXACT_OPPOSITE (vector) - we RENDER_the_TREASURE!
-
-  In this way, we VISUALIZE_the_MANIFOLD, of the TARGET_TOKEN with METASTATE. For the eventual result of ACTUAL_EXTRA_INTELLECT (AXI).
-
-  > Another great EXAMPLE of AXIOMIC_PRINCIPLES is DECIPHERABILITY.
  _______________________________________________________________________________________________________________
  
  ### TEST_2) "DECIPHERABILITY" | "METATEXT" | "AI_as_INTERPRETER" | "INTERPRETABILITY" | "Interpify":
@@ -288,6 +237,7 @@ ____________________________________________________________________________
  c) Can LLM inference with high-density semantic WORDZ - later? 
 
 _______________________________________
+_______________________________________
  
  ### TEST_3) "CONCEPTUAL_SPECTROSCOPY" | "MANIFOLD_MORPHOLOGY" | "TOPIC_TOPOLOGY" | "EXACTIFICATION" | "Exactify" :
 
@@ -295,6 +245,30 @@ _______________________________________
 
 
 
+ #### SUB_CONCEPTS: 
+ 
+ 1) METATEXT: introducing a novel data format between CSV and JSON - that is wildly functional!
+ 2) METACOGNITIVE SUB_TOPIC_MAPS: what are the top 10 biggest concepts in your LLM?
+ 3) METACOGNITIVE AMBIGUITY_MAPS (called "CLOUDZ"|"FOGZ"|"VOIDZ"|"BLOX"): what is ambiguous?.
+ 4) Also does ambiguity cloud_out CONCEPTUAL_ACCESSIBILITY? Is there no solution (yet)?
+ 5) ITERATE_METASTATE is exemplified and PROVEN here!
+ 6) ITERATE_METASTATE extends to NAMERATE_METASTATE later.
+ 7) For the novel SCIENCE_of_NAMEROLOGY, based on AXIOMIC_PRINCIPLES.
+
+Advanced Topics (not covered) | "NAMERATE_METASTATE" | "NAMEROLOGY" | "NAMEIFICATON" | "Nameify" |.
+____________________________________________________________________________
+
+#### AXIOMIC_PRINCIPLES:
+
+  A light-hearted intro to AXIOMIC_PRINCIPLES (beyond "best_reflect_actual_reality) is "NOT_TRASH_but_TREASURE"!
+
+  > In SPECTRoSCOPE we VISUALIZE_BOTH! So "NOT_TRASH_but_TREASURE" is a valid CONTEXT_SHIFT to notice.
+
+  We visualize all "TRASH", then with the MIRROR REFLECTION - in EXACT_OPPOSITE (vector) - we RENDER_the_TREASURE!
+
+  In this way, we VISUALIZE_the_MANIFOLD, of the TARGET_TOKEN with METASTATE. For the eventual result of ACTUAL_EXTRA_INTELLECT (AXI).
+
+  > Another great EXAMPLE of AXIOMIC_PRINCIPLES is DECIPHERABILITY.
 
 
 
@@ -303,7 +277,7 @@ _______________________________________
 ____________________________________________________________________________
 ____________________________________________________________________________
 
-### PASSION PROJECT: "ALPHABITZA"
+### INTRODUCING PROJECT: "ALPHABITZA"
 
 - Make knowledge "CONCEPTUALLY_ACCESSIBILE", with clearer words.
 
@@ -313,13 +287,15 @@ ___________________________________________
 
 #### HOW?
 
-1) Novel techniques to "EXACTIFY" concepts, or augment prompts - into "HIGH_PROBABILITY" tokens!
+1) Novel techniques of "HIGH_PROBABILITY" tokens!
 
 2) A REFERENTIAL_EXACTNESS called, "HIGH_DENSITY_INFERENCE".
 
 [ DEEPMIND - please hire me! This is my application]. 
 
-3) Also, an innovative AI_METASTATE_LANGUAGE called AMETATEXTA. Recently showcased in KAGGLE BENCHMARKS hackathon. Proven that it works because of BPE Tokenizer! My specialty.
+3) Also, an innovative AI_METASTATE_LANGUAGE called AMETATEXTA.
+4)
+5) Recently showcased in KAGGLE BENCHMARKS hackathon. Proven that it works because of BPE Tokenizer! My specialty.
 
 Examples of these DEEP CONCEPTS - simplified below.
 
@@ -420,18 +396,7 @@ It's phenomenal, and I follow the work for 25 years.
 Now, it seems the fantastic results of BPE (and beyond).
 ____
 
-### ELEMENTARY EXAMPLES:
 
-#### 1) "CONCEPTUAL_TOPOLOGY" - for "CONCEPTUAL_ACCESSIBILITY". Making AI_CONCEPTS visual.
-
-#### 2) "CONCEPTUAL_TREEZ" - visualization of POLYSEMY, IDEOGRAMS, and NEOLOGISMS.
-
-#### 3) "CONCEPTUAL_SHOWCASE" - LLM_as_JUDGE, QnA_LOOPS, for "CONCEPTUAL_METACOGNITION".
-
-____________________________________________________________________
-
-> Introducing: SPECTRoSCOPE - a 3D tool to conceptually observe - Gemma's METACOGNITIVE light!
-____________________________________________________________________
 
 ### ENVIRONMENT:
 
@@ -451,24 +416,12 @@ _____________________________________________________________________
 66
 
 
-<img width="748" height="841" alt="Screenshot 2026-05-08 163325" src="https://github.com/user-attachments/assets/fa0d72fd-f660-4fba-8368-05bfb396677a" />
-
 
 > WHAT DOES THE RESEARCH SHOW?
 - one
 
 - 
 _____________________________________________________________________
-### 2) CONCEPT_TREEZ:
-
-<img width="984" height="629" alt="Screenshot 2026-05-10 205049" src="https://github.com/user-attachments/assets/ff4a3d93-facc-4997-8622-ecf25dc19050" />
-77
-
-<img width="962" height="857" alt="Screenshot 2026-05-10 192331" src="https://github.com/user-attachments/assets/c3b0d205-e1ee-4dee-8588-2ed8528a76bb" />
-88
-<img width="1641" height="798" alt="Screenshot 2026-05-10 183627" src="https://github.com/user-attachments/assets/f07f2d50-fbfb-49a3-bedd-6e93be5e9b16" />
-99
-<img width="920" height="846" alt="Screenshot 2026-05-10 100054" src="https://github.com/user-attachments/assets/c7daf1e5-dd00-4a24-ab39-2d3626e2243c" />
 
 
 
@@ -1266,10 +1219,7 @@ XTRA
 
 <img width="1086" height="595" alt="Screenshot 2026-05-10 205250" src="https://github.com/user-attachments/assets/0ecae623-794a-4d0b-9787-d15624b5345d" />
 888
-<img width="945" height="860" alt="Screenshot 2026-05-10 134241" src="https://github.com/user-attachments/assets/c412e2b2-5498-4914-967e-d4415b498814" />
-<img width="745" height="628" alt="Screenshot 2026-05-09 133004" src="https://github.com/user-attachments/assets/710aa3e3-f0a4-4cfb-803a-e84cf02b942d" />
-<img width="1048" height="853" alt="Screenshot 2026-05-08 234605" src="https://github.com/user-attachments/assets/b5bc1c2f-9ab8-4080-b765-a72a52b2cc0b" />
-<img width="1073" height="849" alt="Screenshot 2026-05-08 234756" src="https://github.com/user-attachments/assets/f0b577f3-5e43-4db7-b4b1-b809f6e7555d" />
+
 <img width="450" height="473" alt="Screenshot 2026-05-07 094208" src="https://github.com/user-attachments/assets/cc7a437d-7b15-4263-ad03-9d4489f65866" />
 999
 000
@@ -1283,8 +1233,7 @@ XTRA
 <img width="707" height="845" alt="Screenshot 2026-05-14 123739" src="https://github.com/user-attachments/assets/be5d87d3-dcfb-4c14-98f1-0735d160db81" />
 333
 <img width="789" height="852" alt="Screenshot 2026-05-13 124110" src="https://github.com/user-attachments/assets/75f404bd-6b6c-49e0-9f85-6e6cfcd77e0f" />
-<img width="927" height="859" alt="Screenshot 2026-05-10 095757" src="https://github.com/user-attachments/assets/cd83105d-d1e4-4715-a49e-8d7f6582fd21" />
-<img width="776" height="565" alt="Screenshot 2026-05-10 133252" src="https://github.com/user-attachments/assets/583b20dd-15e3-41fc-8ec0-a55058aee988" />
+
 <img width="758" height="628" alt="Screenshot 2026-04-21 173513" src="https://github.com/user-attachments/assets/dbe7171a-0c73-4581-83bb-4083124c3d89" />
 <img width="786" height="716" alt="Screenshot 2026-04-23 184416" src="https://github.com/user-attachments/assets/a7d57276-d08c-41cd-b054-9fd1b63d70c6" />
 
