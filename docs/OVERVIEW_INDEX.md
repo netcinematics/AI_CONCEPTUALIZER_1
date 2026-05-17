@@ -56,7 +56,7 @@ ____
 ____
 
 
-### QUICK SETUP (JavaScript):
+### SUPER EASY SETUP (JavaScript):
 
 Easy to run & replicate - singular HTML files, with LiteRT & GEMMA 4!
 
@@ -77,14 +77,14 @@ Easy to run & replicate - singular HTML files, with LiteRT & GEMMA 4!
         maxTokens: 2048, topK: 40, temperature: 0.4 });
 ```
 
-> This SHOWS GEMMA is an EXTREMELY PORTABLE BRAIN!
+> Before everything else, these 3 EXPERIMENTS SHOW GEMMA as a HIGHLY-CAPABLE and EXTREMELY PORTABLE BRAIN!
    
-2) Then run SPECTRoSCOPE in localhost. Nothing else!
+2) Then run SPECTRoSCOPE in localhost. A Very Easy Setup!
 
-Let's SEE WHAT IT CAN DO - with creative three.js visualizations, to navigate the FRONTIER of LLM CONCEPTS!
+> Let's SEE WHAT IT CAN DO - with creative three.js visualizations, to CONCEPTUALLY navigate the FRONTIER of LLM!
 ___________________________________________________________
 
-### 1) CONCEPT_TOPOLOGY:
+### 1) CONCEPT_TOPOLOGY | stuff...
 
 
 To render a COMPLEX CONTEXT like "MEDICAL_METASTATE", we need to start with the "BITZ".
@@ -92,29 +92,42 @@ To render a COMPLEX CONTEXT like "MEDICAL_METASTATE", we need to start with the 
 
 > AXIOMIC_CLUSTER is a collection of AXIOMIC_TRUTH in fewest words possible.
 
-The EXPERIMENT to VISUALIZE_MANIFOLD!
-
-In "AXIOMOLOGY", "CONCEPT_TOPOLOGY" uses VARIOUS VISUAL MODALITIES - as "AI_PROGRAMMING_LANGUAGE" (editor)!
-
-
-<img width="1051" height="867" alt="Screenshot 2026-05-08 114627" src="https://github.com/user-attachments/assets/5e30fe51-71df-493c-935c-0d02bc397379" />
-<img width="1053" height="855" alt="Screenshot 2026-05-08 111904" src="https://github.com/user-attachments/assets/b3219f9c-dcb4-4906-8f10-edaff29a4497" />
-<img width="1862" height="772" alt="Screenshot 2026-05-07 145043" src="https://github.com/user-attachments/assets/5e1f8c45-5874-4a8e-a6e9-db791b368cb5" />
+The EXPERIMENT to VISUALIZE_MANIFOLD starting with BITZ!
 <img width="1207" height="765" alt="Screenshot 2026-05-06 161556" src="https://github.com/user-attachments/assets/c1acd78e-0a3b-4372-9b6a-8621257299e4" />
+
+ALL OF THESE TOPICS are PULLED from GEMMA - and VISUALIZED - and are FULLY INTERACTIVE and ACCESSIBLE!
+<img width="1051" height="867" alt="Screenshot 2026-05-08 114627" src="https://github.com/user-attachments/assets/5e30fe51-71df-493c-935c-0d02bc397379" />
+
+MEANING: you can iterate all of GEMMA LLM with this light-weight interface. 
+
+But it goes far beyond this, and extremely deep, as you will see.
+
+<img width="1053" height="855" alt="Screenshot 2026-05-08 111904" src="https://github.com/user-attachments/assets/b3219f9c-dcb4-4906-8f10-edaff29a4497" />
+
+Adding it all together, into a NEW_AI_SCIENCE, of "AXIOMOLOGY", with "CONCEPT_TOPOLOGY".
+
+Easy to code, in JavaScript or Python. 
+
+It uses VARIOUS VISUAL MODALITIES - into a PSEUDO: "AI_PROGRAMMING_LANGUAGE" and editor - take a look!
+
+
 <img width="1908" height="911" alt="Screenshot 2026-04-29 213917" src="https://github.com/user-attachments/assets/e7d6cfb4-20d3-49d4-b345-acf11825d9f7" />
 
-To VISUALIZE CONCEPTS, like MEDICAL_METASTATE,
+To VISUALIZE CONCEPTS, like MEDICAL_METASTATE, we "ITERATE_METASTATE". 
 
-<img width="748" height="841" alt="Screenshot 2026-05-08 163325" src="https://github.com/user-attachments/assets/31d9cbff-6430-4277-a02b-3b11594ed776" />
-
-Or WEALTH_CREATION METASTATE:
 <img width="562" height="857" alt="Screenshot 2026-05-08 160448" src="https://github.com/user-attachments/assets/535ba616-9ebd-4a8b-b24b-f1456c1be3ef" />
 
+Or WEALTH_CREATION METASTATE:
+<img width="748" height="841" alt="Screenshot 2026-05-08 163325" src="https://github.com/user-attachments/assets/31d9cbff-6430-4277-a02b-3b11594ed776" />
+
+> A super simple AI TOOL - to enable anyone to ITERATE GEMMA METASTATE!
+
+ And also as an AI_METASTATE_EDITOR. 
+
+______________________________________________________________________________
 
 
-
-
-
+### 2)                | stuff | ...
 
 
 
