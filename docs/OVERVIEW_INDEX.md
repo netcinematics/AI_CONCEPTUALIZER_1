@@ -186,25 +186,48 @@ ________________________________
 The most interesting topics were "AMBIGUITY" and "NEOLOGISMS":
 
 <img width="945" height="860" alt="Screenshot 2026-05-10 134241" src="https://github.com/user-attachments/assets/c412e2b2-5498-4914-967e-d4415b498814" />
+
 > EXAMPLE_4: Look how common the POLYSEMEOUS WORDS are!
 
 And we barely notice? But for AI such ambiguity_consequence is a MASSIVE OVERBURDEN to compute!
 ______________________________________________
 
 <img width="962" height="857" alt="Screenshot 2026-05-10 192331" src="https://github.com/user-attachments/assets/c3b0d205-e1ee-4dee-8588-2ed8528a76bb" />
+
 > EXAMPLE_5: Amazingly, NEOLOGISMS are a "clean slate" for AI "HIGH_DENSITY_INFERENCE" optimization!
 
-### TEST_2b) The RESEARCH SHOWS:
-1) AI can show the degree that traditional language is diluted, more than we notice.
-2) "NEOLOGISTICS" - is a viable pathway in AI FRONTIER of new science innovation.
- _______________________________________________________________________________________________________________
+### TEST_2b) This SHOWS:
+1) AI can reveal the degree that traditional language AMBIGUITY - is more than we notice.
+2) "NEOLOGISTICS", is a viable pathway for AI FRONTIER - in new science innovation.
  _______________________________________________________________________________________________________________
  
- ### TEST_3) "CONCEPTUAL_SPECTROSCOPY" | "MANIFOLD_MORPHOLOGY" | "TOPIC_TOPOLOGY" | "EXACTIFICATION" | "Exactify" :
+ ### TEST_3) "CONCEPTUAL_SHOWCASE" | "VISUALIZE_METASTATE" |  LLM_as_JUDGE | QnA_LOOPS,| "EXACTIFICATION" | "CONCEPTUAL_SPECTROSCOPY" :
 
-#### 3) "CONCEPTUAL_SHOWCASE" - LLM_as_JUDGE, QnA_LOOPS, for "CONCEPTUAL_METACOGNITION".
+For the 3rd and final EXPERIMENT, recall the image at the beginning:
+
+<img width="1211" height="637" alt="Screenshot 2026-05-14 124406" src="https://github.com/user-attachments/assets/6e2f393c-6bf4-4a08-a858-7a75e4e08156" />
 
 
+> WHAT DOES THE RESEARCH SHOW?
+- one
+_____________________________________________________________________
+
+
+<img width="861" height="539" alt="Screenshot jjj2026-05-13 131232" src="https://github.com/user-attachments/assets/84ea9b8b-cfb5-4b6c-a264-f07b85416e5d" />
+
+111
+<img width="662" height="390" alt="Screenshot 2026-05-13 131015" src="https://github.com/user-attachments/assets/20de97f3-1487-4297-b56f-145a90602eb6" />
+222
+<img width="1124" height="569" alt="Screenshot 2026-05-14 112731" src="https://github.com/user-attachments/assets/7d364fc4-c192-4493-b164-3c39b5a9213c" />
+333
+<img width="707" height="845" alt="Screenshot 2026-05-14 123739" src="https://github.com/user-attachments/assets/7744997f-f7ae-445a-a8c8-073160523072" />
+
+
+
+
+
+________________________________________
+________________________________________
 
 
 
@@ -372,43 +395,6 @@ _____________________________________________________________________
 <img width="1057" height="859" alt="Screenshot 2026-05-08 141217" src="https://github.com/user-attachments/assets/4c91ed91-6f52-468f-9a91-21a0f90055a9" />
 
 <img width="547" height="460" alt="Screenshot 2026-05-07 094142" src="https://github.com/user-attachments/assets/deec31a7-5806-4b20-980a-fa376492bd0e" />
-
-
-44
-55
-66
-
-
-
-> WHAT DOES THE RESEARCH SHOW?
-- one
-
-- 
-_____________________________________________________________________
-
-
-
-> WHAT DOES THE RESEARCH SHOW?
-- one
-_____________________________________________________________________
-### 3) CONCEPTUAL_SHOWCASE:
-
-<img width="1211" height="637" alt="Screenshot 2026-05-14 124406" src="https://github.com/user-attachments/assets/6e2f393c-6bf4-4a08-a858-7a75e4e08156" />
-
-
-> WHAT DOES THE RESEARCH SHOW?
-- one
-_____________________________________________________________________
-
-
-<img width="861" height="539" alt="Screenshot jjj2026-05-13 131232" src="https://github.com/user-attachments/assets/84ea9b8b-cfb5-4b6c-a264-f07b85416e5d" />
-
-111
-<img width="662" height="390" alt="Screenshot 2026-05-13 131015" src="https://github.com/user-attachments/assets/20de97f3-1487-4297-b56f-145a90602eb6" />
-222
-<img width="1124" height="569" alt="Screenshot 2026-05-14 112731" src="https://github.com/user-attachments/assets/7d364fc4-c192-4493-b164-3c39b5a9213c" />
-333
-<img width="707" height="845" alt="Screenshot 2026-05-14 123739" src="https://github.com/user-attachments/assets/7744997f-f7ae-445a-a8c8-073160523072" />
 
 
 _____________________________________________________
