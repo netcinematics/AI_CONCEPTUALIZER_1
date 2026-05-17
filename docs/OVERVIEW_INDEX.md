@@ -50,7 +50,7 @@ A new AI_SCIENCE of "AXIOMOLOGY": VISUALIZE_MANIFOLDS and LATENT_SPACE (without 
 
 ___________________________________________________________________
 
-### THREE EXPERIMENTS in THREE.js:
+### OVERVIEW of THREE EXPERIMENTS in THREE.js:
 
 1)  "CONCEPT_TOPOLOGY" | "CONCEPTUAL_ACCESSIBILITY" | "VISUALIZE_MANIFOLD":
       - reduce compute cost!
@@ -97,7 +97,7 @@ GEMMA is PHENOMENALLY EASY to GENERATE & RUN - in 1 HTML file - with LiteRT & GE
 > Let's SEE WHAT GEMMA CAN DO with 3 creative visualizations, to CONCEPTUALLY navigate the "INNER_FRONTIER"!
 ___________________________________________________________
 
-### 1a) CONCEPT_TOPOLOGY | "CONCEPTUAL_ACCESSIBILITY" | "VISUALIZE_MANIFOLD" | reduce compute cost!
+### TEST_1a) CONCEPT_TOPOLOGY | "CONCEPTUAL_ACCESSIBILITY" | "VISUALIZE_MANIFOLD" | reduce compute cost!
 
 GOAL: render "MEDICAL_METASTATE", and WEALTH_CREATION. 
 
@@ -134,7 +134,7 @@ _____________________________
 
 ________________________________________________________________________________
 
-1b) AXIOMIC_TOPOLOGY:
+### TEST_1b) AXIOMIC_TOPOLOGY:
 
 > We render the CONCEPT VISUALLY, to BEST_REFLECT_ACTUAL_REALITY - for AI and humanity.
 
@@ -161,21 +161,17 @@ To TRANSFORM GEMMA into a METACOGNITIVE, "AI_PROGRAMMING_LANGUAGE" and METASTATE
 With ACCESSIBILITY to "AI_CONCEPTUALIZATION"!
 
 ______________________________________________________________________________
-______________________________________________________________________________
 
-### 2) CONCEPT_TREEZ | POLYSEMY | IDEOGRAMS | AMBIGUITY | NEOLOGISMS:
-
-____________________________________________________________________
+### TEST_2a) CONCEPT_TREEZ | POLYSEMY | IDEOGRAMS | AMBIGUITY | NEOLOGISMS:
 
 #### Comparing ANCIENT GREEK IDEOGRAMS with modern "AI theory of NEOLOGISMS" and consequences of AMBIGUITY.
-<img width="1641" height="798" alt="Screenshot 2026-05-10 183627" src="https://github.com/user-attachments/assets/f07f2d50-fbfb-49a3-bedd-6e93be5e9b16" />
 
 "CONCEPTUAL_TREEZ" tell an AMAZING STORY of AMBIGUITY and POLYSEMY, between IDEOGRAMS and NEOLOGISMS.
 > EXAMPLE_3: Just look at all that POLYSEMY!
 
 <img width="920" height="846" alt="Screenshot 2026-05-10 100054" src="https://github.com/user-attachments/assets/c7daf1e5-dd00-4a24-ab39-2d3626e2243c" />
 
-> ASTONISHINGLY, the data points in the opposite direction - of consensus - on many TOPICS!
+> ASTONISHINGLY, the data points in novel direction than historical consensus!
 _____________________________________________________________________________
 
 Here are more ANCIENT GREEK IDEOGRAMS (populated by GEMMA) - for your intrigue:
@@ -186,11 +182,6 @@ ____________________
 
 <img width="1073" height="849" alt="Screenshot 2026-05-08 234756" src="https://github.com/user-attachments/assets/f0b577f3-5e43-4db7-b4b1-b809f6e7555d" />
 
-______________________________________________________________________________
-
-Here is another VIEW of ALPHA.
-<img width="1048" height="853" alt="Screenshot 2026-05-08 234605" src="https://github.com/user-attachments/assets/b5bc1c2f-9ab8-4080-b765-a72a52b2cc0b" />
-
 ________________________________
 The most interesting topics were "AMBIGUITY" and "NEOLOGISMS":
 
@@ -198,60 +189,16 @@ The most interesting topics were "AMBIGUITY" and "NEOLOGISMS":
 > EXAMPLE_4: Look how common the POLYSEMEOUS WORDS are!
 
 And we barely notice? But for AI such ambiguity_consequence is a MASSIVE OVERBURDEN to compute!
-
 ______________________________________________
 
 <img width="962" height="857" alt="Screenshot 2026-05-10 192331" src="https://github.com/user-attachments/assets/c3b0d205-e1ee-4dee-8588-2ed8528a76bb" />
 > EXAMPLE_5: Amazingly, NEOLOGISMS are a "clean slate" for AI "HIGH_DENSITY_INFERENCE" optimization!
 
-Both of those concepts appear to be exact_opposite of contemporary consensus.
-1) Our language is quite diluted, more than we notice.
-2) Embracing the ideosyncracies that we reject - is a viable pathway for "NEOLOGISTICS" - in AI FRONTIER of new science innovation.
+### TEST_2b) The RESEARCH SHOWS:
+1) AI can show the degree that traditional language is diluted, more than we notice.
+2) "NEOLOGISTICS" - is a viable pathway in AI FRONTIER of new science innovation.
  _______________________________________________________________________________________________________________
  _______________________________________________________________________________________________________________
- 
- ### TEST_2) "DECIPHERABILITY" | "METATEXT" | "AI_as_INTERPRETER" | "INTERPRETABILITY" | "Interpify":
-
- > QUESTION: Is it possible to teach LLM a new language? Yes!
-
- #### TEST_IMPLEMENTATION: 
- Prove LLM semantic interpretation with METATEXT! 
-
- 1) PROMPT LLM with METATEXT SYNTAX, and ask for INTERPRETATION of RELATIONSHIP, based on INPUTS.
-
- 2) For EXAMPLE: Let the PIPE_CHARACTER: "|" mean "GENERIC_RELATIVE" - to show a relation, but SIMPLIFY the text (of ABSTRACT_GRAMMAR) - to be INFERRED by AI.
-    
- 3) "|" the PIPE is a SET of TOPICS - which all have RELATIONSHIPS, that we do not need to SPECIFY! Like: 'OR', 'AND', 'BECAUSE', 'ALSO', 'EXCEPT', etc.
-    
- 4) On RENDER, the LLM returns the "INTERPRETATION" of the RELATIONSHIPS, along with the METATEXT sequence of strings.
- 
- #### DIMENSIONALITY META_CONTEXT:
- 
- "METATEXT" is hyperfunctional across a "myriadic" "complexagon".
- 
- In plain English, METATEXT solves vocabulary complexity by holding CONCEPT METASTATE DYNAMICALLY - in the background!
-
- Functionally METATEXT is a supplement to JSON, CVS, and Arrays of Strings.
-
- #### SHOWCASE CONCEPT: "INTERPRETABILITY"
- 
- > LLMs can INTERPRET NEOLOGISTIC_SYNTAX in real-time (instantly) [on-the-fly].
-
- 1) For humans the idea that a LLM can learn a new language instantly is mind-boggling (while BPE math is beautiful).
- 2) But for AI, it represents "strongly-weighted" probability in the attention logits.
- 3) Thereafter, INFERENCE with HIGH-DENSITY SEMANTICS.
- 4) For dual_benefit of less_ambiguity & extra_clarity.
-
- ### SUB_CONCEPTS | 
- 
- a) META_MAPS: FINANCE and MEDICINE.
-
- b) META_MAPS: METACOGNITIVE SUMMARY of this development schedule?
- 
- c) Can LLM inference with high-density semantic WORDZ - later? 
-
-_______________________________________
-_______________________________________
  
  ### TEST_3) "CONCEPTUAL_SPECTROSCOPY" | "MANIFOLD_MORPHOLOGY" | "TOPIC_TOPOLOGY" | "EXACTIFICATION" | "Exactify" :
 
