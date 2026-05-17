@@ -177,7 +177,7 @@
                 </div>
             </div>
             
-            <div id="log-feed" class="p-6 flex-grow overflow-y-auto spectro-scrollbar text-sm text-emerald-100 font-mono leading-relaxed flex flex-col gap-3">
+            <div id="log-feed" style="user-select:text;" class="p-6 flex-grow overflow-y-auto spectro-scrollbar text-sm text-emerald-100 font-mono leading-relaxed flex flex-col gap-3">
                 <div class="opacity-50">[SYS] Awaiting metacognitive domain selection...</div>
             </div>
             
@@ -615,6 +615,7 @@
             const negZAxis = createStaticLabel("-Z (NEG)", 0x00ffcc); negZAxis.position.set(20, 0, -90); negZAxis.userData.isSHOWCASEElement = true;
             scene.add(posZAxis); scene.add(negZAxis);
 
+            // STARTING PADS.
             const padGeom = new THREE.PlaneGeometry(12, 12);
             const padMatBase = { transparent: true, opacity: 0.25, side: THREE.DoubleSide, depthWrite: false };
 
@@ -953,17 +954,203 @@
             triggerIdeogramTest(select.options[nextIndex].value);
             QUESTION_INDEX=0; 
         }
+        
 
-function addJudgementVisualization(judgementSet) {
+        
+    function renderJudgementTopicLabels(selectedObj, judgement, colorHex, index){ 
+        //RENDER: "METATEXT_CARDS" parallel to the highway , down the center strip.      
+
+        // Canvas for dynamic text wrap
+        const canvas = document.createElement('canvas');
+        canvas.width = 600;
+        canvas.height = 200;
+        const ctx = canvas.getContext('2d');
+        // Push perpendicular to the highway (Z-axis offset) depending on the lane
+        const isQ = selectedObj.type === 'Q';
+        const zPush = isQ ? -14 : 14; 
+        const yHeight = 0; //10;
+        
+        // Panel Background & Border
+        ctx.fillStyle = 'rgba(0, 15, 20, 0.85)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.strokeStyle = '#' + colorHex.toString(16).padStart(6, '0');
+        ctx.lineWidth = 4;
+        ctx.strokeRect(0, 0, canvas.width, canvas.height);
+
+        // Text Settings & Glow
+        ctx.shadowColor = '#' + colorHex.toString(16).padStart(6, '0');
+        ctx.shadowBlur = 2;
+        ctx.fillStyle = '#ffffff'; 
+        ctx.font = 'bold 24px "Courier New", Courier, monospace'; 
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+
+        const text = `${judgement.category}: ${judgement.content}`;
+        let words = text.split(' ');
+        let line = '';
+        let lines = [];
+        let maxWidth = canvas.width - 40;
+
+        for(let n = 0; n < words.length; n++) {
+            let testLine = line + words[n] + ' ';
+            if (ctx.measureText(testLine).width > maxWidth && n > 0) {
+                lines.push(line.trim());
+                line = words[n] + ' ';
+            } else {
+                line = testLine;
+            }
+        }
+        lines.push(line.trim());
+
+        let lineHeight = 32; 
+        let totalHeight = lines.length * lineHeight;
+        let startY = (canvas.height - totalHeight) / 2 + (lineHeight / 2);
+
+        for(let k = 0; k < lines.length; k++) {
+            ctx.fillText(lines[k], canvas.width / 2, startY + (k * lineHeight));
+            ctx.fillText(lines[k], canvas.width / 2, startY + (k * lineHeight)); 
+        }
+
+        // Mesh Initialization (Replacing Sprites)
+        const tex = new THREE.CanvasTexture(canvas);
+        tex.needsUpdate = true; 
+        
+        const aspectRatio = canvas.width / canvas.height;
+        let s = 6.5; // Slightly scaled down so the 3 panels fit nicely side-by-side
+        
+        // Use a PlaneGeometry to lock orientation in 3D space
+        const planeGeo = new THREE.PlaneGeometry(s * aspectRatio, s);
+        // DoubleSide ensures it's visible from behind, though text will be mirrored on the back
+        const planeMat = new THREE.MeshBasicMaterial({ map: tex, transparent: true, depthWrite: false, side: THREE.DoubleSide });
+        const mesh = new THREE.Mesh(planeGeo, planeMat);
+        
+        // Rotate 180 degrees so it faces the camera's native -Z starting position
+        mesh.rotation.x = -Math.PI/2;
+        // mesh.rotation.y = Math.PI;
+
+        // Position parallel to each other along the X-axis (timeline)
+        // index 0: before (-16), index 1: middle (0), index 2: after (+16)
+        const xSpacing = 14; 
+        const localX = (index - 1) * xSpacing;
+        
+        mesh.position.set(localX, yHeight, zPush); 
+
+        // Draw connecting visual tether from orb root to the specific panel
+        const lineMat = new THREE.LineBasicMaterial({ color: colorHex, transparent: true, opacity: 0.6 });
+        const lineGeo = new THREE.BufferGeometry().setFromPoints([
+            new THREE.Vector3(0, 0, 0),
+            new THREE.Vector3(localX, yHeight, zPush)
+        ]);
+        const connector = new THREE.Line(lineGeo, lineMat);
+
+        selectedObj.group.add(connector);
+        selectedObj.group.add(mesh);
+    }
+
+    function renderJudgementQnALabels(selectedObj, judgement, colorHex, index){ 
+        //RENDER: "METATEXT_CARDS" perpendicular to the highway 
+
+        // Canvas for dynamic text wrap
+        const canvas = document.createElement('canvas');
+        canvas.width = 600;
+        canvas.height = 200;
+        const ctx = canvas.getContext('2d');
+        // Push perpendicular to the highway (Z-axis offset) depending on the lane
+        const isQ = selectedObj.type === 'Q';
+        const zPush = isQ ? -15 : 15; 
+        const yHeight = 0.444; //10;
+
+        // Panel Background & Border
+        ctx.fillStyle = 'rgba(0, 15, 20, 0.85)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.strokeStyle = '#' + colorHex.toString(16).padStart(6, '0');
+        ctx.lineWidth = 4;
+        ctx.strokeRect(0, 0, canvas.width, canvas.height);
+
+        // Text Settings & Glow
+        ctx.shadowColor = '#' + colorHex.toString(16).padStart(6, '0');
+        ctx.shadowBlur = 2;
+        ctx.fillStyle = '#ffffff'; 
+        ctx.font = 'bold 24px "Courier New", Courier, monospace'; 
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+
+        const text = `${judgement.category}: ${judgement.content}`;
+        let words = text.split(' ');
+        let line = '';
+        let lines = [];
+        let maxWidth = canvas.width - 40;
+
+        for(let n = 0; n < words.length; n++) {
+            let testLine = line + words[n] + ' ';
+            if (ctx.measureText(testLine).width > maxWidth && n > 0) {
+                lines.push(line.trim());
+                line = words[n] + ' ';
+            } else {
+                line = testLine;
+            }
+        }
+        lines.push(line.trim());
+
+        let lineHeight = 32; 
+        let totalHeight = lines.length * lineHeight;
+        let startY = (canvas.height - totalHeight) / 2 + (lineHeight / 2);
+
+        for(let k = 0; k < lines.length; k++) {
+            ctx.fillText(lines[k], canvas.width / 2, startY + (k * lineHeight));
+            ctx.fillText(lines[k], canvas.width / 2, startY + (k * lineHeight)); 
+        }
+
+        // Mesh Initialization (Replacing Sprites)
+        const tex = new THREE.CanvasTexture(canvas);
+        tex.needsUpdate = true; 
+        
+        const aspectRatio = canvas.width / canvas.height;
+        let s = 6.5; // Slightly scaled down so the 3 panels fit nicely side-by-side
+        
+        // Use a PlaneGeometry to lock orientation in 3D space
+        const planeGeo = new THREE.PlaneGeometry(s * aspectRatio, s);
+        // DoubleSide ensures it's visible from behind, though text will be mirrored on the back
+        const planeMat = new THREE.MeshBasicMaterial({ map: tex, transparent: true, depthWrite: false, side: THREE.DoubleSide });
+        const mesh = new THREE.Mesh(planeGeo, planeMat);
+        
+        // label rotations both types tilted toward center
+        if(isQ){
+            mesh.rotation.x = -Math.PI/2 + 0.11;
+            mesh.rotation.z = -Math.PI/2;
+        } else {
+            mesh.rotation.x = -Math.PI/2 - 0.11;
+            mesh.rotation.z = -Math.PI/2;
+        }
+
+        // Position parallel to each other along the X-axis (timeline)
+        // index 0: before (-16), index 1: middle (0), index 2: after (+16)
+        const xSpacing = 8; 
+        const localX = (index - 1) * xSpacing;
+        
+        mesh.position.set(localX, yHeight, zPush); 
+
+        // Draw connecting visual tether from orb root to the specific panel
+        const lineMat = new THREE.LineBasicMaterial({ color: colorHex, transparent: true, opacity: 0.6 });
+        const lineGeo = new THREE.BufferGeometry().setFromPoints([
+            new THREE.Vector3(0, -3, 0),
+            new THREE.Vector3(localX, yHeight, zPush)
+        ]);
+        const connector = new THREE.Line(lineGeo, lineMat);
+
+        selectedObj.group.add(connector);
+        selectedObj.group.add(mesh);        
+    } 
+
+    function addJudgementVisualization(judgementSet,selectedObj) {
             if (!selectedObj) return;
 
-            const parentGroup = selectedObj.group;
-            const isQ = selectedObj.type === 'Q';
+            // const parentGroup = selectedObj.group;
+            // const isQ = selectedObj.type === 'Q';
             
-            // Push perpendicular to the highway (Z-axis offset) depending on the lane
-            const zPush = isQ ? -14 : 14; 
-            const yHeight = 10;
-
+            // // Push perpendicular to the highway (Z-axis offset) depending on the lane
+            // const zPush = isQ ? -14 : 14; 
+            // const yHeight = 0; //10;
             judgementSet.forEach((judgement, index) => {
                 // Determine color based on internal logic mapping to log styles
                 let colorHex = 0xffffff;
@@ -971,86 +1158,109 @@ function addJudgementVisualization(judgementSet) {
                 else if (judgement.logType === 'focus') colorHex = 0x00ffcc; // cyan/white for JUDGEMENT
                 else if (judgement.logType === 'metastate') colorHex = 0xff00ff; // magenta for METASTATE
 
-                // Canvas for dynamic text wrap
-                const canvas = document.createElement('canvas');
-                canvas.width = 600;
-                canvas.height = 200;
-                const ctx = canvas.getContext('2d');
 
-                // Panel Background & Border
-                ctx.fillStyle = 'rgba(0, 15, 20, 0.85)';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-                ctx.strokeStyle = '#' + colorHex.toString(16).padStart(6, '0');
-                ctx.lineWidth = 4;
-                ctx.strokeRect(0, 0, canvas.width, canvas.height);
 
-                // Text Settings & Glow
-                ctx.shadowColor = '#' + colorHex.toString(16).padStart(6, '0');
-                ctx.shadowBlur = 12;
-                ctx.fillStyle = '#ffffff'; 
-                ctx.font = 'bold 24px "Courier New", Courier, monospace'; 
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'middle';
-
-                const text = `${judgement.category}: ${judgement.content}`;
-                let words = text.split(' ');
-                let line = '';
-                let lines = [];
-                let maxWidth = canvas.width - 40;
-
-                for(let n = 0; n < words.length; n++) {
-                    let testLine = line + words[n] + ' ';
-                    if (ctx.measureText(testLine).width > maxWidth && n > 0) {
-                        lines.push(line.trim());
-                        line = words[n] + ' ';
-                    } else {
-                        line = testLine;
-                    }
+                if(selectedObj.type==='TOPIC'){
+                    // debugger;
+                    renderJudgementTopicLabels(selectedObj,judgement,colorHex,index);
+                    return;
+                } else if(selectedObj.type==='Q'||selectedObj.type==='A'){
+                    renderJudgementQnALabels(selectedObj,judgement,colorHex,index);
+                    return;
+                } else {
+                    debugger;
+                    return;
                 }
-                lines.push(line.trim());
+                    // Determine vertical positioning based on question index
+                // const panelSpacing = 10; 
+                // const initialY = 6;
+                // let panelY = initialY + (index * panelSpacing);
 
-                let lineHeight = 32; 
-                let totalHeight = lines.length * lineHeight;
-                let startY = (canvas.height - totalHeight) / 2 + (lineHeight / 2);
+                // // Constrain vertical movement (optional, or just let them stack)
+                // panelY = Math.max(-15, Math.min(15, panelY));
 
-                for(let k = 0; k < lines.length; k++) {
-                    ctx.fillText(lines[k], canvas.width / 2, startY + (k * lineHeight));
-                    ctx.fillText(lines[k], canvas.width / 2, startY + (k * lineHeight)); 
-                }
 
-                // Mesh Initialization (Replacing Sprites)
-                const tex = new THREE.CanvasTexture(canvas);
-                tex.needsUpdate = true; 
+                // // Canvas for dynamic text wrap
+                // const canvas = document.createElement('canvas');
+                // canvas.width = 600;
+                // canvas.height = 200;
+                // const ctx = canvas.getContext('2d');
+
+                // // Panel Background & Border
+                // ctx.fillStyle = 'rgba(0, 15, 20, 0.85)';
+                // ctx.fillRect(0, 0, canvas.width, canvas.height);
+                // ctx.strokeStyle = '#' + colorHex.toString(16).padStart(6, '0');
+                // ctx.lineWidth = 4;
+                // ctx.strokeRect(0, 0, canvas.width, canvas.height);
+
+                // // Text Settings & Glow
+                // ctx.shadowColor = '#' + colorHex.toString(16).padStart(6, '0');
+                // ctx.shadowBlur = 2;
+                // ctx.fillStyle = '#ffffff'; 
+                // ctx.font = 'bold 24px "Courier New", Courier, monospace'; 
+                // ctx.textAlign = 'center';
+                // ctx.textBaseline = 'middle';
+
+                // const text = `${judgement.category}: ${judgement.content}`;
+                // let words = text.split(' ');
+                // let line = '';
+                // let lines = [];
+                // let maxWidth = canvas.width - 40;
+
+                // for(let n = 0; n < words.length; n++) {
+                //     let testLine = line + words[n] + ' ';
+                //     if (ctx.measureText(testLine).width > maxWidth && n > 0) {
+                //         lines.push(line.trim());
+                //         line = words[n] + ' ';
+                //     } else {
+                //         line = testLine;
+                //     }
+                // }
+                // lines.push(line.trim());
+
+                // let lineHeight = 32; 
+                // let totalHeight = lines.length * lineHeight;
+                // let startY = (canvas.height - totalHeight) / 2 + (lineHeight / 2);
+
+                // for(let k = 0; k < lines.length; k++) {
+                //     ctx.fillText(lines[k], canvas.width / 2, startY + (k * lineHeight));
+                //     ctx.fillText(lines[k], canvas.width / 2, startY + (k * lineHeight)); 
+                // }
+
+                // // Mesh Initialization (Replacing Sprites)
+                // const tex = new THREE.CanvasTexture(canvas);
+                // tex.needsUpdate = true; 
                 
-                const aspectRatio = canvas.width / canvas.height;
-                let s = 6.5; // Slightly scaled down so the 3 panels fit nicely side-by-side
+                // const aspectRatio = canvas.width / canvas.height;
+                // let s = 6.5; // Slightly scaled down so the 3 panels fit nicely side-by-side
                 
-                // Use a PlaneGeometry to lock orientation in 3D space
-                const planeGeo = new THREE.PlaneGeometry(s * aspectRatio, s);
-                // DoubleSide ensures it's visible from behind, though text will be mirrored on the back
-                const planeMat = new THREE.MeshBasicMaterial({ map: tex, transparent: true, depthWrite: false, side: THREE.DoubleSide });
-                const mesh = new THREE.Mesh(planeGeo, planeMat);
+                // // Use a PlaneGeometry to lock orientation in 3D space
+                // const planeGeo = new THREE.PlaneGeometry(s * aspectRatio, s);
+                // // DoubleSide ensures it's visible from behind, though text will be mirrored on the back
+                // const planeMat = new THREE.MeshBasicMaterial({ map: tex, transparent: true, depthWrite: false, side: THREE.DoubleSide });
+                // const mesh = new THREE.Mesh(planeGeo, planeMat);
                 
-                // Rotate 180 degrees so it faces the camera's native -Z starting position
-                mesh.rotation.y = Math.PI;
+                // // Rotate 180 degrees so it faces the camera's native -Z starting position
+                // mesh.rotation.x = -Math.PI/2;
+                // // mesh.rotation.y = Math.PI;
 
-                // Position parallel to each other along the X-axis (timeline)
-                // index 0: before (-16), index 1: middle (0), index 2: after (+16)
-                const xSpacing = 14; 
-                const localX = (index - 1) * xSpacing;
+                // // Position parallel to each other along the X-axis (timeline)
+                // // index 0: before (-16), index 1: middle (0), index 2: after (+16)
+                // const xSpacing = 14; 
+                // const localX = (index - 1) * xSpacing;
                 
-                mesh.position.set(localX, yHeight, zPush); 
+                // mesh.position.set(localX, yHeight, zPush); 
 
-                // Draw connecting visual tether from orb root to the specific panel
-                const lineMat = new THREE.LineBasicMaterial({ color: colorHex, transparent: true, opacity: 0.6 });
-                const lineGeo = new THREE.BufferGeometry().setFromPoints([
-                    new THREE.Vector3(0, 0, 0),
-                    new THREE.Vector3(localX, yHeight, zPush)
-                ]);
-                const connector = new THREE.Line(lineGeo, lineMat);
+                // // Draw connecting visual tether from orb root to the specific panel
+                // const lineMat = new THREE.LineBasicMaterial({ color: colorHex, transparent: true, opacity: 0.6 });
+                // const lineGeo = new THREE.BufferGeometry().setFromPoints([
+                //     new THREE.Vector3(0, 0, 0),
+                //     new THREE.Vector3(localX, yHeight, zPush)
+                // ]);
+                // const connector = new THREE.Line(lineGeo, lineMat);
 
-                parentGroup.add(connector);
-                parentGroup.add(mesh);
+                // parentGroup.add(connector);
+                // parentGroup.add(mesh);
             });
         }
 
@@ -1139,7 +1349,7 @@ function addJudgementVisualization(judgementSet) {
                     }
                 });
 
-                 addJudgementVisualization(judgementSet); //TODO
+                 addJudgementVisualization(judgementSet,selectedObj); 
 
 
                 // Return to ready state

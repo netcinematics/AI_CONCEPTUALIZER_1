@@ -177,7 +177,7 @@
                 </div>
             </div>
             
-            <div id="log-feed" style="user-select:text;"class="p-6 flex-grow overflow-y-auto spectro-scrollbar text-sm text-emerald-100 font-mono leading-relaxed flex flex-col gap-3">
+            <div id="log-feed" style="user-select:text;" class="p-6 flex-grow overflow-y-auto spectro-scrollbar text-sm text-emerald-100 font-mono leading-relaxed flex flex-col gap-3">
                 <div class="opacity-50">[SYS] Awaiting metacognitive domain selection...</div>
             </div>
             
@@ -252,8 +252,8 @@
         let LAST_GENERATED_ANSWER = "";
 
         // GRID LAYOUT LOGIC
-        let RED_TRACK_Z = 10;
-        let BLUE_TRACK_Z =-10;
+        let RED_TRACK_Z = 5;
+        let BLUE_TRACK_Z =-5;
 
         const IDEOGRAM_DATA = {
             "ALPHA": { desc: "The first. The beginning. A primary origin point." },
@@ -326,7 +326,7 @@
             }
         }
 
-        function updateBubbleCanvas(canvas, text, colorHex, isQuestion) {
+        function updateORBLabels(canvas, text, colorHex, isQuestion) {
             const ctx = canvas.getContext('2d');
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -399,13 +399,13 @@
                 sprite.position.y = size + 7; // Above
                 sprite.position.z = size - 3; // Above
             } else if (type === 'Q') {
-                sprite.position.x = - 3; // side
-                sprite.position.y = 5; // Above
-                sprite.position.z = - 3; // In front
+                sprite.position.x = -2; // side
+                sprite.position.y = 4; // Above
+                sprite.position.z = +1; // In front
             } else { //LABEL POSITIONS better for UX.
-                sprite.position.x = - 3; // side
-                sprite.position.y = 8;  // Below
-                sprite.position.z = - 3; // In front
+                sprite.position.x = -2; // side
+                sprite.position.y = 4;  // Below
+                sprite.position.z = -1; // In front
             }
             
             return sprite;
@@ -416,7 +416,7 @@
             canvas.width = 300; 
             canvas.height = 150; 
             
-            updateBubbleCanvas(canvas, text, colorHex, type);
+            updateORBLabels(canvas, text, colorHex, type);
             
             const tex = new THREE.CanvasTexture(canvas);
             const spriteMat = new THREE.SpriteMaterial({ map: tex, transparent: true, depthWrite: false });
@@ -434,14 +434,14 @@
                 sprite.position.y = size + 7; // Above
                 sprite.position.z = size - 3; // Above
             } else if (type === 'Q') {
-                sprite.position.x = - 3; // In front
-                sprite.position.y = 5; // Above
-                sprite.position.z = - 3; // In front
+                sprite.position.x = -2; // In front
+                sprite.position.y = 4; // Above
+                sprite.position.z = +1; // In front
             } else {
-                sprite.position.x = - 3; // In front
-                sprite.position.y = 8;  // Below
-                sprite.position.z = - 3; // In front
-                sprite.scale.set(s * 1.5, s, 1); 
+                sprite.position.x = -2; // In front
+                sprite.position.y = 4;  // Below
+                sprite.position.z = -1; // In front
+                // sprite.scale.set(s * 1.5, s, 1); 
             }
             
             return sprite;
@@ -615,6 +615,7 @@
             const negZAxis = createStaticLabel("-Z (NEG)", 0x00ffcc); negZAxis.position.set(20, 0, -90); negZAxis.userData.isSHOWCASEElement = true;
             scene.add(posZAxis); scene.add(negZAxis);
 
+            // STARTING PADS.
             const padGeom = new THREE.PlaneGeometry(12, 12);
             const padMatBase = { transparent: true, opacity: 0.25, side: THREE.DoubleSide, depthWrite: false };
 
@@ -623,6 +624,7 @@
             
             const topicPad = new THREE.Mesh(padGeom, new THREE.MeshBasicMaterial({ ...padMatBase, color: 0x87ceeb }));
             topicPad.rotation.x = -Math.PI / 2; topicPad.position.set(START_X, -0.4, 0); topicPad.userData.isSHOWCASEElement = true; // SKYBLUE pad z=0
+            topicPad.scale.set(1, 0.222, 1);
 
             const ai2Pad = new THREE.Mesh(padGeom, new THREE.MeshBasicMaterial({ ...padMatBase, color: 0x3333ff }));
             ai2Pad.rotation.x = -Math.PI / 2; ai2Pad.position.set(START_X, -0.4, BLUE_TRACK_Z); ai2Pad.userData.isSHOWCASEElement = true; // BLUE pad z=10
@@ -630,9 +632,9 @@
             scene.add(ai1Pad); scene.add(topicPad); scene.add(ai2Pad);
 
             // Starting line labels pulled back away from the pad centers
-            const ai1Lbl = createStaticLabel("AI_A1", 0xff3333); ai1Lbl.position.set(START_X - 10, 0.5, RED_TRACK_Z + 5); ai1Lbl.userData.isSHOWCASEElement = true;
-            const topicLbl = createStaticLabel("TOPIC", 0x87ceeb); topicLbl.position.set(START_X - 10, 0.5, 0); topicLbl.userData.isSHOWCASEElement = true;
-            const ai2Lbl = createStaticLabel("AI_Q1", 0x3333ff); ai2Lbl.position.set(START_X - 10, 0.5, BLUE_TRACK_Z - 5); ai2Lbl.userData.isSHOWCASEElement = true;
+            const ai1Lbl = createStaticLabel("AI_A", 0xff3333); ai1Lbl.position.set(START_X - 5, 0.5, RED_TRACK_Z + 5); ai1Lbl.userData.isSHOWCASEElement = true;
+            const topicLbl = createStaticLabel("TOPIC", 0x87ceeb); topicLbl.position.set(START_X - 5, 0.5, 0); topicLbl.userData.isSHOWCASEElement = true;
+            const ai2Lbl = createStaticLabel("AI_Q", 0x3333ff); ai2Lbl.position.set(START_X - 5, 0.5, BLUE_TRACK_Z - 5); ai2Lbl.userData.isSHOWCASEElement = true;
 
             scene.add(ai1Lbl); scene.add(topicLbl); scene.add(ai2Lbl);
 
@@ -953,9 +955,214 @@
             triggerIdeogramTest(select.options[nextIndex].value);
             QUESTION_INDEX=0; 
         }
+        
 
-        function addJudgementVisualization(judgementSet){ //TODO
-            
+        
+    function renderJudgementTopicLabels(selectedObj, judgement, colorHex, index){ 
+        //RENDER: "METATEXT_CARDS" parallel to the highway , down the center strip.      
+
+        // Canvas for dynamic text wrap
+        const canvas = document.createElement('canvas');
+        canvas.width = 600;
+        canvas.height = 200;
+        const ctx = canvas.getContext('2d');
+        // Push perpendicular to the highway (Z-axis offset) depending on the lane
+        const isQ = selectedObj.type === 'Q';
+        const zPush = isQ ? -14 : 14; 
+        const yHeight = 0; //10;
+        
+        // Panel Background & Border
+        ctx.fillStyle = 'rgba(0, 15, 20, 0.85)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.strokeStyle = '#' + colorHex.toString(16).padStart(6, '0');
+        ctx.lineWidth = 4;
+        ctx.strokeRect(0, 0, canvas.width, canvas.height);
+
+        // Text Settings & Glow
+        ctx.shadowColor = '#' + colorHex.toString(16).padStart(6, '0');
+        ctx.shadowBlur = 2;
+        ctx.fillStyle = '#ffffff'; 
+        ctx.font = 'bold 24px "Courier New", Courier, monospace'; 
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+
+        const text = `${judgement.category}: ${judgement.content}`;
+        let words = text.split(' ');
+        let line = '';
+        let lines = [];
+        let maxWidth = canvas.width - 40;
+
+        for(let n = 0; n < words.length; n++) {
+            let testLine = line + words[n] + ' ';
+            if (ctx.measureText(testLine).width > maxWidth && n > 0) {
+                lines.push(line.trim());
+                line = words[n] + ' ';
+            } else {
+                line = testLine;
+            }
+        }
+        lines.push(line.trim());
+
+        let lineHeight = 32; 
+        let totalHeight = lines.length * lineHeight;
+        let startY = (canvas.height - totalHeight) / 2 + (lineHeight / 2);
+
+        for(let k = 0; k < lines.length; k++) {
+            ctx.fillText(lines[k], canvas.width / 2, startY + (k * lineHeight));
+            ctx.fillText(lines[k], canvas.width / 2, startY + (k * lineHeight)); 
+        }
+
+        // Mesh Initialization (Replacing Sprites)
+        const tex = new THREE.CanvasTexture(canvas);
+        tex.needsUpdate = true; 
+        
+        const aspectRatio = canvas.width / canvas.height;
+        let s = 6.5; // Slightly scaled down so the 3 panels fit nicely side-by-side
+        
+        // Use a PlaneGeometry to lock orientation in 3D space
+        const planeGeo = new THREE.PlaneGeometry(s * aspectRatio, s);
+        // DoubleSide ensures it's visible from behind, though text will be mirrored on the back
+        const planeMat = new THREE.MeshBasicMaterial({ map: tex, transparent: true, depthWrite: false, side: THREE.DoubleSide });
+        const mesh = new THREE.Mesh(planeGeo, planeMat);
+        
+        // Rotate 180 degrees so it faces the camera's native -Z starting position
+        mesh.rotation.x = -Math.PI/2;
+        // mesh.rotation.y = Math.PI;
+
+        // Position parallel to each other along the X-axis (timeline)
+        // index 0: before (-16), index 1: middle (0), index 2: after (+16)
+        const xSpacing = 14; 
+        const localX = (index - 1) * xSpacing;
+        
+        mesh.position.set(localX, yHeight, zPush); 
+
+        // Draw connecting visual tether from orb root to the specific panel
+        const lineMat = new THREE.LineBasicMaterial({ color: colorHex, transparent: true, opacity: 0.6 });
+        const lineGeo = new THREE.BufferGeometry().setFromPoints([
+            new THREE.Vector3(0, 0, 0),
+            new THREE.Vector3(localX, yHeight, zPush)
+        ]);
+        const connector = new THREE.Line(lineGeo, lineMat);
+
+        selectedObj.group.add(connector);
+        selectedObj.group.add(mesh);
+    }
+
+    function renderJudgementQnALabels(selectedObj, judgement, colorHex, index){ 
+        //RENDER: "METATEXT_CARDS" perpendicular to the highway 
+
+        // Canvas for dynamic text wrap
+        const canvas = document.createElement('canvas');
+        canvas.width = 600;
+        canvas.height = 190;
+        const ctx = canvas.getContext('2d');
+        // Push perpendicular to the highway (Z-axis offset) depending on the lane
+        const isQ = selectedObj.type === 'Q';
+        const zPush = isQ ? -15 : 15; 
+        const yHeight = 0.222; //10;
+
+        // Panel Background & Border
+        ctx.fillStyle = 'rgba(0, 15, 20, 0.85)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.strokeStyle = '#' + colorHex.toString(16).padStart(6, '0');
+        ctx.lineWidth = 4;
+        ctx.strokeRect(0, 0, canvas.width, canvas.height);
+
+        // Text Settings & Glow
+        ctx.shadowColor = '#' + colorHex.toString(16).padStart(6, '0');
+        ctx.shadowBlur = 2;
+        ctx.fillStyle = '#ffffff'; 
+        ctx.font = 'bold 24px "Courier New", Courier, monospace'; 
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+
+        const text = `${judgement.category}: ${judgement.content}`;
+        let words = text.split(' ');
+        let line = '';
+        let lines = [];
+        let maxWidth = canvas.width - 40;
+
+        for(let n = 0; n < words.length; n++) {
+            let testLine = line + words[n] + ' ';
+            if (ctx.measureText(testLine).width > maxWidth && n > 0) {
+                lines.push(line.trim());
+                line = words[n] + ' ';
+            } else {
+                line = testLine;
+            }
+        }
+        lines.push(line.trim());
+
+        let lineHeight = 30; 
+        let totalHeight = lines.length * lineHeight;
+        let startY = (canvas.height - totalHeight) / 2 + (lineHeight / 2);
+
+        for(let k = 0; k < lines.length; k++) {
+            ctx.fillText(lines[k], canvas.width / 2, startY + (k * lineHeight));
+            ctx.fillText(lines[k], canvas.width / 2, startY + (k * lineHeight)); 
+        }
+
+        // Mesh Initialization (Replacing Sprites)
+        const tex = new THREE.CanvasTexture(canvas);
+        tex.needsUpdate = true; 
+        
+            // const aspectRatio = canvas.width / canvas.height;
+            // let s = size * 3.5; 
+            // sprite.scale.set(s * aspectRatio, s, 1); 
+
+        const aspectRatio = canvas.width / canvas.height;
+        let s = 6.5; // Slightly scaled down so the 3 panels fit nicely side-by-side
+        
+        // Use a PlaneGeometry to lock orientation in 3D space
+        const planeGeo = new THREE.PlaneGeometry(s * aspectRatio, s);
+        // DoubleSide ensures it's visible from behind, though text will be mirrored on the back
+        const planeMat = new THREE.MeshBasicMaterial({ map: tex, transparent: true, depthWrite: false, side: THREE.DoubleSide });
+        const mesh = new THREE.Mesh(planeGeo, planeMat);
+        
+        // label rotations both types tilted toward center
+        if(isQ){
+            mesh.rotation.x = -Math.PI/2 + 0.0666;
+            mesh.rotation.z = -Math.PI/2;
+        } else {
+            mesh.rotation.x = -Math.PI/2 - 0.0666;
+            mesh.rotation.z = -Math.PI/2;
+        }
+
+        // Position parallel to each other along the X-axis (timeline)
+        // index 0: before (-16), index 1: middle (0), index 2: after (+16)
+        const xSpacing = 6; 
+        const localX = (index - 1) * xSpacing;
+        mesh.position.set(localX, yHeight, zPush); 
+
+        // Draw connecting visual tether from orb root to the specific panel
+        const lineMat = new THREE.LineBasicMaterial({ color: colorHex, transparent: true, opacity: 0.6 });
+        const lineGeo = new THREE.BufferGeometry().setFromPoints([
+            new THREE.Vector3(0, -3, 0),
+            new THREE.Vector3(localX, yHeight, zPush)
+        ]);
+        const connector = new THREE.Line(lineGeo, lineMat);
+
+        selectedObj.group.add(connector);
+        selectedObj.group.add(mesh);        
+    } 
+
+    function addJudgementVisualization(judgementSet,selectedObj) {
+            if (!selectedObj) return;
+
+            judgementSet.forEach((judgement, index) => {
+                // Determine color based on internal logic mapping to log styles
+                let colorHex = 0xffffff;
+                if (judgement.logType === 'reflection') colorHex = 0xfacc15; // yellow for INSIGHT
+                else if (judgement.logType === 'focus') colorHex = 0x00ffcc; // cyan/white for JUDGEMENT
+                else if (judgement.logType === 'metastate') colorHex = 0xff00ff; // magenta for METASTATE
+
+                if(selectedObj.type==='TOPIC'){
+                    renderJudgementTopicLabels(selectedObj,judgement,colorHex,index);
+                } else if(selectedObj.type==='Q'||selectedObj.type==='A'){
+                    renderJudgementQnALabels(selectedObj,judgement,colorHex,index);
+                }
+
+            });
         }
 
         async function promptJudgement() {
@@ -984,18 +1191,13 @@
                 addLog(`>> TRIGGERING METASTATE JUDGEMENT FOR: [${targetText.substring(0, 30)}...]`, 'metastate');
 
                 const prompt_judgement = `Task: Iterate the subtopics of the following concept, for 3 novel subtopics.\n
-                Provide a brief judgement, analysis of metastate, or deeper metacognitive insight for each subtopic.\n\n
+                Provide a brief judgement, metastate analysis, or deeper metacognitive insight for each subtopic.\n\n
                 Format as "INSIGHT:[your insight] \n",
                 or "JUDGEMENT:[your judgement] \n",
                 or "METASTATE:[your metastate] \n"
                 Format: Keep your response strictly under 50 words.
                 Target: "${targetText}"\n\n
                     `;
-                // const prompt = `Task: Iterate the metastate of the following concept.\n
-                //     Provide a brief judgement, analysis, or deeper metacognitive insight.\n\n
-                //     Target: "${targetText}"\n\n
-                //     Format: Keep your response strictly under 30 words.
-                //     `;
 
                 let fullResponseText = "";
                 const streamContainer = document.createElement('div');
@@ -1028,22 +1230,25 @@
                     const match = trimmed.match(/^(?:\d+[\)\.]\s*)?(?:(INSIGHT|JUDGEMENT|METASTATE)\s*:?\s*)?(.*)/i);
                     
                     if (match && match[2] && match[2].trim().length > 0) {
-                        let category = match[1] ? match[1].toUpperCase() : 'ANALYSIS';
-                        let content = match[2].trim();
-                        
-                        // Map the category to specific log styles
-                        let logType = 'info';
-                        if (category === 'INSIGHT') logType = 'reflection'; // yellow
-                        else if (category === 'JUDGEMENT') logType = 'focus'; // white box
-                        else if (category === 'METASTATE') logType = 'metastate'; // magenta
-                        
-                        addLog(`${category}: ${content}`, logType);
-                        //accumulate data for addJudgementVisualization(category, content, logType);
-                        judgementSet.push({category, content, logType});
+                        let category = match[1] ? match[1].toUpperCase() : 'NO_MATCH';
+                        if(category!="NO_MATCH"){
+                            // console.log("nomatch")
+                            let content = match[2].trim();
+                            
+                            // Map the category to specific log styles
+                            let logType = 'info';
+                            if (category === 'INSIGHT') logType = 'reflection'; // yellow
+                            else if (category === 'JUDGEMENT') logType = 'focus'; // white box
+                            else if (category === 'METASTATE') logType = 'metastate'; // magenta
+                            
+                            addLog(`${category}: ${content}`, logType);
+                            //accumulate data for addJudgementVisualization(category, content, logType);
+                            judgementSet.push({category, content, logType});
+                        }
                     }
                 });
-
-                 addJudgementVisualization(judgementSet); //TODO
+                if(judgement.length===0){debugger;}
+                 addJudgementVisualization(judgementSet,selectedObj); 
 
 
                 // Return to ready state
@@ -1219,22 +1424,6 @@
 
                 // Return to ready state
                 dot.className = "w-2 h-2 rounded-full bg-[#00ffcc] animate-pulse"; text.innerText = "LLM ALIVE"; text.className = "text-[10px] font-bold tracking-[0.2em] text-[#00ffcc] uppercase";
-
-
-                // --- DRAW LINES --- //TODO FIX THIS: I am not seeing the lines. maybe it is in the wrong place? or make createThreadLine.
-                // 1) LIGHT BLUE line between current Q and current A
-                // const lineQA = createThreadLine(qNode.group.position, aNode.group.position, 0x00ccff);
-                // const lObj1 = linesGroup.find(l => l.mesh === lineQA);
-                // lObj1.startNode = qNode; lObj1.endNode = aNode;
-
-                // // 2) PURPLE line between PREVIOUS A and NEW Q (the evolution thread)
-                // if (prevAnswerNode) {
-                //     const lineAQ = createThreadLine(prevAnswerNode.group.position, qNode.group.position, 0x8800ff);
-                //     const lObj2 = linesGroup.find(l => l.mesh === lineAQ);
-                //     lObj2.startNode = prevAnswerNode; lObj2.endNode = qNode;
-                // }
-                // end todo
-
 
             } catch(e) {
                 console.error("LLM Generation Context Error:", e);
