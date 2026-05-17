@@ -10,6 +10,8 @@ _______________________________________________________
 
 > 3 CREATIVE AI EXPERIMENTS - in SINGULAR HTML FILES - with Gemma & LiteRT!
 
+Explore 3 INNOVATIVE MODALITIES of AI VISUALIZATION for human benefit! 
+
 <img width="780" height="438" alt="Screenshot 2026-05-13 125521" src="https://github.com/user-attachments/assets/fe1c55bc-a1ea-4ee1-8be6-d417174982de" />
 
 SEE AI, GEMMA, LLM - CONCEPTS VIVIDLY - with intuitive & scalable 3D TOOLS!
